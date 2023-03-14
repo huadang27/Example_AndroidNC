@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:background="#F3F3F3"
+              android:orientation="vertical"
+              android:gravity="top"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <Button
+        android:id="@+id/bt_infor_edit252"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:background="#ffffff"
+        android:drawableStart="@drawable/icons8homepage70"
+        android:drawablePadding="20dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="TRANG CHỦ"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"/>
+</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="306dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_dn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/custom_button_2"
+            android:drawableStart="@drawable/icons_login_home"
+            android:drawablePadding="20dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Đăng Nhập / Đăng Ký"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bt_infor_edit21"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/custom_button_2"
+            android:drawableStart="@drawable/icons8news50"
+            android:drawablePadding="20dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Tin Tức"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/bt_infor_edit22"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/custom_button_2"
+            android:drawableStart="@drawable/edit"
+            android:drawablePadding="20dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="Edit Profile"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+<!--    <TextView-->
+<!--            android:id="@+id/textViewDateTime"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="40dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:textSize="14dp"-->
+<!--    />-->
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="10dp"
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="1dp"
+
+            tools:layout_editor_absoluteY="1dp" />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
