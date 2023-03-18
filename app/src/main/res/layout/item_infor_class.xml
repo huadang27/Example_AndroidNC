@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/person_500px"
-        android:background="@drawable/ic_launcher_background"/>
+/>
 
     <LinearLayout
         android:layout_width="match_parent"

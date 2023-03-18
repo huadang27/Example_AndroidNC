@@ -8,6 +8,10 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface CourseService {
-    @GET("api/admin/course")
+
+    // lay du lieu
+
+    @GET("/api/admin/course")
     Call<List<Course>> getCourse();
+
 }
