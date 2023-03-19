@@ -10,4 +10,5 @@ import retrofit2.http.GET;
 public interface CourseService {
     @GET("api/admin/course")
     Call<List<Course>> getCourse();
+
 }

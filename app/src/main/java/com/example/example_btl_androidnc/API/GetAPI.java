@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GetAPI extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Course> CourseList;
+    private Retrofit retrofit = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +31,9 @@ public class GetAPI extends AppCompatActivity {
 //        https://run.mocky.io/v3/81771c15-1dc6-4a9b-92fc-f991c48910dc
         recyclerView = findViewById(R.id.recyclerview);
         CourseList = new ArrayList<>();
-        Retrofit retrofit = null;
 
         try {
-            retrofit  = new Retrofit.Builder().baseUrl("http://192.168.107.101:8088/")
+            retrofit  = new Retrofit.Builder().baseUrl("http://192.168.3.199:8088/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
@@ -52,18 +52,18 @@ public class GetAPI extends AppCompatActivity {
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                 Log.d("test",response.body().toString());
                 if (response.code()!=200){
-                    Log.d("hihi","khong chay vao");
+                    Log.d("test1","khong chay vao");
                     return;
                 }
                 List<Course>movies=  response.body();
                 for(Course movie: movies) CourseList.add(movie);
-                Log.d("hihi","khong chay vao1111");
+                Log.d("test2","khong chay vao1111");
                 PutDataIntoRecyclerView(CourseList);
             }
 
             @Override
             public void onFailure(Call<List<Course>> call, Throwable t) {
-                Log.d("hihi",t.toString() +"onfailue");
+                Log.d("hihi",t.toString() +" _______onfailue______");
             }
 
         });

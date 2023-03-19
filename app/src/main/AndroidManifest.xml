@@ -10,6 +10,8 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/Theme.Example_BTL_AndroidNC"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:networkSecurityConfig="@xml/xml"
             tools:targetApi="31">
 
         <activity
@@ -36,7 +38,9 @@
         <activity
                 android:name=".Adapter.ViewPagetAdapter"
                 android:exported="false"/>
-
+        <activity
+            android:name=".API.GetAPI"
+            android:exported="false"/>
         <activity
                 android:name=".Login.LoginActivity"
                 android:exported="true">
