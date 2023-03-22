@@ -1,5 +1,7 @@
 package com.example.example_btl_androidnc.Adapter;
 
+import static com.example.example_btl_androidnc.API.RetrofitClient.BASE_URL;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,7 +45,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         holder.name.setText(CourseList.get(position).getName());
 
         Glide.with(holder.image.getContext())
-                .load( "http://192.168.1.44:8088"
+                .load( BASE_URL
                         +CourseList.get(position).getImage())
                 .into(holder.image);
 

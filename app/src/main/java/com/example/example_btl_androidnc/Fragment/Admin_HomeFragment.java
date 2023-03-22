@@ -55,7 +55,7 @@ public class Admin_HomeFragment extends Fragment {
         CourseList = new ArrayList<>();
 
         try {
-            retrofit  = new Retrofit.Builder().baseUrl("http://192.168.1.44:8088/")
+            retrofit  = new Retrofit.Builder().baseUrl("http://192.168.22.101:8088/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
