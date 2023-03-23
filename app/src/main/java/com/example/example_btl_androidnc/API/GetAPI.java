@@ -44,9 +44,9 @@ public class GetAPI extends AppCompatActivity {
 
 
 
-        CourseService courseService = retrofit.create( CourseService.class);
+        GetAPI_Service getAPI_service = retrofit.create( GetAPI_Service.class);
 
-        Call<List<Course>> call = courseService.getCourse();
+        Call<List<Course>> call = getAPI_service.getCourse();
         call.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {

@@ -1,6 +1,7 @@
 package com.example.example_btl_androidnc.Fragment;
 
-import android.content.Intent;
+import static com.example.example_btl_androidnc.API.RetrofitClient.BASE_URL;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,20 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.example_btl_androidnc.API.CourseService;
+import com.example.example_btl_androidnc.API.GetAPI_Service;
 import com.example.example_btl_androidnc.Adapter.CourseAdapter;
-import com.example.example_btl_androidnc.AddItem.ClassActivity;
 import com.example.example_btl_androidnc.Model.Course;
 import com.example.example_btl_androidnc.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -55,7 +51,7 @@ public class Admin_HomeFragment extends Fragment {
         CourseList = new ArrayList<>();
 
         try {
-            retrofit  = new Retrofit.Builder().baseUrl("http://192.168.22.101:8088/")
+            retrofit  = new Retrofit.Builder().baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
@@ -64,9 +60,9 @@ public class Admin_HomeFragment extends Fragment {
             System.out.println("hihihihihiih");
         }
 
-        CourseService courseService = retrofit.create( CourseService.class);
+        GetAPI_Service getAPI_service = retrofit.create( GetAPI_Service.class);
 
-        Call<List<Course>> call = courseService.getCourse();
+        Call<List<Course>> call = getAPI_service.getCourse();
         call.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
@@ -100,7 +96,8 @@ public class Admin_HomeFragment extends Fragment {
     private void connectWebSocket() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("ws://192.168.1.44:8088/my-websocket-endpoint")
+                .url("ws://192.168.80.149:8082/my-websocket-endpoint")
+       // ws://192.168.80.149:8082/my-websocket-endpoint
 
                 .build();
         client.newWebSocket(request, new WebSocketListener() {

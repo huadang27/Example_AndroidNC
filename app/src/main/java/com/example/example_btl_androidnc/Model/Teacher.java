@@ -1,54 +1,50 @@
 package com.example.example_btl_androidnc.Model;
 
 public class Teacher {
-    private String id_Teacher;
-    private String name_Teacher;
-    private String date_of_birth;
-    private String phone_number;
+    private String id;
+    private String address;
+    private String avatar;
     private String email;
-    private String subject_id;
-    private String role;
+    private String gender;
+    private String name;
+    private String password;
+    private String phone;
+    private String roles;
 
-    public Teacher(String id_Teacher, String name_Teacher, String date_of_birth, String phone_number, String email, String subject_id, String role) {
-        this.id_Teacher = id_Teacher;
-        this.name_Teacher = name_Teacher;
-        this.date_of_birth = date_of_birth;
-        this.phone_number = phone_number;
+    public Teacher(String id, String address, String avatar, String email, String gender, String name, String password, String phone, String roles) {
+        this.id = id;
+        this.address = address;
+        this.avatar = avatar;
         this.email = email;
-        this.subject_id = subject_id;
-        this.role = role;
+        this.gender = gender;
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.roles = roles;
     }
 
-    public String getId_Teacher() {
-        return id_Teacher;
+    public String getId() {
+        return id;
     }
 
-    public void setId_Teacher(String id_Teacher) {
-        this.id_Teacher = id_Teacher;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getName_Teacher() {
-        return name_Teacher;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName_Teacher(String name_Teacher) {
-        this.name_Teacher = name_Teacher;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getDate_of_birth() {
-        return date_of_birth;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setDate_of_birth(String date_of_birth) {
-        this.date_of_birth = date_of_birth;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
@@ -59,32 +55,58 @@ public class Teacher {
         this.email = email;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
-                "id_Teacher='" + id_Teacher + '\'' +
-                ", name_Teacher='" + name_Teacher + '\'' +
-                ", date_of_birth='" + date_of_birth + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                "id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", email='" + email + '\'' +
-                ", subject_id='" + subject_id + '\'' +
-                ", role='" + role + '\'' +
+                ", gender='" + gender + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roles='" + roles + '\'' +
                 '}';
     }
 }

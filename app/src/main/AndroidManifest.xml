@@ -15,9 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".Register_Course_Activity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".Adapter.Register_Course_Adapter"
+            android:exported="false" />
+        <activity
+            android:name=".AddItem.Register_Course_Activity"
+            android:exported="false" />
         <activity
             android:name=".AddItem.ClassActivity"
             android:exported="false" />

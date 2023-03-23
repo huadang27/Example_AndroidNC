@@ -1,9 +1,11 @@
 package com.example.example_btl_androidnc.Adapter;
 
+import static com.example.example_btl_androidnc.API.RetrofitClient.BASE_IMG;
 import static com.example.example_btl_androidnc.API.RetrofitClient.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.example_btl_androidnc.AddItem.Register_Course_Activity;
 import com.example.example_btl_androidnc.Model.Course;
 import com.example.example_btl_androidnc.R;
 
+import java.util.Date;
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder>{
@@ -40,23 +44,35 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.description.setText(CourseList.get(position).getDescription());
-        holder.name.setText(CourseList.get(position).getName());
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int i) {
+        holder.description.setText(CourseList.get(i).getDescription());
+        holder.name.setText(CourseList.get(i).getName());
 
         Glide.with(holder.image.getContext())
-                .load( BASE_URL
-                        +CourseList.get(position).getImage())
+                .load( BASE_IMG
+                        +CourseList.get(i).getImage())
                 .into(holder.image);
+        String maLop = CourseList.get(i).getId();
+        String name = CourseList.get(i).getName();
+        String description = CourseList.get(i).getDescription();
+        String status = CourseList.get(i).getStatus();
+        String price = CourseList.get(i).getPrice();
+        String level = CourseList.get(i).getLevel();
+        String image = CourseList.get(i).getImage();
+        Date ngayKetThuc = CourseList.get(i).getPublishedAt();
+        Date ngayBatDau = CourseList.get(i).getExpiredAt();
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, CourseList.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+
+                Course course = new Course(maLop,name,description,status,price,level,image,ngayBatDau,ngayKetThuc);
+                Intent i = new Intent(context, Register_Course_Activity.class);
+                i.putExtra("putCourse", course);
+                context.startActivity(i);
+
             }
         });
-    //   holder.image.setText(CourseList.get(position).getImage());
-     //   holder.image.setImageBitmap(CourseList.get((position)).getImage());
 
     }
 
