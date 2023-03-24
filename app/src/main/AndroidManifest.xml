@@ -49,9 +49,6 @@
             android:name=".Adapter.ViewPagetAdapter"
             android:exported="false" />
         <activity
-            android:name=".API.GetAPI"
-            android:exported="false" />
-        <activity
             android:name=".Login.SilentLoginActivity"
             android:exported="true">
             <intent-filter>

@@ -24,7 +24,7 @@ import com.example.example_btl_androidnc.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+// private SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 public class LoginActivity extends AppCompatActivity {
     EditText edtemail, edtpassword;
     TextView forgot_password, tv_register;
@@ -37,22 +37,31 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // kiem tra nguoi dung da dang nhap hay chua
-//        if (response.isSuccessful()) {
-//
-//            Intent i = new Intent(LoginActivity.this, SetAdmin_Activity.class);
-//            startActivity(i);
-//            finish();
-//
-//            // email nguoi dung dang nhap
-//            Toast.makeText(LoginActivity.this, firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-//        }
+        // Lấy thông tin tài khoản đã lưu trữ trong SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        String password = sharedPreferences.getString("password", "");
+
+        // Nếu đã lưu thông tin tài khoản, gửi yêu cầu đăng nhập đến máy chủ
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            login(email, password);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        // Lấy thông tin tài khoản đã lưu trữ trong SharedPreferences
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+//        String email = sharedPreferences.getString("email", "");
+//        String password = sharedPreferences.getString("password", "");
+//
+//        // Nếu đã lưu thông tin tài khoản, gửi yêu cầu đăng nhập đến máy chủ
+//        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+//            login(email, password);
+//        }
 
         edtemail = findViewById(R.id.edt_email);
         edtpassword = findViewById(R.id.edt_password);
@@ -103,10 +112,12 @@ public class LoginActivity extends AppCompatActivity {
                     Users jwtResponse = response.body();
                     if (jwtResponse != null) {
                         // Lưu token vào SharedPreferences
-                        SharedPreferences sharedPreferences = getSharedPreferences("AuthPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("authToken", jwtResponse.getAccessToken());
                         editor.putString("refreshToken", jwtResponse.getRefreshToken());
+                        editor.putString("email", edtemail);
+                        editor.putString("password", edtpassword);
                         editor.apply();
                         Log.d("test",editor.toString() +"____");
 
