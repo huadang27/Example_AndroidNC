@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.example_btl_androidnc.API.GetAPI_Service;
 import com.example.example_btl_androidnc.API.RetrofitClient;
-import com.example.example_btl_androidnc.Model.Account;
+import com.example.example_btl_androidnc.Model.Users;
 import com.example.example_btl_androidnc.R;
 
 import retrofit2.Call;
@@ -48,13 +48,13 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
-                Call<Account> call = getAPI_service.createAccount(new Account("","",edt_Email.getText().toString(),"",edt_Name.getText().toString(), edt_Password.getText().toString(),"",""));
+                Call<Users> call = getAPI_service.createAccount(new Users("","",edt_Email.getText().toString(),"",edt_Name.getText().toString(), edt_Password.getText().toString(),"","",""));
 
-                call.enqueue(new Callback<Account>() {
+                call.enqueue(new Callback<Users>() {
                     @Override
-                    public void onResponse(Call<Account> call, Response<Account> response) {
+                    public void onResponse(Call<Users> call, Response<Users> response) {
                         if (response.isSuccessful()) {
-                            Account account = response.body();
+                          //  Users users = response.body();
                             Toast.makeText(SignUpActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
                             startActivity(i);
@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Account> call, Throwable t) {
+                    public void onFailure(Call<Users> call, Throwable t) {
                         Log.d("g", t.toString());
                     }
 

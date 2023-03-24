@@ -1,18 +1,27 @@
 package com.example.example_btl_androidnc.Model;
 
-public class Account {
-    private String id ;
-    private String address ;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class Users implements Serializable {
+    private String id;
+    private String address;
     private String avatar;
     private String email;
-    private String gender ;
+    private String gender;
     private String name;
 
     private String password;
-private String phone ;
-private String status ;
+    private String phone;
+    private String status;
+    private String accessToken;
+    private String refreshToken;
+    private String type;
+    private List<String> roles;
 
-    public Account( String address, String avatar, String email, String gender, String name, String password, String phone, String status) {
+    public Users(String id, String address, String avatar, String email, String gender, String name, String password, String phone, String status) {
         this.id = id;
         this.address = address;
         this.avatar = avatar;
@@ -22,6 +31,15 @@ private String status ;
         this.password = password;
         this.phone = phone;
         this.status = status;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.type = type;
+        this.roles = roles;
+    }
+
+    public Users(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public String getId() {
@@ -96,18 +114,35 @@ private String status ;
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id='" + id + '\'' +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

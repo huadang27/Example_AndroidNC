@@ -96,7 +96,7 @@ public class Admin_HomeFragment extends Fragment {
     private void connectWebSocket() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("ws://192.168.80.149:8082/my-websocket-endpoint")
+                .url(BASE_URL+"my-websocket-endpoint")
        // ws://192.168.80.149:8082/my-websocket-endpoint
 
                 .build();

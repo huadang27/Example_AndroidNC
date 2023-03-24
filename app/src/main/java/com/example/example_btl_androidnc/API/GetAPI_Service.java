@@ -1,15 +1,13 @@
 package com.example.example_btl_androidnc.API;
 
-import com.example.example_btl_androidnc.Model.Account;
+import com.example.example_btl_androidnc.Model.RefreshTokenRequest;
+import com.example.example_btl_androidnc.Model.Users;
 import com.example.example_btl_androidnc.Model.Course;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -20,13 +18,11 @@ public interface GetAPI_Service {
 
 // Đăng kí tài khoản
     @POST("/api/auth/register")
-    Call<Account> createAccount(@Body Account req);
+    Call<Users> createAccount(@Body Users req);
 
     // đăng nhập
-    @FormUrlEncoded
     @POST("/api/auth/login")
-    Call<User> login(
-            @Field("email") String username,
-            @Field("password") String password
-    );
+    Call<Users> login(@Body Users users);
+    @POST("api/auth/refresh")
+    Call<Users> refreshToken(@Body RefreshTokenRequest refreshTokenRequest);
 }

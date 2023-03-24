@@ -21,8 +21,9 @@ public class ViewPagetAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new Admin_HomeFragment();
             case 1:
-                return new ProfileFragment();
-            case 2: return new Profile_UserFragment();
+              //  return new ProfileFragment();
+            case 2:
+                return new Profile_UserFragment();
             default:
                 return new Admin_HomeFragment();
         }
