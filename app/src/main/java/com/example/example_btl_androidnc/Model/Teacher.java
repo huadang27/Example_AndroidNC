@@ -1,6 +1,9 @@
 package com.example.example_btl_androidnc.Model;
 
-public class Teacher {
+import java.io.Serializable;
+import java.util.List;
+
+public class Teacher implements Serializable {
     private String id;
     private String address;
     private String avatar;
@@ -9,9 +12,11 @@ public class Teacher {
     private String name;
     private String password;
     private String phone;
-    private String roles;
+    private String status;
+    private List<String> roles;
 
-    public Teacher(String id, String address, String avatar, String email, String gender, String name, String password, String phone, String roles) {
+
+    public Teacher(String id, String name, String email, String gender, String password, String address, String phone, String avatar, String status, List<String> roles) {
         this.id = id;
         this.address = address;
         this.avatar = avatar;
@@ -20,6 +25,7 @@ public class Teacher {
         this.name = name;
         this.password = password;
         this.phone = phone;
+        this.status = status;
         this.roles = roles;
     }
 
@@ -87,26 +93,24 @@ public class Teacher {
         this.phone = phone;
     }
 
-    public String getRoles() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "id='" + id + '\'' +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", roles='" + roles + '\'' +
-                '}';
+        return "Teacher{" + "id='" + id + '\'' + ", address='" + address + '\'' + ", avatar='" + avatar + '\'' + ", email='" + email + '\'' + ", gender='" + gender + '\'' + ", name='" + name + '\'' + ", password='" + password + '\'' + ", phone='" + phone + '\'' + ", roles='" + roles + '\'' + '}';
     }
 }

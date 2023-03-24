@@ -21,7 +21,8 @@ import java.util.Locale;
 
 public class Register_Course_Activity extends AppCompatActivity {
 
-    TextView name,infor_class,price,infor_date_start,infor_date_end;
+
+    TextView name,infor_class,price,infor_date_start,infor_date_end,teacher;
     ImageView imageView;
 
     @Override
@@ -41,6 +42,7 @@ public class Register_Course_Activity extends AppCompatActivity {
         infor_date_end = findViewById(R.id.infor_date_end);
         infor_date_start = findViewById(R.id.infor_date_start);
         price = findViewById(R.id.price);
+        teacher = findViewById(R.id.infor_teacher);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -53,6 +55,7 @@ public class Register_Course_Activity extends AppCompatActivity {
                         +course.getImage())
                 .into(imageView);
         price.setText(course.getPrice());
+        teacher.setText(course.getTeacher().getName());
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

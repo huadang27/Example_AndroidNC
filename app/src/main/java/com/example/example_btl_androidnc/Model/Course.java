@@ -2,6 +2,8 @@ package com.example.example_btl_androidnc.Model;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,11 +20,13 @@ public class Course implements Serializable {
 
     private String image;
 
-    private  Date publishedAt;
-    private Date expiredAt;
+    private  String publishedAt;
+    private String expiredAt;
+    @SerializedName("teacher")
+    private Teacher teacher;
 
 
-    public Course(String id, String name, String description, String status, String price, String level, String image, Date publishedAt, Date expiredAt) {
+    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt,Teacher teacher) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,6 +36,7 @@ public class Course implements Serializable {
         this.image = image;
         this.publishedAt = publishedAt;
         this.expiredAt = expiredAt;
+        this.teacher = teacher;
     }
 
     public String getId() {
@@ -56,6 +61,14 @@ public class Course implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public String getStatus() {
@@ -90,19 +103,19 @@ public class Course implements Serializable {
         this.image = image;
     }
 
-    public Date getPublishedAt() {
+    public String getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(Date publishedAt) {
+    public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
 
-    public Date getExpiredAt() {
+    public String getExpiredAt() {
         return expiredAt;
     }
 
-    public void setExpiredAt(Date expiredAt) {
+    public void setExpiredAt(String expiredAt) {
         this.expiredAt = expiredAt;
     }
 }

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.AddItem.Register_Course_Activity;
 import com.example.example_btl_androidnc.Model.Course;
+import com.example.example_btl_androidnc.Model.Teacher;
 import com.example.example_btl_androidnc.R;
 
 import java.util.Date;
@@ -59,14 +60,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         String price = CourseList.get(i).getPrice();
         String level = CourseList.get(i).getLevel();
         String image = CourseList.get(i).getImage();
-        Date ngayKetThuc = CourseList.get(i).getPublishedAt();
-        Date ngayBatDau = CourseList.get(i).getExpiredAt();
+        String ngayKetThuc = CourseList.get(i).getPublishedAt();
+        String ngayBatDau = CourseList.get(i).getExpiredAt();
+        Teacher teacher= CourseList.get(i).getTeacher();
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Course course = new Course(maLop,name,description,status,price,level,image,ngayBatDau,ngayKetThuc);
+                Course course = new Course(maLop,name,description,status,price,level,image,ngayBatDau,ngayKetThuc,teacher);
                 Intent i = new Intent(context, Register_Course_Activity.class);
                 i.putExtra("putCourse", course);
                 context.startActivity(i);

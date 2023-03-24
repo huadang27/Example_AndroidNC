@@ -61,9 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         btnlogin = findViewById(R.id.btn_login);
 
 
-//        auth = FirebaseAuth.getInstance();
-//        // lấy thông tin người dùng khi đang đăng nhập
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
