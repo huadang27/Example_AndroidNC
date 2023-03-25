@@ -60,8 +60,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         String price = CourseList.get(i).getPrice();
         String level = CourseList.get(i).getLevel();
         String image = CourseList.get(i).getImage();
-        String ngayKetThuc = CourseList.get(i).getPublishedAt();
-        String ngayBatDau = CourseList.get(i).getExpiredAt();
+        Date ngayBatDau = CourseList.get(i).getPublishedAt();
+        Date ngayKetThuc = CourseList.get(i).getExpiredAt();
         Teacher teacher= CourseList.get(i).getTeacher();
 
         holder.item.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                 Intent i = new Intent(context, Register_Course_Activity.class);
                 i.putExtra("putCourse", course);
                 context.startActivity(i);
-
             }
         });
 

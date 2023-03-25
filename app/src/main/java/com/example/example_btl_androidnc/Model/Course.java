@@ -20,13 +20,12 @@ public class Course implements Serializable {
 
     private String image;
 
-    private  String publishedAt;
-    private String expiredAt;
+    private  Date publishedAt;
+    private Date expiredAt;
     @SerializedName("teacher")
     private Teacher teacher;
 
-
-    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt,Teacher teacher) {
+    public Course(String id, String name, String description, String status, String price, String level, String image, Date publishedAt, Date expiredAt, Teacher teacher) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -63,14 +62,6 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -103,19 +94,27 @@ public class Course implements Serializable {
         this.image = image;
     }
 
-    public String getPublishedAt() {
+    public Date getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(String publishedAt) {
+    public void setPublishedAt(Date publishedAt) {
         this.publishedAt = publishedAt;
     }
 
-    public String getExpiredAt() {
+    public Date getExpiredAt() {
         return expiredAt;
     }
 
-    public void setExpiredAt(String expiredAt) {
+    public void setExpiredAt(Date expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.example_btl_androidnc.Fragment.Admin_HomeFragment;
+import com.example.example_btl_androidnc.Fragment.List_CourseFragment;
 import com.example.example_btl_androidnc.Fragment.ProfileFragment;
 import com.example.example_btl_androidnc.Fragment.Profile_UserFragment;
 
@@ -21,7 +22,7 @@ public class ViewPagetAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new Admin_HomeFragment();
             case 1:
-              //  return new ProfileFragment();
+               return new List_CourseFragment();
             case 2:
                 return new Profile_UserFragment();
             default:

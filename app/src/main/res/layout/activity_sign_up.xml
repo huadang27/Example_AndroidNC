@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:background="#FA8072"
+                    android:background="#F28705"
                     android:elevation="0dp"
                     android:text="Sign Up"
                     android:textColor="@color/white"

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.example_btl_androidnc.AddItem.SetAdmin_Activity;
+import com.example.example_btl_androidnc.Fragment.Admin_HomeFragment;
 import com.example.example_btl_androidnc.R;
 
 import java.util.Timer;
@@ -31,7 +33,7 @@ public class SilentLoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(SilentLoginActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SilentLoginActivity.this, SetAdmin_Activity.class));
                         Toast.makeText(SilentLoginActivity.this, "Chào mừng bạn trở lại !", Toast.LENGTH_SHORT).show();
                         finish();
                     }

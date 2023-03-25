@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("email", edtemail);
                         editor.putString("password", edtpassword);
                         editor.apply();
-                        Log.d("test",editor.toString() +"____");
+                   Log.d("test",editor.toString() +"____");
 
                         // Chuyển đến màn hình chính sau khi đăng nhập thành công
                         Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
@@ -133,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Đăng nhập thất bại, vui lòng kiểm tra thông tin đăng nhập và thử lại!" , Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(LoginActivity.this,
