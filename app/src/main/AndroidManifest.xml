@@ -22,25 +22,25 @@
             android:name=".Adapter.Register_Course_Adapter"
             android:exported="false" />
         <activity
-            android:name=".AddItem.Register_Course_Activity"
+            android:name=".AddItem.RegisterCourseActivity"
             android:exported="false" />
         <activity
             android:name=".AddItem.ClassActivity"
             android:exported="false" />
         <activity
-            android:name=".Login.LoginActivity"
+            android:name=".Authentication.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".AddItem.SetAdmin_Activity"
             android:exported="false" />
         <activity
-            android:name=".Login.ForgotPassword"
+            android:name=".Authentication.ForgotPassword"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Login.SignUpActivity"
+            android:name=".Authentication.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".Fragment.Admin_HomeFragment"
@@ -49,7 +49,7 @@
             android:name=".Adapter.ViewPagetAdapter"
             android:exported="false" />
         <activity
-            android:name=".Login.SilentLoginActivity"
+            android:name=".Authentication.SilentLoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

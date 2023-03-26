@@ -15,8 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.example_btl_androidnc.AddItem.Edit_Profile;
-import com.example.example_btl_androidnc.AddItem.SetAdmin_Activity;
-import com.example.example_btl_androidnc.Login.LoginActivity;
+import com.example.example_btl_androidnc.Authentication.LoginActivity;
 import com.example.example_btl_androidnc.R;
 
 public class Profile_UserFragment extends Fragment {

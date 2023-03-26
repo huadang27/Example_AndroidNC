@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 
 public interface GetAPI_Service {
     //hiển thị lớp học ở trang chủ
-    @GET("api/admin/course")
+    @GET("/api/admin/course/list")
     Call<List<Course>> getCourse();
 
 // Đăng kí tài khoản

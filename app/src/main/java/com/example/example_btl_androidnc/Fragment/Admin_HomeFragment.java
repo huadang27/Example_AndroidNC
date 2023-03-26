@@ -57,29 +57,31 @@ public class Admin_HomeFragment extends Fragment {
         }
         catch (Exception e){
             e.printStackTrace();
-            System.out.println("hihihihihiih");
+            System.out.println("lỗi ");
         }
 
-        GetAPI_Service getAPI_service = retrofit.create( GetAPI_Service.class);
+        GetAPI_Service getAPI_service = retrofit.create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();
         call.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
-                Log.d("test",response.body().toString());
+//                Log.d("test",response.body().toString());
                 if (response.code()!=200){
-                    Log.d("test1","khong chay vao");
+                    Log.d("test", "Response code: " + response.code());
+                    Log.d("test", "Response message: " + response.message());
+
                     return;
                 }
                 List<Course>movies=  response.body();
                 for(Course movie: movies) CourseList.add(movie);
-                Log.d("test2","khong chay vao1111");
+                Log.d("test","thêm dữ liệu thành công");
                 PutDataIntoRecyclerView(CourseList);
             }
 
             @Override
             public void onFailure(Call<List<Course>> call, Throwable t) {
-                Log.d("hihi",t.toString() +" _______onfailue______");
+                Log.d("test",t.toString() +" _______onfailue______");
             }
 
         });

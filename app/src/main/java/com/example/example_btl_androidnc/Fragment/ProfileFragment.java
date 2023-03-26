@@ -27,7 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.example_btl_androidnc.Login.LoginActivity;
+import com.example.example_btl_androidnc.Authentication.LoginActivity;
 import com.example.example_btl_androidnc.Model.Student;
 import com.example.example_btl_androidnc.R;
 
