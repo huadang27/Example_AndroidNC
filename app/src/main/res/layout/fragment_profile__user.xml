@@ -52,7 +52,7 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/txt_name_staff" />-->
 
 
-    <com.example.example_btl_androidnc.Model.ImageHelper
+    <com.example.example_btl_androidnc.model.ImageHelper
         android:id="@+id/img_user_photo"
         android:layout_width="117dp"
         android:layout_height="124dp"

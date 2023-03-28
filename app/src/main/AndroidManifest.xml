@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -16,40 +18,44 @@
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
         <activity
-            android:name=".AddItem.Edit_Profile"
+            android:name=".tets.Demo"
             android:exported="false" />
         <activity
-            android:name=".Adapter.Register_Course_Adapter"
+            android:name=".addItem.Edit_Profile"
             android:exported="false" />
         <activity
-            android:name=".AddItem.RegisterCourseActivity"
+            android:name=".adapter.Register_Course_Adapter"
             android:exported="false" />
         <activity
-            android:name=".AddItem.ClassActivity"
+            android:name=".addItem.RegisterCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".Authentication.LoginActivity"
+            android:name=".addItem.ClassActivity"
             android:exported="false" />
         <activity
-            android:name=".AddItem.SetAdmin_Activity"
+            android:name=".authentication.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Authentication.ForgotPassword"
+            android:name=".addItem.SetAdmin_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".authentication.ForgotPassword"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Authentication.SignUpActivity"
+            android:name=".authentication.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".Fragment.Admin_HomeFragment"
+            android:name=".fragment.Admin_HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".Adapter.ViewPagetAdapter"
+            android:name=".adapter.ViewPagetAdapter"
             android:exported="false" />
         <activity
-            android:name=".Authentication.SilentLoginActivity"
+            android:name=".authentication.SilentLoginActivity"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

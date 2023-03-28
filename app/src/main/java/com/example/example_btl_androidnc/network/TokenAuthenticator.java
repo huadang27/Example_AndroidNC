@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.example_btl_androidnc.API.GetAPI_Service;
-import com.example.example_btl_androidnc.API.RetrofitClient;
-import com.example.example_btl_androidnc.Model.RefreshTokenRequest;
-import com.example.example_btl_androidnc.Model.Users;
+import com.example.example_btl_androidnc.api.GetAPI_Service;
+import com.example.example_btl_androidnc.api.RetrofitClient;
+import com.example.example_btl_androidnc.model.RefreshTokenRequest;
+import com.example.example_btl_androidnc.model.Users;
 
 
 import java.io.IOException;
