@@ -7,6 +7,7 @@ import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,6 +22,10 @@ public interface GetAPI_Service {
 
     @GET("/api/profile")
     Call<List<Users>> getUser();
+
+    // đăng kí lớp học theo user đã đăng nhập
+    @POST("/api/enrollCourse/{courseId}")
+    Call<Void> enrollCourse(@Path("courseId") String courseId);
 
 // Đăng kí tài khoản
     @POST("/api/auth/register")

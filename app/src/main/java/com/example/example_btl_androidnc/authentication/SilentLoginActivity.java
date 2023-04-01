@@ -35,10 +35,16 @@ public class SilentLoginActivity extends AppCompatActivity {
                         Toast.makeText(SilentLoginActivity.this, "Chào mừng bạn trở lại !", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SilentLoginActivity.this, LoginActivity.class));
                         finish();
+
                     }
                 });
             }
         };
         RunSplash.schedule(timerTask, SPLASH_TIME_OUT);
     }
+
+
+
+
+
 }

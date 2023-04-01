@@ -35,6 +35,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public CourseAdapter(Context context, List<Course> courseList) {
         this.context = context;
         CourseList = courseList;
+        Log.d("testtoken", courseList.toString());
     }
 
     @NonNull
@@ -122,8 +123,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             image = itemView.findViewById(R.id.image_Class);
             info_date = itemView.findViewById(R.id.info_date);
             item = itemView.findViewById(R.id.item);
-
-
 
         }
     }

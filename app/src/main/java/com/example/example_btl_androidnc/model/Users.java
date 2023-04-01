@@ -14,10 +14,13 @@ public class Users implements Serializable {
     private String password;
     private String phone;
     private String status;
-    private String accessToken;
+
+    private String token;
     private String refreshToken;
     private String type;
     private List<String> roles;
+    private List<String>  courseIds;
+
 
     public Users(String id, String address, String avatar, String email, String gender, String name, String password, String phone, String status) {
         this.id = id;
@@ -29,7 +32,7 @@ public class Users implements Serializable {
         this.password = password;
         this.phone = phone;
         this.status = status;
-        this.accessToken = accessToken;
+        this.token = token;
         this.refreshToken = refreshToken;
         this.type = type;
         this.roles = roles;
@@ -37,6 +40,12 @@ public class Users implements Serializable {
 
     public Users(String email, String password) {
         this.email = email;
+        this.password = password;
+    }
+
+    public Users(String name, String email , String password) {
+        this.email = email;
+        this.name = name;
         this.password = password;
     }
 
@@ -112,12 +121,23 @@ public class Users implements Serializable {
         this.status = status;
     }
 
+    public List<String> getCourseIds() {
+        return courseIds;
+    }
+
+
+    public void setCourseIds(List<String> courseIds) {
+        this.courseIds = courseIds;
+    }
+
+
+
     public String getAccessToken() {
-        return accessToken;
+        return token;
     }
 
     public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+        this.token = accessToken;
     }
 
     public String getRefreshToken() {

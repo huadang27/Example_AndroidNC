@@ -8,7 +8,9 @@ import static com.example.example_btl_androidnc.firebase.ConnectFirebase.storage
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -168,7 +170,7 @@ public class ProfileFragment extends Fragment {
         btnSign_Out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                clearMyPrefs(getContext());
                 startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
@@ -187,6 +189,14 @@ public class ProfileFragment extends Fragment {
 
 
     }
+    public void clearMyPrefs(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        Log.d("testtoken", " Xóa thành công");
+    }
+
 
     private void SelectImage() {
 

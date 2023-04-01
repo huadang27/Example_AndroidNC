@@ -2,12 +2,15 @@ package com.example.example_btl_androidnc.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +20,11 @@ import android.widget.TextView;
 import com.example.example_btl_androidnc.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.authentication.LoginActivity;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.database.MySharedPreferences;
 
 public class Profile_UserFragment extends Fragment {
-    Context context = getContext();
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private MySharedPreferences mySharedPreferences;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -29,7 +32,8 @@ public class Profile_UserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button Bt_sign_out;
-private TextView tv_Edit;
+    private TextView tv_Edit;
+
     public Profile_UserFragment() {
         // Required empty public constructor
     }
@@ -67,7 +71,9 @@ private TextView tv_Edit;
         Bt_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                mySharedPreferences.clearData();
+                Log.d("testtoken", " đăng xuất đã xóa token");
+                startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
         tv_Edit.setOnClickListener(new View.OnClickListener() {
@@ -80,16 +86,11 @@ private TextView tv_Edit;
         });
         return view;
     }
-    public void logout() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("email");
-        editor.remove("password");
-        editor.apply();
-        // Chuyển đến màn hình đăng nhập
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Context context = requireActivity().getApplicationContext();
+        mySharedPreferences = new MySharedPreferences(context);
+    }
 }

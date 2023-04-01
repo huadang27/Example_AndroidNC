@@ -59,12 +59,13 @@ public class Admin_HomeFragment extends Fragment {
                     Log.d("test", "Response code: " + response.code());
                     Log.d("test", "Response message: " + response.message());
 
-                    return;
+
                 }
                 List<Course>movies=  response.body();
                 for(Course movie: movies) CourseList.add(movie);
                 Log.d("test","thêm dữ liệu thành công");
                 PutDataIntoRecyclerView(CourseList);
+
             }
 
             @Override
