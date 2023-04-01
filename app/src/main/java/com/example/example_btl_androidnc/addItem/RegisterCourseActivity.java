@@ -51,7 +51,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
-                Call<List<Users>> call = getAPI_service.getUser();
+                Call<List<Users>> call = getAPI_service. getUser();
                 call.enqueue(new Callback<List<Users>>() {
                     @Override
                     public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {

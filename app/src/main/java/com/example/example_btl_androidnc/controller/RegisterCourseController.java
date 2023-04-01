@@ -31,7 +31,7 @@ public class RegisterCourseController {
             LocalDate startDate = LocalDate.parse(course.getPublishedAt(), inputFormat);
             LocalDate endDate = LocalDate.parse(course.getExpiredAt(), inputFormat);
 
-            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             registerCourseActivity.setInforDateStart(startDate.format(outputFormat));
             registerCourseActivity.setInforDateEnd(endDate.format(outputFormat));
         } catch (DateTimeParseException e) {

@@ -18,7 +18,7 @@ public class SignUpController {
     public void register(String name, String email, String password) {
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
-        Call<Users> call = getAPI_service.createAccount(new Users("", "", email, "", name, password, "", "", ""));
+        Call<Users> call = getAPI_service.createAccount(new Users(email,  name, password));
 
         call.enqueue(new Callback<Users>() {
             @Override

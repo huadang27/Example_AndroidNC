@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.example_btl_androidnc.addItem.Change_PassWord;
 import com.example.example_btl_androidnc.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.authentication.LoginActivity;
 import com.example.example_btl_androidnc.R;
@@ -28,8 +29,9 @@ public class Profile_UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button Bt_sign_out;
-private TextView tv_Edit;
+    private Button Bt_sign_out, Bt_infor_change_pass;
+    private TextView tv_Edit;
+
     public Profile_UserFragment() {
         // Required empty public constructor
     }
@@ -64,6 +66,8 @@ private TextView tv_Edit;
 
         Bt_sign_out = view.findViewById(R.id.bt_sign_out);
         tv_Edit = view.findViewById(R.id.tv_edit_profile);
+
+        Bt_infor_change_pass = view.findViewById(R.id.bt_infor_change_pass);
         Bt_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,8 +82,18 @@ private TextView tv_Edit;
                 startActivity(i);
             }
         });
+
+
+        Bt_infor_change_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), Change_PassWord.class);
+                startActivity(i);
+            }
+        });
         return view;
     }
+
     public void logout() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
