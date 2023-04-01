@@ -19,10 +19,11 @@ public class Course implements Serializable {
 
     private  String publishedAt;
     private String expiredAt;
-    @SerializedName("teacher")
-    private Teacher teacher;
+    @SerializedName("users")
+    //private Teacher teacher;
+    private Users users ;
 
-    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Teacher teacher) {
+    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,7 +33,7 @@ public class Course implements Serializable {
         this.image = image;
         this.publishedAt = publishedAt;
         this.expiredAt = expiredAt;
-        this.teacher = teacher;
+        this.users = users;
     }
 
     public String getId() {
@@ -107,27 +108,11 @@ public class Course implements Serializable {
         this.expiredAt = expiredAt;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", price='" + price + '\'' +
-                ", level='" + level + '\'' +
-                ", image='" + image + '\'' +
-                ", publishedAt='" + publishedAt + '\'' +
-                ", expiredAt='" + expiredAt + '\'' +
-                ", teacher=" + teacher +
-                '}';
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

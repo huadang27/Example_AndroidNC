@@ -21,6 +21,7 @@ import com.example.example_btl_androidnc.addItem.RegisterCourseActivity;
 import com.example.example_btl_androidnc.model.Course;
 import com.example.example_btl_androidnc.model.Teacher;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.model.Users;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,15 +68,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         String image = CourseList.get(i).getImage();
         String ngayBatDau = CourseList.get(i).getPublishedAt();
         String ngayKetThuc = CourseList.get(i).getExpiredAt();
-        Teacher teacher= CourseList.get(i).getTeacher();
+        Users users= CourseList.get(i).getUsers();
         Log.d("test" ,CourseList.toString());
 
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Course course = new Course(maLop,name,description,status,price,level,image,ngayBatDau,ngayKetThuc,teacher);
+                Course course = new Course(maLop,name,description,status,price,level,image,ngayBatDau,ngayKetThuc,users);
                 Intent i = new Intent(context, RegisterCourseActivity.class);
                 i.putExtra("putCourse", course);
                 context.startActivity(i);
@@ -85,7 +85,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
     public static String convertDateFormat(String inputDate) {
         String[] possibleFormats = {"MMM dd, yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"};
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         for (String inputFormat : possibleFormats) {
             try {
