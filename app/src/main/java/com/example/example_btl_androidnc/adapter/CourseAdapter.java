@@ -69,7 +69,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         String ngayBatDau = CourseList.get(i).getPublishedAt();
         String ngayKetThuc = CourseList.get(i).getExpiredAt();
         Users users= CourseList.get(i).getUsers();
-        Log.d("test" ,CourseList.toString());
 
 
         holder.item.setOnClickListener(new View.OnClickListener() {

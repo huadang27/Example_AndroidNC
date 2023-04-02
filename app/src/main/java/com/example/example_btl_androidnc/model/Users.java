@@ -20,7 +20,26 @@ public class Users implements Serializable {
     private String type;
     private List<String> roles;
     private List<String>  courseIds;
+    private String dateOfBirth;
+    private String image;
 
+
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Users(String id, String address, String avatar, String email, String gender, String name, String password, String phone, String status) {
         this.id = id;
