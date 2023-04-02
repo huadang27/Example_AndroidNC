@@ -42,5 +42,10 @@ public interface GetAPI_Service {
     Call<Users> refreshToken(@Body RefreshTokenRequest refreshTokenRequest);
 
     @GET("users/{username}")
-    Call<User> getUser(@Path("username") String username, @Header("Authorization") String token);
+    Call<Users> getUser(@Path("username") String username, @Header("Authorization") String token);
+    //profile
+
+        @GET("/api/profile")
+        Call<Users> getUserProfile(@Header("Authorization") String token);
+
 }
