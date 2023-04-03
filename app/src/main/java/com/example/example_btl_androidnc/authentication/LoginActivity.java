@@ -90,8 +90,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful()) {
                     Users jwtResponse = response.body();
+                    Log.d("testtoken",jwtResponse.toString());
                     if (jwtResponse != null) {
-                        mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getCourseIds().toString());
+                        mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getCourseLists().toString());
                         Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                         startActivity(intent);
                         finish();
@@ -108,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Kết nối thất bại, vui lòng kiểm tra kết nối và thử lại!" + t.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("testtoken",t.toString());
             }
         });
     }

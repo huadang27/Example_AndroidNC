@@ -27,6 +27,9 @@ public interface GetAPI_Service {
     @POST("/api/enrollCourse/{courseId}")
     Call<Void> enrollCourse(@Path("courseId") String courseId);
 
+    @GET("/api/course/{id}")
+    Call<Course> getCourseById(@Path("id") String id);
+
   // danh sách học viên của lớp học
     @GET("/api/course/{id}/users/role_user")
     Call<List<Users>> getUsersWithRoleUserInCourse(@Path("id") String courseId);

@@ -59,6 +59,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterCourseActivity.this, "Bạn đã đăng kí khóa học này rồi", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí không thành công", Toast.LENGTH_SHORT).show();
+                                Log.d("testtoken", response.toString());
                             }
                         }
 

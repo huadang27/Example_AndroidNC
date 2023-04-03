@@ -19,9 +19,19 @@ public class Users implements Serializable {
     private String refreshToken;
     private String type;
     private List<String> roles;
-    private List<String>  courseIds;
+
+    public List<courseLists> getCourseLists() {
+        return courseLists;
+    }
+
+    public void setCourseLists(List<com.example.example_btl_androidnc.model.courseLists> courseLists) {
+        this.courseLists = courseLists;
+    }
+
     private String dateOfBirth;
     private String image;
+
+    private List<courseLists> courseLists;
 
 
 
@@ -140,14 +150,6 @@ public class Users implements Serializable {
         this.status = status;
     }
 
-    public List<String> getCourseIds() {
-        return courseIds;
-    }
-
-
-    public void setCourseIds(List<String> courseIds) {
-        this.courseIds = courseIds;
-    }
 
 
 
@@ -181,5 +183,27 @@ public class Users implements Serializable {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status='" + status + '\'' +
+                ", token='" + token + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", type='" + type + '\'' +
+                ", roles=" + roles +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", image='" + image + '\'' +
+                ", courseLists=" + courseLists +
+                '}';
     }
 }

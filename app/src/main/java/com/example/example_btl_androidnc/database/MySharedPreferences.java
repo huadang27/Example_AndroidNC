@@ -33,7 +33,7 @@ public class MySharedPreferences {
         editor.apply();
         Log.d("testtoken", "Lưu dữ liệu thành công");
         Log.d("testtoken", "token: "+getToken() +"\n" +"id: "+getName()
-                +"Email: "+ getEmail()+
+                +" Email: "+ getEmail()+
                 " Password: " + getPassword() +
                 " Username: " +getUsername() +
                 " CourseId: " + getCourseId()
