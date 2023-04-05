@@ -16,50 +16,51 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
+
         <activity
-            android:name=".addItem.StudentList"
+            android:name=".teacher.activity.HomeTeacherActivity"
             android:exported="false" />
         <activity
-            android:name=".addItem.Change_PassWord"
+            android:name=".students.addItem.StudentList"
             android:exported="false" />
         <activity
-            android:name=".tets.Demo"
+            android:name=".students.addItem.Change_PassWord"
             android:exported="false" />
         <activity
-            android:name=".addItem.Edit_Profile"
+            android:name=".students.tets.Demo"
             android:exported="false" />
         <activity
-            android:name=".adapter.Register_Course_Adapter"
+            android:name=".students.addItem.Edit_Profile"
             android:exported="false" />
         <activity
-            android:name=".addItem.RegisterCourseActivity"
+            android:name=".students.addItem.RegisterCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".addItem.ClassActivity"
+            android:name=".students.addItem.ClassActivity"
             android:exported="false" />
         <activity
-            android:name=".authentication.LoginActivity"
+            android:name=".students.authentication.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".addItem.SetAdmin_Activity"
+            android:name=".students.addItem.SetAdmin_Activity"
             android:exported="false" />
         <activity
-            android:name=".authentication.ForgotPassword"
+            android:name=".students.authentication.ForgotPassword"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".authentication.SignUpActivity"
+            android:name=".students.authentication.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".fragment.Admin_HomeFragment"
+            android:name=".students.fragment.Admin_HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".adapter.ViewPagetAdapter"
+            android:name=".students.adapter.ViewPagetAdapter"
             android:exported="false" />
         <activity
-            android:name=".authentication.SilentLoginActivity"
+            android:name=".students.authentication.SilentLoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

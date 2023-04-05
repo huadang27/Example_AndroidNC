@@ -38,7 +38,7 @@
             android:src="@drawable/ic_back" />
     </androidx.appcompat.widget.Toolbar>
 
-    <com.example.example_btl_androidnc.model.ImageHelper
+    <com.example.example_btl_androidnc.students.model.ImageHelper
         android:id="@+id/avatar_imageview"
         android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
