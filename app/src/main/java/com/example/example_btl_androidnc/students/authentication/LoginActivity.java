@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     Users jwtResponse = response.body();
                     Log.d("testtoken",jwtResponse.toString());
                     if (jwtResponse != null) {
-                        mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getCourseLists().toString());
+                        mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
                         Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                         startActivity(intent);
                         finish();

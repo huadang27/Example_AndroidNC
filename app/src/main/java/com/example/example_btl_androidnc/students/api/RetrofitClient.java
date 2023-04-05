@@ -11,11 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public static final String BASE_URL = "http://192.168.22.101:8082/";
+    public static final String BASE_URL = "http://10.0.2.2:8082/";
 //192.168.3.199
 //    10.0.2.2
-//192.168.0.103
-    public static final String BASE_IMG = "http://192.168.22.101:8082";
+
+    public static final String BASE_IMG = "http://10.0.2.2:8082";
 
     private static Retrofit retrofit = null;
 

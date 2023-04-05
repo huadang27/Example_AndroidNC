@@ -16,27 +16,24 @@ public class MySharedPreferences {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_USERNAME = "username";
-    private static final String KEY_COURSEID = "courseId";
     public MySharedPreferences(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(String token,String id, String email, String password, String username,String courseId) {
+    public void saveData(String token,String id, String email, String password, String username) {
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_ID,id);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_COURSEID,courseId);
         editor.apply();
         Log.d("testtoken", "Lưu dữ liệu thành công");
         Log.d("testtoken", "token: "+getToken() +"\n" +"id: "+getName()
                 +" Email: "+ getEmail()+
                 " Password: " + getPassword() +
-                " Username: " +getUsername() +
-                " CourseId: " + getCourseId()
+                " Username: " +getUsername()
         );
 
     }
@@ -46,11 +43,8 @@ public class MySharedPreferences {
         editor.remove(KEY_PASSWORD);
         editor.remove(KEY_USERNAME);
         editor.remove(KEY_ID);
-        editor.remove(KEY_COURSEID);
         editor.apply();
     }
-
-
 
 
 
@@ -72,7 +66,6 @@ public class MySharedPreferences {
     public String getName(){
         return sharedPreferences.getString(KEY_ID,"");
     }
-    public String getCourseId(){return  sharedPreferences.getString(KEY_COURSEID,"");}
 
 
 }
