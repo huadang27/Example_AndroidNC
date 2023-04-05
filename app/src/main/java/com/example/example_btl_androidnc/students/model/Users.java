@@ -20,18 +20,13 @@ public class Users implements Serializable {
     private String type;
     private List<String> roles;
 
-    public List<courseLists> getCourseLists() {
-        return courseLists;
-    }
 
-    public void setCourseLists(List<com.example.example_btl_androidnc.students.model.courseLists> courseLists) {
-        this.courseLists = courseLists;
-    }
+
 
     private String dateOfBirth;
     private String image;
 
-    private List<courseLists> courseLists;
+    private List<UserCourse> UserCourse;
 
 
 
@@ -203,7 +198,7 @@ public class Users implements Serializable {
                 ", roles=" + roles +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", image='" + image + '\'' +
-                ", courseLists=" + courseLists +
+                ", courseLists=" + UserCourse +
                 '}';
     }
 }

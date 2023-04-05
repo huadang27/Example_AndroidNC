@@ -1,73 +1,47 @@
 package com.example.example_btl_androidnc.students.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.ListCourseAdapter;
+import com.example.example_btl_androidnc.students.api.GetAPI_Service;
+import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
-import com.example.example_btl_androidnc.students.model.courseLists;
+import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link List_CourseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class List_CourseFragment extends Fragment {
 
     private MySharedPreferences mySharedPreferences;
-    private RecyclerView mRecyclerView;
-    private List<courseLists> mList;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private List<UserCourse> userCourses;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public List_CourseFragment() {
 
     }
 
-
-    public static List_CourseFragment newInstance(String param1, String param2) {
-        List_CourseFragment fragment = new List_CourseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-
-        }
-        Context context = requireActivity().getApplicationContext();
-        mySharedPreferences = new MySharedPreferences(context);
     }
 
     @Override
@@ -75,41 +49,55 @@ public class List_CourseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_course, container, false);
-        mList = new ArrayList<>();
-        String courseId = mySharedPreferences.getCourseId();
-        Log.d("tets", courseId);
-        if (!courseId.isEmpty()) {
-            mList = getCourseListInfoFromString(courseId);
-        }
+        userCourses = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.recyclerview);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        mySharedPreferences = new MySharedPreferences(getContext());
 
-        // Lọc danh sách dựa trên status
-        List<courseLists> filteredList = new ArrayList<>();
-        for (courseLists item : mList) {
-            if (item.getStatus() == 1) {
-                filteredList.add(item);
+        fetchData();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchData();
             }
-        }
+        });
 
-        mRecyclerView = view.findViewById(R.id.recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(new ListCourseAdapter(getContext(), filteredList));
         return view;
-
     }
 
+    private void fetchData() {
+        GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
+        Call<List<UserCourse>> call = getAPI_service.getCourseById(mySharedPreferences.getName());
+        call.enqueue(new Callback<List<UserCourse>>() {
+            @Override
+            public void onResponse(Call<List<UserCourse>> call, Response<List<UserCourse>> response) {
+                if (response.code() != 200) {
+                    Log.d("test", "Response code: " + response.code());
+                    Log.d("test", "Response message: " + response.message());
+                }
+                List<UserCourse> courseList = response.body();
+                List<UserCourse> filteredCourseList = new ArrayList<>();
+                for (UserCourse course : courseList) {
+                    if (course.getStatus() == 1) {
+                        filteredCourseList.add(course);
+                    }
+                }
+                PutDataIntoRecyclerView(filteredCourseList);
+                swipeRefreshLayout.setRefreshing(false);
+            }
 
-    public static List<courseLists> getCourseListInfoFromString(String data) {
-        String regex = "courseLists\\{course_id='(.*?)', enroll_date='(.*?)', status=(\\d)\\}";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(data);
+            @Override
+            public void onFailure(Call<List<UserCourse>> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
 
-        List<courseLists> courseListInfos = new ArrayList<>();
-        while (matcher.find()) {
-            String id = matcher.group(1);
-            int status = Integer.parseInt(matcher.group(3));
-            courseListInfos.add(new courseLists(id, status));
-        }
-        return courseListInfos;
+    private void PutDataIntoRecyclerView(List<UserCourse> movieList) {
+        ListCourseAdapter adapter = new ListCourseAdapter(getContext(), movieList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
 

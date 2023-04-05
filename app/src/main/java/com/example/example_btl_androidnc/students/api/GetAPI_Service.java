@@ -1,6 +1,7 @@
 package com.example.example_btl_androidnc.students.api;
 
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
+import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.example.example_btl_androidnc.students.model.Course;
 
@@ -25,14 +26,15 @@ public interface GetAPI_Service {
     @POST("/api/enrollCourse/{courseId}")
     Call<Void> enrollCourse(@Path("courseId") String courseId);
 
-    @GET("/api/course/{id}")
-    Call<Course> getCourseById(@Path("id") String id);
+    @GET("/user/course/{id}")
+    Call<List<UserCourse>> getCourseById(@Path("id") String id);
 
-  // danh sách học viên của lớp học
+
+    // danh sách học viên của lớp học
     @GET("/api/course/{id}/users/role_user")
     Call<List<Users>> getUsersWithRoleUserInCourse(@Path("id") String courseId);
 
-// Đăng kí tài khoản
+    // Đăng kí tài khoản
     @POST("/api/auth/register")
     Call<Users> createAccount(@Body Users req);
 
@@ -46,7 +48,7 @@ public interface GetAPI_Service {
     Call<Users> getUser(@Path("username") String username, @Header("Authorization") String token);
     //profile
 
-        @GET("/api/profile")
-        Call<Users> getUserProfile(@Header("Authorization") String token);
+    @GET("/api/profile")
+    Call<Users> getUserProfile(@Header("Authorization") String token);
 
 }
