@@ -1,5 +1,6 @@
 package com.example.example_btl_androidnc.students.api;
 
+import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
@@ -9,6 +10,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -50,5 +53,10 @@ public interface GetAPI_Service {
 
     @GET("/api/profile")
     Call<Users> getUserProfile(@Header("Authorization") String token);
+
+    //đổi mk
+
+    @POST("/api/change-password")
+    Call<ChangePass> changePassword(@Header("Authorization") String token, @Body ChangePass changePass);
 
 }

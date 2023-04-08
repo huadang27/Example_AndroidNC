@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.example_btl_androidnc.students.addItem.Change_PassWord;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
@@ -36,7 +37,7 @@ public class Profile_UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button Bt_sign_out,Bt_infor_mail;
+    private Button Bt_sign_out,Bt_infor_mail,Bt_infor_change_pass;
     private TextView tv_Edit, Name_user;
     private Context context;
     public Profile_UserFragment() {
@@ -76,6 +77,7 @@ public class Profile_UserFragment extends Fragment {
         tv_Edit = view.findViewById(R.id.tv_edit_profile);
         Name_user = view.findViewById(R.id.name_user);
         Bt_infor_mail = view.findViewById(R.id.bt_infor_mail);
+        Bt_infor_change_pass = view.findViewById(R.id.bt_infor_change_pass);
         Bt_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +90,14 @@ public class Profile_UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), Edit_Profile.class);
+                //Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
+                startActivity(i);
+            }
+        });
+        Bt_infor_change_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), Change_PassWord.class);
                 //Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                 startActivity(i);
             }
