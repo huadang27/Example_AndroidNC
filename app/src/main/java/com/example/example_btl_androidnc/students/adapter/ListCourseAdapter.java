@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.addItem.StudentList;
 import com.example.example_btl_androidnc.students.model.UserCourse;
-import com.example.example_btl_androidnc.students.model.courseLists;
 
 import java.util.List;
 
 public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.ListViewHolder> {
-    private Context context;
 
+    private Context context;
     private List<UserCourse> courseList;
 
     public ListCourseAdapter(Context context, List<UserCourse> courseList) {
@@ -43,8 +42,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, StudentList.class);
-           //    i.putExtra("courseId",item);
-              i.putExtra("courseId",course.getCourseId());
+                i.putExtra("courseId", course.getCourseId());
                 context.startActivity(i);
             }
         });
@@ -64,7 +62,5 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
             super(itemView);
             textView = itemView.findViewById(R.id.item_text_view);
         }
-
-
     }
 }

@@ -5,8 +5,6 @@ import android.content.Context;
 import com.example.example_btl_androidnc.students.network.AuthInterceptor;
 import com.example.example_btl_androidnc.students.network.TokenAuthenticator;
 
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,11 +32,9 @@ public class RetrofitClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .build();
+
             Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create());
 
             retrofit = builder.client(httpClient.build()).build();
@@ -50,8 +46,8 @@ public class RetrofitClient {
     public static Retrofit getClient(String authToken) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(new TokenInterceptor(authToken));
-        OkHttpClient client = new OkHttpClient.Builder()
-                .build();
+
+        OkHttpClient client = httpClient.build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -64,8 +60,6 @@ public class RetrofitClient {
 
     public static Retrofit getInstance(Context context, String baseUrl, String authToken) {
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new AuthInterceptor(authToken))
                 .authenticator(new TokenAuthenticator(context))
                 .build();

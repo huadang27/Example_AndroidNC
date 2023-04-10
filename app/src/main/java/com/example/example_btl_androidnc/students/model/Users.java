@@ -19,15 +19,6 @@ public class Users implements Serializable {
     private String refreshToken;
     private String type;
     private List<String> roles;
-    private List<courseLists> courseLists;
-    public List<courseLists> getCourseLists() {
-        return courseLists;
-    }
-
-    public void setCourseLists(List<com.example.example_btl_androidnc.students.model.courseLists> courseLists) {
-        this.courseLists = courseLists;
-    }
-
 
 
 
@@ -205,10 +196,9 @@ public class Users implements Serializable {
                 ", refreshToken='" + refreshToken + '\'' +
                 ", type='" + type + '\'' +
                 ", roles=" + roles +
-                ", courseLists=" + courseLists +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", image='" + image + '\'' +
-                ", UserCourse=" + UserCourse +
+                ", courseLists=" + UserCourse +
                 '}';
     }
 }

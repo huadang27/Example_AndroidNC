@@ -62,57 +62,55 @@
             android:textSize="16sp" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/oldpassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:hint="Old PassWord"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#FFFFF7"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/black"
+            app:startIconTint="@color/black">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/oldpassword"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:hint="Old PassWord"
-                android:textColorHint="@color/black"
-                app:boxBackgroundColor="#FFFFF7"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/black"
-                app:startIconTint="@color/black">
+                android:inputType="textPassword" />
 
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/newpassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oldpassword"
+            android:layout_marginTop="10dp"
+            android:hint="New PassWord"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#FFFFF7"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/black"
+            app:startIconTint="@color/black">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/newpassword"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/oldpassword"
-                android:layout_marginTop="10dp"
-                android:hint="New PassWord"
-                android:textColorHint="@color/black"
-                app:boxBackgroundColor="#FFFFF7"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/black"
-                app:startIconTint="@color/black">
+                android:inputType="textPassword" />
 
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/retypepassword"
@@ -138,18 +136,16 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
-            <Button
-                android:id="@+id/btn_update_pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/retypepassword"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_button"
-                android:onClick="setNewPasswordBtn"
-                android:text="Update" />
 
-
-
+        <Button
+            android:id="@+id/btn_update_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/retypepassword"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button"
+            android:onClick="setNewPasswordBtn"
+            android:text="Update" />
 
 
     </LinearLayout>

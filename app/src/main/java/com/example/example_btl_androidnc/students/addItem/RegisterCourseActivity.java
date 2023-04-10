@@ -44,6 +44,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
         btn_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String authToken = mySharedPreferences.getToken();
                 if (authToken != null) {
                     GetAPI_Service getAPI_service = RetrofitClient.getClient(authToken).create(GetAPI_Service.class);

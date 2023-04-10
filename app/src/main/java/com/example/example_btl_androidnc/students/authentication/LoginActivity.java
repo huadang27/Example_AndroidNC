@@ -2,11 +2,15 @@ package com.example.example_btl_androidnc.students.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,9 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, ForgotPassword.class);
-                startActivity(i);
 
+                dialogForgotPassword();
             }
         });
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +142,37 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("testtoken"," token đã bị thay đổi khi đăng nhập lần sau: ");
         }
     }
+
+    private void dialogForgotPassword() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_forgot_password);
+
+        // Không cho thoát khi bấm ra ngoài màn hình
+        dialog.setCanceledOnTouchOutside(false);
+
+        //ánh xạ
+        Button btnForgotPassword = dialog.findViewById(R.id.btnForgotPassword);
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+        EditText edtEmailResetPassword = dialog.findViewById(R.id.edtEmailResetPassword);
+
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+
 
 
 

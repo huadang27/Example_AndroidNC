@@ -3,11 +3,9 @@ package com.example.example_btl_androidnc.students.addItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,23 +14,26 @@ import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.ChangePass;
-import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
-import com.example.example_btl_androidnc.students.model.Users;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Change_PassWord extends AppCompatActivity {
-private ImageView imgBack;
-private TextInputLayout oldpassword,newpassword,retypepassword;
-private Button Btn_update_pass;
+    private ImageView imgBack;
+    private TextInputLayout oldpassword,newpassword,retypepassword;
+    private Button Btn_update_pass;
+    private MySharedPreferences mySharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pass_word);
-
+        mySharedPreferences = new MySharedPreferences(Change_PassWord.this);
         imgBack = findViewById(R.id.img_back);
         oldpassword = findViewById(R.id.oldpassword);
         newpassword = findViewById(R.id.newpassword);
@@ -41,7 +42,7 @@ private Button Btn_update_pass;
         getControls();
         Btn_update_pass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String oldPassword = oldpassword.getEditText().getText().toString();
                 String newPassword = newpassword.getEditText().getText().toString();
                 String confirmPassword = retypepassword.getEditText().getText().toString();
@@ -50,46 +51,38 @@ private Button Btn_update_pass;
         });
     }
 
-    public void onChangePasswordClicked(String oldPassword,String newPassword,String confirmPassword ) {
 
+    private void onChangePasswordClicked(String oldPassword, String newPassword, String confirmPassword) {
 
-        MySharedPreferences mySharedPreferences1 = new MySharedPreferences(Change_PassWord.this);
-        //   SharedPreferences prefs = context.getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String token =mySharedPreferences1.getToken();
-        ChangePass changePass = new ChangePass(oldPassword,newPassword,confirmPassword);
-        GetAPI_Service getAPI_service = RetrofitClient.getInstance(Change_PassWord.this, RetrofitClient.BASE_URL, token).create(GetAPI_Service.class);;
-        Call<ChangePass> call = getAPI_service.changePassword("Bearer " + token,changePass);
-
-        call.enqueue(new Callback<ChangePass>() {
-            @Override
-            public void onResponse(Call<ChangePass> call, Response<ChangePass> response) {
-                if (response.isSuccessful()) {
-
-                    // Hiển thị thông báo đổi mật khẩu thành công
-                    Toast.makeText(Change_PassWord.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Hiển thị thông báo đổi mật khẩu không thành công
-                    Toast.makeText(Change_PassWord.this, "Password change failed", Toast.LENGTH_SHORT).show();
+        String authToken = mySharedPreferences.getToken();
+        if (authToken != null) {
+            GetAPI_Service getAPI_service = RetrofitClient.getClient(authToken).create(GetAPI_Service.class);
+            ChangePass changePass = new ChangePass(oldPassword, newPassword, confirmPassword);
+            Call<ResponseBody> call = getAPI_service.changePassword(changePass);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(Change_PassWord.this, "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                        oldpassword.getEditText().setText("");
+                        newpassword.getEditText().setText("");
+                        retypepassword.getEditText().setText("");
+                    } else {
+                        Log.e("ChangePassword", "Đổi mật khẩu không thành công: " + response.errorBody());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ChangePass> call, Throwable t) {
-                Toast.makeText(Change_PassWord.this, "Failed to call API", Toast.LENGTH_SHORT).show();
-                Log.d("test", " Đăng kí không thành công \n " + t);
-                Log.d("test", call.toString());
-               // Toast.makeText(Change_PassWord.this, "Failed to call API", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-//            @Override
-//            public void onFailure(Call<ChangePass> call, Throwable t) {
-//                // Hiển thị thông báo lỗi gọi API
-//                Toast.makeText(Change_PassWord.this, "Failed to call API", Toast.LENGTH_SHORT).show();
-//            }
-        });
+                }
+            });
+
+
+        } else {
+            Toast.makeText(Change_PassWord.this, "Không có Token", Toast.LENGTH_SHORT).show();
+        }
     }
-
-
 
 
     private void getControls() {
