@@ -46,7 +46,12 @@ public class Change_PassWord extends AppCompatActivity {
                 String oldPassword = oldpassword.getEditText().getText().toString();
                 String newPassword = newpassword.getEditText().getText().toString();
                 String confirmPassword = retypepassword.getEditText().getText().toString();
-                onChangePasswordClicked(oldPassword,newPassword,confirmPassword);
+                if (newPassword.equals(confirmPassword)){
+                    onChangePasswordClicked(oldPassword,newPassword,confirmPassword);
+                }
+                else
+                    Toast.makeText(Change_PassWord.this, "Xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT).show();
+              
             }
         });
     }
@@ -64,9 +69,10 @@ public class Change_PassWord extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(Change_PassWord.this, "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                        oldpassword.getEditText().setText("");
-                        newpassword.getEditText().setText("");
-                        retypepassword.getEditText().setText("");
+                        // cập nhật lại mật khẩu khi đổi mật khẩu
+                        mySharedPreferences.savePassword(newPassword);
+                        Log.d("test"," đổi mật khẩu mới thành công");
+                        setText();
                     } else {
                         Log.e("ChangePassword", "Đổi mật khẩu không thành công: " + response.errorBody());
                     }
@@ -74,7 +80,7 @@ public class Change_PassWord extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    Toast.makeText(Change_PassWord.this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -93,5 +99,11 @@ public class Change_PassWord extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public  void setText(){
+        oldpassword.getEditText().setText("");
+        newpassword.getEditText().setText("");
+        retypepassword.getEditText().setText("");
     }
 }

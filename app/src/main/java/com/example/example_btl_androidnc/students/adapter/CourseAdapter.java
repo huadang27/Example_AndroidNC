@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
     private Context context;
@@ -70,7 +71,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
     public static String convertDateFormat(String inputDate) {
         String[] possibleFormats = {"MMM dd, yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"};
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (String inputFormat : possibleFormats) {
             try {
@@ -84,6 +85,27 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
         return null;
     }
+
+//    public static String convertDateFormat(String inputDate) {
+//        String[] possibleFormats = {"MMM dd, yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"};
+//        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+//        outputDateFormat.setTimeZone(timeZone); // Set the time zone for the output date format
+//
+//        for (String inputFormat : possibleFormats) {
+//            try {
+//                SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFormat, Locale.ENGLISH);
+//                inputDateFormat.setTimeZone(timeZone); // Set the time zone for the input date format
+//                Date date = inputDateFormat.parse(inputDate);
+//                return outputDateFormat.format(date);
+//            } catch (ParseException e) {
+//                // continue to try the next format
+//            }
+//        }
+//
+//        return null;
+//    }
+
 
 
     @Override

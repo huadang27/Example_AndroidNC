@@ -2,10 +2,13 @@ package com.example.example_btl_androidnc.students.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -92,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful()) {
                     Users jwtResponse = response.body();
-                    Log.d("testtoken",jwtResponse.toString());
+                    Log.d("testtoken", jwtResponse.toString());
                     if (jwtResponse != null) {
                         mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
                         Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
@@ -111,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Kết nối thất bại, vui lòng kiểm tra kết nối và thử lại!" + t.toString(), Toast.LENGTH_SHORT).show();
-                Log.d("testtoken",t.toString());
+                Log.d("testtoken", t.toString());
             }
         });
     }
@@ -139,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             login(email, password);
-            Log.d("testtoken"," token đã bị thay đổi khi đăng nhập lần sau: ");
+            Log.d("testtoken", " token đã bị thay đổi khi đăng nhập lần sau: ");
         }
     }
 
@@ -160,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                forgotPassword(edtEmailResetPassword.getText().toString());
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -172,8 +176,48 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void forgotPassword(String email) {
+        GetAPI_Service authService = RetrofitClient.getInstance(LoginActivity.this, RetrofitClient.BASE_URL, "").create(GetAPI_Service.class);
 
+        Call<Void> call = authService.processForgotPassword(email);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Vui lòng kiểm tra thư email", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setTitle("Thông báo");
+                    builder.setMessage("Bạn có muốn kiểm tra thư email ngay bây giờ?");
+                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Mở ứng dụng Gmail và chuyển đến hộp thư đến của người dùng
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse("mailto:" + email));
+                            intent.setClassName("com.google.android.gm", "com.google.android.gm.ConversationListActivity");
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email nhập vào không đúng", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Xử lý khi có lỗi xảy ra
+            }
+        });
+
+    }
 
 
 }

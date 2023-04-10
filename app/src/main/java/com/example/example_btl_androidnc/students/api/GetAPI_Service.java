@@ -15,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface GetAPI_Service {
     //hiển thị lớp học ở trang chủ
@@ -52,9 +53,13 @@ public interface GetAPI_Service {
 
     @GET("/api/profile")
     Call<Users> getUserProfile(@Header("Authorization") String token);
-
+// đổi mật khẩu
     @POST("/api/change-password")
     Call<ResponseBody> changePassword(@Body ChangePass changePass);
+
+    // quên mật khẩu
+    @POST("/api/forgot-password")
+    Call<Void> processForgotPassword(@Query("email") String email);
 
 
 }

@@ -68,4 +68,9 @@ public class MySharedPreferences {
     }
 
 
+    public void savePassword(String newPassword) {
+        editor.putString(KEY_PASSWORD, newPassword);
+        editor.apply();
+        Log.d("testtoken", "Lưu mật khẩu thành công khi đổi mật khẩu");
+    }
 }
