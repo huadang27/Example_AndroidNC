@@ -26,6 +26,9 @@ import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Users;
+import com.example.example_btl_androidnc.teachers.activity.SetTeacher_Activity;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
     public void login(String email, String password) {
         GetAPI_Service authService = RetrofitClient.getInstance(LoginActivity.this, RetrofitClient.BASE_URL, "").create(GetAPI_Service.class);
         Users users = new Users(email, password);
-
         Call<Users> call = authService.login(users);
         call.enqueue(new Callback<Users>() {
             @Override
@@ -97,10 +99,22 @@ public class LoginActivity extends AppCompatActivity {
                     Users jwtResponse = response.body();
                     Log.d("testtoken", jwtResponse.toString());
                     if (jwtResponse != null) {
-                        mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
-                        Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
-                        startActivity(intent);
-                        finish();
+                       Users users = response.body();
+                        List<String> roles = users.getRoles();
+                        if (roles.contains("ROLE_USER"))
+                        {
+                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
+                            Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if (roles.contains("ROLE_TEACHER")) {
+                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
+                            Intent intent = new Intent(LoginActivity.this, SetTeacher_Activity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "tạch hihi", Toast.LENGTH_SHORT).show();
+                        }
 
                     } else {
                         Toast.makeText(LoginActivity.this, "Không thể nhận được thông tin đăng nhập, vui lòng thử lại!", Toast.LENGTH_SHORT).show();

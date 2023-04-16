@@ -74,6 +74,7 @@ public class Change_PassWord extends AppCompatActivity {
                         Log.d("test"," đổi mật khẩu mới thành công");
                         setText();
                     } else {
+                        Toast.makeText(Change_PassWord.this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
                         Log.e("ChangePassword", "Đổi mật khẩu không thành công: " + response.errorBody());
                     }
                 }

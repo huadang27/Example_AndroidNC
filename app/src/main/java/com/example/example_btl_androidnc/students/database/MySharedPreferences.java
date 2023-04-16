@@ -1,11 +1,16 @@
 package com.example.example_btl_androidnc.students.database;
 
+import static androidx.browser.trusted.sharing.ShareTarget.FileFormField.KEY_NAME;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.example_btl_androidnc.students.model.Users;
+
 public class MySharedPreferences {
 
+    private static final String AVATAR_URL = "avatar";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
@@ -73,4 +78,14 @@ public class MySharedPreferences {
         editor.apply();
         Log.d("testtoken", "Lưu mật khẩu thành công khi đổi mật khẩu");
     }
+
+    public void saveAvatarUrl(String avatarUrl) {
+        editor.putString(AVATAR_URL, avatarUrl);
+        editor.apply();
+    }
+
+    public String getAvatarUrl() {
+        return sharedPreferences.getString(AVATAR_URL, "");
+    }
+
 }

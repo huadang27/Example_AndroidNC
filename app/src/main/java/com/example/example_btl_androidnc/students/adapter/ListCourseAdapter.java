@@ -36,7 +36,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tets, parent, false);
+                .inflate(R.layout.info_register_course, parent, false);
         return new ListViewHolder(view);
     }
 
