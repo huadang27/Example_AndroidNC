@@ -1,4 +1,4 @@
-package com.example.example_btl_androidnc.teacher.activity;
+package com.example.example_btl_androidnc.teachers.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
