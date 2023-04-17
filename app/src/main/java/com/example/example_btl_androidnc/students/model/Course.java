@@ -23,6 +23,8 @@ public class Course implements Serializable {
     //private Teacher teacher;
     private Users users ;
 
+
+
     public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users) {
         this.id = id;
         this.name = name;
@@ -115,4 +117,6 @@ public class Course implements Serializable {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+
 }

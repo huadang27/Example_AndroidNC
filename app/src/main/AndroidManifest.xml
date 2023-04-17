@@ -16,8 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
-
         <activity
+            android:name=".students.addItem.ScheduleList"
+
+            android:exported="false" />
+        <activity
+
+            android:name=".students.authentication.SilentLoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+
             android:name=".teacher.activity.HomeTeacherActivity"
             android:exported="false" />
         <activity
@@ -59,15 +72,15 @@
         <activity
             android:name=".students.adapter.ViewPagetAdapter"
             android:exported="false" />
-        <activity
-            android:name=".students.authentication.SilentLoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
+        <service
+            android:name=".students.notification.FirebaseInstanceIdService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </activity>
+        </service>
     </application>
 
 </manifest>

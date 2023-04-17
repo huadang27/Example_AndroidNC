@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.students.addItem.ScheduleList;
 import com.example.example_btl_androidnc.students.addItem.StudentList;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 
@@ -46,14 +47,23 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
         holder.name_info.setText(course.getName());
         holder.infor_class.setText("Ngày kết thúc: "+ convertDateFormat(course.getEnrollDate()));
 
-        Glide.with(holder.imageView.getContext())
-                .load(BASE_IMG + course.getImage())
-                .into(holder.imageView);
+        if (course.getImage()!=null){
+            Glide.with(holder.imageView.getContext())
+                    .load(BASE_IMG + course.getImage())
+                    .into(holder.imageView);
+        }
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, StudentList.class);
+//                Intent i = new Intent(context, StudentList.class);
+
+
+                // đổ sang trang lịch học của course
+                Intent i = new Intent(context, ScheduleList.class);
                 i.putExtra("courseId", course.getCourseId());
+                i.putExtra("address",course.getAddress());
+                i.putExtra("nameCourse",course.getName());
+
                 context.startActivity(i);
             }
         });
