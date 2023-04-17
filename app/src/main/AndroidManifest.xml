@@ -29,9 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
 
-            android:name=".teacher.activity.HomeTeacherActivity"
+            android:name=".teachers.activity.HomeTeacherActivity"
             android:exported="false" />
         <activity
             android:name=".students.addItem.StudentList"

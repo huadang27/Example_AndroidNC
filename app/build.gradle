@@ -88,4 +88,5 @@ dependencies {
 // vuốt sang trái hiện thêm button
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
