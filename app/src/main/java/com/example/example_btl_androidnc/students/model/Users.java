@@ -28,7 +28,8 @@ public class Users implements Serializable {
 
     private List<UserCourse> UserCourse;
 
-
+    public Users() {
+    }
 
     public String getDateOfBirth() {
         return dateOfBirth;

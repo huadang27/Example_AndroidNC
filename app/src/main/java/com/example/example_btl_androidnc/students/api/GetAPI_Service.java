@@ -2,6 +2,8 @@ package com.example.example_btl_androidnc.students.api;
 
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
+import com.example.example_btl_androidnc.students.model.Schedule;
+import com.example.example_btl_androidnc.students.model.TokenRequest;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.example.example_btl_androidnc.students.model.Course;
@@ -14,6 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -29,7 +32,7 @@ public interface GetAPI_Service {
     @POST("/api/enrollCourse/{courseId}")
     Call<Void> enrollCourse(@Path("courseId") String courseId);
 
-    @GET("/user/course/{id}")
+        @GET("/user/course/{id}")
     Call<List<UserCourse>> getCourseById(@Path("id") String id);
 
 
@@ -44,6 +47,7 @@ public interface GetAPI_Service {
     // đăng nhập
     @POST("/api/auth/login")
     Call<Users> login(@Body Users users);
+
     @POST("api/auth/refresh")
     Call<Users> refreshToken(@Body RefreshTokenRequest refreshTokenRequest);
 
@@ -53,13 +57,35 @@ public interface GetAPI_Service {
 
     @GET("/api/profile")
     Call<Users> getUserProfile(@Header("Authorization") String token);
-// đổi mật khẩu
+
+    // đổi mật khẩu
     @POST("/api/change-password")
     Call<ResponseBody> changePassword(@Body ChangePass changePass);
 
     // quên mật khẩu
     @POST("/api/forgot-password")
     Call<Void> processForgotPassword(@Query("email") String email);
+
+
+    //cập nhật profile
+
+    @POST("/api/update-profile")
+    Call<ResponseBody> updateUser(@Body  Users users);
+    //@Multipart
+    @POST("/api/update-profile")
+    Call<ResponseBody> updateAvatar(@Body  Users users);
+//    Call<Users> updateAvatar(
+//            @Header("Authorization") String token,
+//           @Part MultipartBody.Part realPart
+//    );
+
+    // notification gửi token đến server
+    @PUT("/notification/{userId}")
+    Call<Void> updateTokenNotification(@Path("userId") String userId, @Query("tokenNotification") String tokenNotification);
+
+
+    @GET("/courses/{id}/schedule")
+    Call<List<Schedule>> getListScheduleByCourse(@Path("id") String courseId);
 
 
 }

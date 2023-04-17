@@ -3,7 +3,10 @@ package com.example.example_btl_androidnc.students.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class SilentLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_silent_login);
         startApplication();
+        createNotificationChannel();
     }
 
     private void startApplication() {
@@ -42,6 +46,20 @@ public class SilentLoginActivity extends AppCompatActivity {
         };
         RunSplash.schedule(timerTask, SPLASH_TIME_OUT);
     }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Your Channel Name";
+            String description = "Your Channel Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
+            channel.setDescription(description);
+
+            // Đăng ký kênh thông báo với hệ thống
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
 
 

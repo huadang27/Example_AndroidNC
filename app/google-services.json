@@ -1,42 +1,33 @@
 {
   "project_info": {
-    "project_number": "735955024500",
-    "firebase_url": "https://btlandroid-eb8dc-default-rtdb.firebaseio.com",
-    "project_id": "btlandroid-eb8dc",
-    "storage_bucket": "btlandroid-eb8dc.appspot.com"
+    "project_number": "90137507419",
+    "project_id": "mytech-ce041",
+    "storage_bucket": "mytech-ce041.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:735955024500:android:a021757dc45a6a7253ef21",
+        "mobilesdk_app_id": "1:90137507419:android:af126571b432ccdae1717e",
         "android_client_info": {
           "package_name": "com.example.example_btl_androidnc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "735955024500-u5t4vrspsupofunh214arqq438eg1ftl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.example_btl_androidnc",
-            "certificate_hash": "c0f894ff174c4d1c3406c9e7659bff8437f2a8f7"
-          }
-        },
-        {
-          "client_id": "735955024500-lkn3nsq5ud254qnqhocvbems3o3t2d8r.apps.googleusercontent.com",
+          "client_id": "90137507419-jvp8rspj5127vfl5ebvcppd63st3lqof.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBLEN7qCIOEzTIyw2yPgt5d8gdYpIvGdY4"
+          "current_key": "AIzaSyD-1_LOp5sHYeG7HMIlR3fa2CSpxCeJb8E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "735955024500-lkn3nsq5ud254qnqhocvbems3o3t2d8r.apps.googleusercontent.com",
+              "client_id": "90137507419-jvp8rspj5127vfl5ebvcppd63st3lqof.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

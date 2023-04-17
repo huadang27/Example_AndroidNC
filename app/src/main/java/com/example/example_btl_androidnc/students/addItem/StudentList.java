@@ -33,6 +33,7 @@ public class StudentList extends AppCompatActivity {
         Intent intent = getIntent();
         String selectedItem = intent.getStringExtra("courseId");
 
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

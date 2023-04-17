@@ -54,10 +54,9 @@ public class RegisterCourseActivity extends AppCompatActivity {
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == 200) {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
-                                Log.d("testtoken", "token: \n" + authToken + "\n" + response);
-                                Log.d("testtoken", "Bearer " + authToken);
+                                sendTokenToServer();
                             } else if (response.code() == 403) {
-                                Toast.makeText(RegisterCourseActivity.this, "Bạn đã đăng kí khóa học này rồi", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterCourseActivity.this, "Bạn đã đang đăng ký, đang đợi duyệt", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí không thành công", Toast.LENGTH_SHORT).show();
                                 Log.d("testtoken", response.toString());
@@ -73,6 +72,26 @@ public class RegisterCourseActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(RegisterCourseActivity.this, "Không có Token", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    private void sendTokenToServer() {
+        mySharedPreferences = new MySharedPreferences(this);
+
+        GetAPI_Service authService = RetrofitClient.getClient().create(GetAPI_Service.class);
+        Call<Void> call = authService.updateTokenNotification(mySharedPreferences.getName(), mySharedPreferences.getKeyToken());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                // Handle response
+                Log.d("FCM","Gửi đến đến server token: " + mySharedPreferences.getKeyToken());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.d("FCM","Gửi đến server không thành công: ",t );
             }
         });
     }

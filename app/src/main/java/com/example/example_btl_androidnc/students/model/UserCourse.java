@@ -8,6 +8,8 @@ public class UserCourse {
     private String image;
     private String name;
 
+    private String address;
+
     public UserCourse(String courseId, int status) {
         this.courseId = courseId;
         this.status = status;
@@ -60,5 +62,23 @@ public class UserCourse {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "UserCourse{" +
+                "courseId='" + courseId + '\'' +
+                ", enrollDate='" + enrollDate + '\'' +
+                ", status=" + status +
+                ", image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

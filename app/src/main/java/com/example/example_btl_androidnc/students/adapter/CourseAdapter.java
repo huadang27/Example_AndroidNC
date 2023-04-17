@@ -63,6 +63,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
 
     private void openRegisterCourseActivity(Course course) {
+
         Intent intent = new Intent(context, RegisterCourseActivity.class);
         intent.putExtra("putCourse", course);
         context.startActivity(intent);
