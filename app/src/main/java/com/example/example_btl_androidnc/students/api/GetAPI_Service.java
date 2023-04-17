@@ -66,6 +66,14 @@ public interface GetAPI_Service {
     @POST("/api/forgot-password")
     Call<Void> processForgotPassword(@Query("email") String email);
 
+    // notification gửi token đến server
+    @PUT("/notification/{userId}")
+    Call<Void> updateTokenNotification(@Path("userId") String userId, @Query("tokenNotification") String tokenNotification);
+
+
+    @GET("/courses/{id}/schedule")
+    Call<List<Schedule>> getListScheduleByCourse(@Path("id") String courseId);
+
 
     //cập nhật profile
 
