@@ -2,6 +2,7 @@ package com.example.example_btl_androidnc.students.fragment;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_URL;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
+import com.example.example_btl_androidnc.students.addItem.SetAdmin_Activity;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.adapter.CourseAdapter;
+import com.example.example_btl_androidnc.students.authentication.LoginActivity;
+import com.example.example_btl_androidnc.students.authentication.SignUpActivity;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.R;
 import com.google.gson.Gson;
@@ -39,15 +45,23 @@ public class Admin_HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Course> CourseList;
-
+    Button Bt_dn ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         connectWebSocket();
         recyclerView = view.findViewById(R.id.recyclerview);
+        Bt_dn = view.findViewById(R.id.bt_dn);
         CourseList = new ArrayList<>();
-
+Bt_dn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(getContext(), SignUpActivity.class);
+        startActivity(intent);
+        //finish();
+    }
+});
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();

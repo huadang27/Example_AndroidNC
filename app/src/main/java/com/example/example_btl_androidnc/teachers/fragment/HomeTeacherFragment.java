@@ -1,4 +1,4 @@
-package com.example.example_btl_androidnc.teachers;
+package com.example.example_btl_androidnc.teachers.fragment;
 
 import android.os.Bundle;
 
@@ -61,6 +61,6 @@ public class HomeTeacherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_teacher, container, false);
+        return inflater.inflate(R.layout.fragment_home_teacher_fragment, container, false);
     }
 }

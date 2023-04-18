@@ -19,6 +19,7 @@ import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.CourseAdapter;
+import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,12 +53,16 @@ public class RegisterCourseActivity extends AppCompatActivity {
                     call.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
+                            UserCourse userCourse = new UserCourse();
                             if (response.code() == 200) {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                                 sendTokenToServer();
-                            } else if (response.code() == 403) {
+                            } else if (userCourse.getStatus() ==0 ) {
                                 Toast.makeText(RegisterCourseActivity.this, "Bạn đã đang đăng ký, đang đợi duyệt", Toast.LENGTH_SHORT).show();
-                            } else {
+                            }
+                            else if (userCourse.getStatus() ==1 ) {
+                                Toast.makeText(RegisterCourseActivity.this, "Gà", Toast.LENGTH_SHORT).show();
+                            }else {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí không thành công", Toast.LENGTH_SHORT).show();
                                 Log.d("testtoken", response.toString());
                             }
@@ -101,7 +106,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
         name = findViewById(R.id.name_Class);
         infor_class = findViewById(R.id.infor_class);
         imageView = findViewById(R.id.image_Class);
-        infor_date_end = findViewById(R.id.infor_date_end);
+        //infor_date_end = findViewById(R.id.infor_date_end);
         infor_date_start = findViewById(R.id.infor_date_start);
         price = findViewById(R.id.price);
         teacher = findViewById(R.id.infor_teacher);
@@ -117,8 +122,9 @@ public class RegisterCourseActivity extends AppCompatActivity {
                 .load(BASE_IMG + course.getImage())
                 .into(imageView);
         price.setText(course.getPrice());
-        infor_date_start.setText(CourseAdapter.convertDateFormat(course.getPublishedAt()));
-        infor_date_end.setText(CourseAdapter.convertDateFormat(course.getExpiredAt()));
+        teacher.setText(course.getTeacheNames());
+      //  infor_date_start.setText(CourseAdapter.convertDateFormat(course.getPublishedAt()));
+       // infor_date_end.setText(CourseAdapter.convertDateFormat(course.getExpiredAt()));
 
     }
 

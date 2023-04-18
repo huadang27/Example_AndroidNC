@@ -1,16 +1,13 @@
 package com.example.example_btl_androidnc.students.database;
 
-import static androidx.browser.trusted.sharing.ShareTarget.FileFormField.KEY_NAME;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.example_btl_androidnc.students.model.Users;
+import java.util.List;
 
 public class MySharedPreferences {
 
-    private static final String AVATAR_URL = "avatar";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
@@ -21,6 +18,10 @@ public class MySharedPreferences {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_USERNAME = "username";
+
+    private static final String AVATAR_URL = "avatar";
+
+    private static final String KEY_NOTIFICATION = "notification";
     public MySharedPreferences(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -33,6 +34,7 @@ public class MySharedPreferences {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_USERNAME, username);
+
         editor.apply();
         Log.d("testtoken", "Lưu dữ liệu thành công");
         Log.d("testtoken", "token: "+getToken() +"\n" +"id: "+getName()
@@ -42,6 +44,25 @@ public class MySharedPreferences {
         );
 
     }
+
+    public void savePassword(String newPassword) {
+        editor.putString(KEY_PASSWORD, newPassword);
+        editor.apply();
+        Log.d("testtoken", "Lưu mật khẩu thành công khi đổi mật khẩu");
+    }
+
+    public void saveToken(String notification) {
+        editor.putString(KEY_NOTIFICATION, notification);
+        editor.apply();
+        Log.d("testtoken", "Lưu KeyAPI thành công");
+    }
+
+    public void saveAvatarUrl(String avatarUrl) {
+        editor.putString(AVATAR_URL, avatarUrl);
+        editor.apply();
+    }
+
+
     public void clearData() {
         editor.remove(KEY_TOKEN);
         editor.remove(KEY_EMAIL);
@@ -72,20 +93,15 @@ public class MySharedPreferences {
         return sharedPreferences.getString(KEY_ID,"");
     }
 
-
-    public void savePassword(String newPassword) {
-        editor.putString(KEY_PASSWORD, newPassword);
-        editor.apply();
-        Log.d("testtoken", "Lưu mật khẩu thành công khi đổi mật khẩu");
+    public  String getKeyToken(){
+        return sharedPreferences.getString(KEY_NOTIFICATION,"");
     }
 
-    public void saveAvatarUrl(String avatarUrl) {
-        editor.putString(AVATAR_URL, avatarUrl);
-        editor.apply();
-    }
 
     public String getAvatarUrl() {
         return sharedPreferences.getString(AVATAR_URL, "");
     }
+
+
 
 }

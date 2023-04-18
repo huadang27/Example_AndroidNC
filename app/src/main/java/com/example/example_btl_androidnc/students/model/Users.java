@@ -3,8 +3,6 @@ package com.example.example_btl_androidnc.students.model;
 import java.io.Serializable;
 import java.util.List;
 
-import okhttp3.MultipartBody;
-
 public class Users implements Serializable {
     private String id;
     private String address;
@@ -24,19 +22,13 @@ public class Users implements Serializable {
 
 
 
-
     private String dateOfBirth;
     private String image;
 
     private List<UserCourse> UserCourse;
 
     public Users() {
-
     }
-
-    public Users(MultipartBody.Part image) {
-    }
-
 
     public String getDateOfBirth() {
         return dateOfBirth;

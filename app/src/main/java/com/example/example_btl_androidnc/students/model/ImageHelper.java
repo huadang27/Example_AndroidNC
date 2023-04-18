@@ -13,22 +13,50 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
-public class ImageHelper extends AppCompatImageView {
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-    public ImageHelper(Context context) {
+public class ImageHelper extends AppCompatImageView{
+    public ImageHelper(@NonNull Context context) {
         super(context);
     }
 
-    public ImageHelper(Context context, AttributeSet attrs) {
+    public ImageHelper(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ImageHelper(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public ImageHelper(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
+    public static byte[] getBytesFromInputStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    public static File convertBytesToFile(byte[] bytes, Context context) throws IOException {
+        File outputDir = context.getCacheDir();
+        File outputFile = File.createTempFile("temp", ".jpg", outputDir);
+        FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+        fileOutputStream.write(bytes);
+        fileOutputStream.close();
+
+        return outputFile;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -76,7 +104,6 @@ public class ImageHelper extends AppCompatImageView {
 
         return output;
     }
-
 }
 
 

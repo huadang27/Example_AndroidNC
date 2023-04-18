@@ -65,16 +65,12 @@ public class FirebaseInstanceIdService extends FirebaseMessagingService {
                 .setContentText("Custom Notification Message")
                 .setAutoCancel(true)
                 .setSound(sound);
-
-
-
-
     }
     private void showNotification(String title, String message) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         // Thêm icon vào thông báo
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_app);
 

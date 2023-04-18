@@ -65,7 +65,7 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Đăng Nhập / Đăng Ký"
+                android:text="Đăng Ký"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -105,9 +105,10 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Edit Profile"
+                android:text="Học Thử"
                 android:textAllCaps="false"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <LinearLayout

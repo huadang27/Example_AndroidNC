@@ -23,7 +23,15 @@ public class Course implements Serializable {
     //private Teacher teacher;
     private Users users ;
 
+    private String teacheNames;
 
+    public String getTeacheNames() {
+        return teacheNames;
+    }
+
+    public void setTeacheNames(String teacheNames) {
+        this.teacheNames = teacheNames;
+    }
 
     public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users) {
         this.id = id;

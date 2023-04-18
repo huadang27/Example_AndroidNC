@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.addItem.ScheduleList;
-import com.example.example_btl_androidnc.students.addItem.StudentList;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import java.util.List;

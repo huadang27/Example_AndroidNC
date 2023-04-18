@@ -38,110 +38,134 @@
             android:src="@drawable/ic_back" />
     </androidx.appcompat.widget.Toolbar>
 
-    <com.example.example_btl_androidnc.students.model.ImageHelper
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar_imageview"
-        android:layout_width="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="16dp"
         android:src="@drawable/logo_default"
-        android:clickable="true"/>
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp"/>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:background="#FFFFFF"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Name"
-
-        app:helperTextTextColor="#F25C05"
-        app:hintTextColor="#F28705"
-        app:boxStrokeColor="#F28705"
-        app:endIconMode="clear_text">
-
-    <EditText
-        android:id="@+id/edt_name"
-        android:layout_marginTop="30dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:singleLine="true"
-        android:textCursorDrawable="@color/black"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <RadioGroup
-        android:id="@+id/gender_radiogroup"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:layout_margin="20dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/male_radiobutton"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Name"
+
+            app:helperTextTextColor="#F25C05"
+            app:hintTextColor="#F28705"
+            app:boxStrokeColor="#F28705"
+            app:endIconMode="clear_text">
+
+            <EditText
+                android:id="@+id/edt_name"
+                android:layout_marginTop="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/gender_radiogroup"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Male" />
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/female_radiobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female" />
+            <RadioButton
+                android:id="@+id/male_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
 
-    </RadioGroup>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_address"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Address"
-        android:layout_marginTop="15dp"
-        app:helperTextTextColor="#F25C05"
-        app:hintTextColor="#F28705"
-        app:boxStrokeColor="#F28705"
-        app:endIconMode="clear_text">
+            <RadioButton
+                android:id="@+id/female_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
 
-        <EditText
-            android:id="@+id/edt_address"
-            android:layout_marginTop="30dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textCursorDrawable="@color/black"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        </RadioGroup>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_phone"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Phone Number"
-android:layout_marginTop="20dp"
-        app:helperTextTextColor="#F25C05"
-        app:hintTextColor="#F28705"
-        app:boxStrokeColor="#F28705"
-        app:endIconMode="clear_text">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_ngaysinh"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Ngày sinh"
+            android:layout_marginTop="15dp"
+            app:helperTextTextColor="#F25C05"
+            app:hintTextColor="#F28705"
+            app:boxStrokeColor="#F28705"
+            app:endIconMode="clear_text">
 
-        <EditText
-            android:id="@+id/edt_phone"
-            android:layout_marginTop="30dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textCursorDrawable="@color/black"/>
-    </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+            <EditText
+                android:id="@+id/edtNgaysinh"
+                android:layout_marginTop="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_address"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Address"
+            android:layout_marginTop="15dp"
+            app:helperTextTextColor="#F25C05"
+            app:hintTextColor="#F28705"
+            app:boxStrokeColor="#F28705"
+            app:endIconMode="clear_text">
+
+            <EditText
+                android:id="@+id/edt_address"
+                android:layout_marginTop="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Phone Number"
+            android:layout_marginTop="20dp"
+            app:helperTextTextColor="#F25C05"
+            app:hintTextColor="#F28705"
+            app:boxStrokeColor="#F28705"
+            app:endIconMode="clear_text">
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_marginTop="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 
     <Button
