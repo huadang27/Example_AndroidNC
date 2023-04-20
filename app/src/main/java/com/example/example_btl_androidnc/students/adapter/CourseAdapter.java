@@ -5,6 +5,7 @@ import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int i) {
         Course course = CourseList.get(i);
+        Log.d("testcourse",course.toString());
         setCourseData(holder, course);
         holder.item.setOnClickListener(view -> openRegisterCourseActivity(course));
     }

@@ -1,11 +1,14 @@
 package com.example.example_btl_androidnc.students.addItem;
 
+import static com.example.example_btl_androidnc.students.adapter.CourseAdapter.convertDateFormat;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.example_btl_androidnc.students.adapter.ScheduleAdapter;
+import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -15,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +29,13 @@ import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.model.Schedule;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,12 +46,17 @@ import retrofit2.Response;
 public class ScheduleList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView dateEditText,nameCourse;
+    ImageButton imageButton;
 
     private Calendar startDate;
     private Calendar endDate;
 
     ScheduleAdapter adapter;
     private List<Schedule> schedules;
+    String address;
+    String courseId;
+
+    private MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +64,30 @@ public class ScheduleList extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_list);
         dateEditText = findViewById(R.id.textView5);
         nameCourse = findViewById(R.id.nameCourse);
+        imageButton = findViewById(R.id.idStudentList);
+        mySharedPreferences = new MySharedPreferences(ScheduleList.this);
         getDate();
+        Intent intent = getIntent();
+        String courseId = intent.getStringExtra("courseId");
+         address  = intent.getStringExtra("address");
+        String nameCourses = intent.getStringExtra("nameCourse");
+
+
+       String role =  mySharedPreferences.getRole();
+        if (role.equals("ROLE_USER")) {
+            imageButton.setVisibility(View.GONE);
+        } else if (role.equals("ROLE_TEACHER")) {
+            imageButton.setVisibility(View.VISIBLE);
+        }
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ScheduleList.this, StudentList.class);
+                i.putExtra("courseId", courseId);
+                startActivity(i);
+            }
+        });
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +101,7 @@ public class ScheduleList extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL));
 
-        Intent intent = getIntent();
-        String courseId = intent.getStringExtra("courseId");
-        String address  = intent.getStringExtra("address");
-        String nameCourses = intent.getStringExtra("nameCourse");
+
 
         nameCourse.setText("Lịch của môn học: "+nameCourses);
 
@@ -79,7 +113,8 @@ public class ScheduleList extends AppCompatActivity {
                 Log.d("demo123", response.body().toString());
                 if (response.isSuccessful()) {
                     schedules = response.body();
-                    adapter = new ScheduleAdapter(ScheduleList.this,schedules,address);
+                    Collections.sort(schedules, new ScheduleDayComparator());
+                    adapter = new ScheduleAdapter(ScheduleList.this,schedules,address,courseId);
                     recyclerView.setAdapter(adapter);
 
                 } else {
@@ -95,7 +130,6 @@ public class ScheduleList extends AppCompatActivity {
 
 
     }
-
     private void showDatePickerDialog() {
         final Calendar now = Calendar.getInstance();
         int mYear = now.get(Calendar.YEAR);
@@ -109,35 +143,42 @@ public class ScheduleList extends AppCompatActivity {
                             public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                                 Calendar selectedDate = Calendar.getInstance();
                                 selectedDate.set(year, monthOfYear, dayOfMonth);
-
-                                if (startDate == null) {
-                                    startDate = selectedDate;
-                                } else if (endDate == null) {
-                                    if (selectedDate.compareTo(startDate) < 0) {
-                                        endDate = startDate;
-                                        startDate = selectedDate;
-                                    } else {
-                                        endDate = selectedDate;
-                                    }
-                                } else {
-                                    if (selectedDate.compareTo(endDate) < 0) {
-                                        startDate = selectedDate;
-                                    } else {
-                                        endDate = selectedDate;
-                                    }
-                                }
-                                updateDateEditText();
-                                handleSelectedDates();
+                                updateDateEditText(selectedDate);
+                                filterSchedulesByDate(selectedDate);
                             }
                         }, mYear, mMonth, mDay);
 
-        if (startDate != null && endDate != null) {
-            Calendar[] highlightedDays = {startDate, endDate};
-            datePickerDialog.setHighlightedDays(highlightedDays);
-        }
-
         datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
     }
+
+    private void filterSchedulesByDate(Calendar selectedDate) {
+        List<Schedule> filteredSchedules = new ArrayList<>();
+
+        for (Schedule schedule : schedules) {
+            String dateString = convertDateFormat(schedule.getDay());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            try {
+                Date date = sdf.parse(dateString);
+                Calendar scheduleDate = Calendar.getInstance();
+                scheduleDate.setTime(date);
+
+                if (scheduleDate.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR)
+                        && scheduleDate.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH)
+                        && scheduleDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH)) {
+                    filteredSchedules.add(schedule);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Sắp xếp danh sách lịch theo ngày trước khi đưa vào adapter
+        Collections.sort(filteredSchedules, new ScheduleDayComparator());
+        adapter = new ScheduleAdapter(ScheduleList.this, filteredSchedules, address,courseId);
+        recyclerView.setAdapter(adapter);
+    }
+
+
 
 
     public void getDate() {
@@ -145,6 +186,37 @@ public class ScheduleList extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String currentDate = sdf.format(now.getTime());
         dateEditText.setText(currentDate);
+
+
+    }
+
+    public class ScheduleDayComparator implements Comparator<Schedule> {
+        @Override
+        public int compare(Schedule s1, Schedule s2) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date date1 = sdf.parse(s1.getDay());
+                Date date2 = sdf.parse(s2.getDay());
+                return date1.compareTo(date2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+    }
+
+
+
+    // lọc theo ngày chọn
+    private List<Schedule> filterSchedulesByDate(List<Schedule> schedules, String selectedDate) {
+        List<Schedule> filteredSchedules = new ArrayList<>();
+
+        for (Schedule schedule : schedules) {
+            if (convertDateFormat(schedule.getDay()).equals(selectedDate)) {
+                filteredSchedules.add(schedule);
+            }
+        }
+        return filteredSchedules;
     }
 
     private void handleSelectedDates() {
@@ -164,40 +236,11 @@ public class ScheduleList extends AppCompatActivity {
             // Tải danh sách các lịch trình mặc định (nếu cần)
         }
     }
-    private void updateDateEditText() {
-        if (startDate != null && endDate != null) {
-            dateEditText.setText("Từ: " + startDate.get(Calendar.DAY_OF_MONTH) + "/" + (startDate.get(Calendar.MONTH) + 1) + "/" + startDate.get(Calendar.YEAR)
-                    + " - Đến: " + endDate.get(Calendar.DAY_OF_MONTH) + "/" + (endDate.get(Calendar.MONTH) + 1) + "/" + endDate.get(Calendar.YEAR));
-        } else if (startDate != null) {
-            dateEditText.setText("Từ: " + startDate.get(Calendar.DAY_OF_MONTH) + "/" + (startDate.get(Calendar.MONTH) + 1) + "/" + startDate.get(Calendar.YEAR));
-        } else {
-            // You can handle the case when both startDate and endDate are null here, if needed.
-        }
+
+
+    private void updateDateEditText(Calendar selectedDate) {
+        dateEditText.setText("Ngày: " + selectedDate.get(Calendar.DAY_OF_MONTH) + "/" + (selectedDate.get(Calendar.MONTH) + 1) + "/" + selectedDate.get(Calendar.YEAR));
     }
 
-
-    //        // Hiển thị ngày hiện tại trong EditText
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-//        Calendar calendar = Calendar.getInstance();
-//        String currentDate = dateFormat.format(calendar.getTime());
-//        dateEditText.setText(currentDate);
-//
-//        dateEditText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int mYear = calendar.get(Calendar.YEAR);
-//                int mMonth = calendar.get(Calendar.MONTH);
-//                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleList.this,
-//                        new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                                dateEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.show();
-//            }
-//        });
 
 }

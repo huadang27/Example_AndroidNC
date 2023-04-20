@@ -138,9 +138,11 @@ public class Profile_UserFragment extends Fragment {
                     Bt_infor_mail.setText(users.getEmail());
                     bt_infor_address.setText(users.getAddress());
                     bt_infor_phone.setText(users.getPhone());
-                    Glide.with(img_user_photo.getContext())
-                            .load(BASE_IMG + users.getImage())
-                            .into(img_user_photo);
+                    if (users.getImage()!=null){
+                        Glide.with(img_user_photo.getContext())
+                                .load(BASE_IMG + users.getImage())
+                                .into(img_user_photo);
+                    }
 
                 } else {
                     // Xử lý khi không thành công

@@ -27,6 +27,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
     private Context context;
     private List<UserCourse> courseList;
 
+
     public ListCourseAdapter(Context context, List<UserCourse> courseList) {
         this.context = context;
         this.courseList = courseList;
@@ -54,9 +55,6 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(context, StudentList.class);
-
-
                 // đổ sang trang lịch học của course
                 Intent i = new Intent(context, ScheduleList.class);
                 i.putExtra("courseId", course.getCourseId());

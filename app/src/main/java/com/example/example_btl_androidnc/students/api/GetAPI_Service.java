@@ -1,5 +1,6 @@
 package com.example.example_btl_androidnc.students.api;
 
+import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
@@ -26,7 +27,7 @@ import retrofit2.http.Query;
 
 public interface GetAPI_Service {
     //hiển thị lớp học ở trang chủ
-    @GET("/api/admin/course/list")
+    @GET("/api/courses/users/schedules")
     Call<List<Course>> getCourse();
 //    @GET("/api/courses/users/schedules")
 //    Call<List<Course>> getCourse();
@@ -92,6 +93,14 @@ public interface GetAPI_Service {
     @GET("/courses/{id}/schedule")
     Call<List<Schedule>> getListScheduleByCourse(@Path("id") String courseId);
 
+    @PUT("/api/update/schedules/{id}")
+    Call<Void> updateSchedule(@Path("id") String id, @Body Schedule req);
+
+    //tạo danh sách điểm danh
+    @GET("/schedule/{scheduleId}")
+    Call<String> getUserOfCourseListByScheduleId(@Path("scheduleId") String scheduleId);
+
+
     @Multipart
     @POST("/api/update-profile")
     Call<String> updateProfile(
@@ -103,4 +112,10 @@ public interface GetAPI_Service {
             @Part("dateOfBirth") RequestBody dateOfBirth,
             @Part MultipartBody.Part image
     );
+    //hiển thị tin tức
+    @GET("/blog/{id}")
+    Call<Blog> getBlog(@Path("id") int id);
+
+    @GET("/admin/blog/list")
+    Call<List<Blog>> getBlogs();
 }

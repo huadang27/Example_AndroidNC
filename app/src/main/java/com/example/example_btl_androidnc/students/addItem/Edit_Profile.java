@@ -156,7 +156,7 @@ public class Edit_Profile extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("aaa","hhhhhhhhhhhhhhhhhhhhhhhhh"+selectedImageUri);
+                        Log.d("testedit","hihi3"+t.toString());
                         Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
                         startActivity(intent);

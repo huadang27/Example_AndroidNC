@@ -34,12 +34,14 @@ public class StudentList extends AppCompatActivity {
         String selectedItem = intent.getStringExtra("courseId");
 
 
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Khởi tạo Retrofit và UserService
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<List<Users>> call = getAPI_service.getUsersWithRoleUserInCourse(selectedItem);
+        Log.d("testloi",selectedItem);
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
@@ -55,7 +57,7 @@ public class StudentList extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(StudentList.this, "Lỗi khi kết nối tới server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentList.this, "Lỗi khi kết nối tới server" + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
