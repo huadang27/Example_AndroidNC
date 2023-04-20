@@ -1,5 +1,6 @@
 package com.example.example_btl_androidnc.students.addItem;
 
+import static com.example.example_btl_androidnc.students.adapter.CourseAdapter.convertDateFormat;
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,12 +58,11 @@ public class RegisterCourseActivity extends AppCompatActivity {
                             if (response.code() == 200) {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                                 sendTokenToServer();
-                            } else if (userCourse.getStatus() ==0 ) {
+                            } else if (userCourse.getStatus() == 0) {
                                 Toast.makeText(RegisterCourseActivity.this, "Bạn đã đang đăng ký, đang đợi duyệt", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (userCourse.getStatus() ==1 ) {
+                            } else if (userCourse.getStatus() == 1) {
                                 Toast.makeText(RegisterCourseActivity.this, "Gà", Toast.LENGTH_SHORT).show();
-                            }else {
+                            } else {
                                 Toast.makeText(RegisterCourseActivity.this, "Đăng kí không thành công", Toast.LENGTH_SHORT).show();
                                 Log.d("testtoken", response.toString());
                             }
@@ -90,13 +90,13 @@ public class RegisterCourseActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 // Handle response
-                Log.d("FCM","Gửi đến đến server token: " + mySharedPreferences.getKeyToken());
+                Log.d("FCM", "Gửi đến đến server token: " + mySharedPreferences.getKeyToken());
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure
-                Log.d("FCM","Gửi đến server không thành công: ",t );
+                Log.d("FCM", "Gửi đến server không thành công: ", t);
             }
         });
     }
@@ -106,7 +106,7 @@ public class RegisterCourseActivity extends AppCompatActivity {
         name = findViewById(R.id.name_Class);
         infor_class = findViewById(R.id.infor_class);
         imageView = findViewById(R.id.image_Class);
-        //infor_date_end = findViewById(R.id.infor_date_end);
+//        infor_date_end = findViewById(R.id.infor_date_end);
         infor_date_start = findViewById(R.id.infor_date_start);
         price = findViewById(R.id.price);
         teacher = findViewById(R.id.infor_teacher);
@@ -122,9 +122,9 @@ public class RegisterCourseActivity extends AppCompatActivity {
                 .load(BASE_IMG + course.getImage())
                 .into(imageView);
         price.setText(course.getPrice());
-        teacher.setText(course.getTeacheNames());
-      //  infor_date_start.setText(CourseAdapter.convertDateFormat(course.getPublishedAt()));
-       // infor_date_end.setText(CourseAdapter.convertDateFormat(course.getExpiredAt()));
+        teacher.setText(course.getTeacheNames().get(0));
+        infor_date_start.setText(convertDateFormat(course.getPublishedAt()));
+
 
     }
 

@@ -15,12 +15,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_back" />
-
         <TextView
             android:id="@+id/nameCourse"
             android:layout_width="wrap_content"
@@ -29,6 +23,12 @@
             android:text="Tên lớp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"/>
+
+        <ImageButton
+            android:id="@+id/idStudentList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_view_list_24" />
 
     </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:layout_weight="1"/>
 
         <TextView
-
+android:visibility="invisible"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_weight="1"/>
 
         <TextView
-
+android:visibility="invisible"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:layout_width="wrap_content"

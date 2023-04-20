@@ -198,7 +198,7 @@ public class Users implements Serializable {
                 ", roles=" + roles +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", image='" + image + '\'' +
-                ", courseLists=" + UserCourse +
+                ", UserCourse=" + UserCourse +
                 '}';
     }
 }

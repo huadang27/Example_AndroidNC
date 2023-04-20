@@ -3,6 +3,7 @@ package com.example.example_btl_androidnc.students.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Course implements Serializable {
 
@@ -23,15 +24,9 @@ public class Course implements Serializable {
     //private Teacher teacher;
     private Users users ;
 
-    private String teacheNames;
+    private List<String> teacheNames;
 
-    public String getTeacheNames() {
-        return teacheNames;
-    }
 
-    public void setTeacheNames(String teacheNames) {
-        this.teacheNames = teacheNames;
-    }
 
     public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users) {
         this.id = id;
@@ -44,6 +39,14 @@ public class Course implements Serializable {
         this.publishedAt = publishedAt;
         this.expiredAt = expiredAt;
         this.users = users;
+    }
+
+    public List<String> getTeacheNames() {
+        return teacheNames;
+    }
+
+    public void setTeacheNames(List<String> teacheNames) {
+        this.teacheNames = teacheNames;
     }
 
     public String getId() {
@@ -126,5 +129,20 @@ public class Course implements Serializable {
         this.users = users;
     }
 
-
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", price='" + price + '\'' +
+                ", level='" + level + '\'' +
+                ", image='" + image + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", expiredAt='" + expiredAt + '\'' +
+                ", users=" + users +
+                ", teacheNames=" + teacheNames +
+                '}';
+    }
 }

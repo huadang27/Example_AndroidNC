@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.model.Users;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
@@ -25,6 +26,12 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     public StudentListAdapter(Context context, List<Users> users) {
         this.context = context;
         this.users = users;
+    }
+
+    public void setUsers(ArrayList<Users> users){
+        this.users = new ArrayList<>();
+        this.users = users;
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.students.addItem.SetAdmin_Activity;
+import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,13 +20,16 @@ import java.util.TimerTask;
 public class SilentLoginActivity extends AppCompatActivity {
 
     private static final int SPLASH_TIME_OUT = 1000;
+    private MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_silent_login);
+        mySharedPreferences =new MySharedPreferences(SilentLoginActivity.this);
         startApplication();
         createNotificationChannel();
+
     }
 
     private void startApplication() {
@@ -35,10 +40,17 @@ public class SilentLoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        Toast.makeText(SilentLoginActivity.this, mySharedPreferences.getName(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(SilentLoginActivity.this, "Chào mừng bạn trở lại !", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SilentLoginActivity.this, LoginActivity.class));
-                        finish();
+                        if (mySharedPreferences.getName().isEmpty()){
+                            startActivity(new Intent(SilentLoginActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                        else {
+                            startActivity(new Intent(SilentLoginActivity.this, SetAdmin_Activity.class));
+                            finish();
+                        }
+
 
                     }
                 });

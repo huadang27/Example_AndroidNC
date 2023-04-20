@@ -15,14 +15,13 @@ import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.model.Users;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StudentList extends AppCompatActivity {
+public class AttendanceStudents extends AppCompatActivity {
     RecyclerView recyclerView;
     StudentListAdapter adapter;
     private List<Users> usersList;
@@ -42,26 +41,30 @@ public class StudentList extends AppCompatActivity {
         // Khởi tạo Retrofit và UserService
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<List<Users>> call = getAPI_service.getUsersWithRoleUserInCourse(selectedItem);
-        Log.d("testloi",selectedItem);
+        if (selectedItem != null) {
+            Log.d("testloi", selectedItem);
+        } else {
+            Log.d("testloi", "selectedItem is null");
+        }
+
+
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
                 Log.d("test",response.toString());
                 if (response.isSuccessful()) {
                     usersList = response.body();
-                    adapter = new StudentListAdapter(StudentList.this,usersList);
+                    adapter = new StudentListAdapter(AttendanceStudents.this,usersList);
                     recyclerView.setAdapter(adapter);
                 } else {
-                    Toast.makeText(StudentList.this, "Lỗi khi lấy danh sách sinh viên từ server", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AttendanceStudents.this, "Lỗi khi lấy danh sách sinh viên từ server", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(StudentList.this, "Lỗi khi kết nối tới server" + t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AttendanceStudents.this, "Lỗi khi kết nối tới server" + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }

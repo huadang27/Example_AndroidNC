@@ -89,12 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                         List<String> roles = users.getRoles();
                         if (roles.contains("ROLE_USER"))
                         {
-                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
+                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getRoles().get(0));
                             Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                             startActivity(intent);
                             finish();
                         }else if (roles.contains("ROLE_TEACHER")) {
-                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName());
+                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getRoles().get(0));
                             Intent intent = new Intent(LoginActivity.this, SetTeacher_Activity.class);
                             startActivity(intent);
                             finish();

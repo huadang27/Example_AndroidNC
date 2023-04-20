@@ -66,6 +66,7 @@ public class Edit_Profile extends AppCompatActivity {
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
     private MySharedPreferences mySharedPreferences;
+    String TAG = "RequestBodyData";
 
 
     @Override
@@ -124,9 +125,7 @@ public class Edit_Profile extends AppCompatActivity {
                 req.setAddress(edt_address.getText().toString());
                 req.setDateOfBirth(selectedDate);
 
-                Gson gson = new Gson();
-                String reqJson = gson.toJson(req);
-                RequestBody reqBody = RequestBody.create(MediaType.parse("application/json"), reqJson);
+
 
                 RequestBody namePart = RequestBody.create(MediaType.parse("text/plain"), edt_name.getText().toString());
                 RequestBody genderPart = RequestBody.create(MediaType.parse("text/plain"), gender);
@@ -139,24 +138,33 @@ public class Edit_Profile extends AppCompatActivity {
                     imagePart = prepareFilePart("image", selectedImageUri);
                 }
 
+
+
+                Log.d(TAG, "Name: " + edt_name.getText().toString());
+                Log.d(TAG, "Gender: " + gender);
+                Log.d(TAG, "Phone: " + edt_phone.getText().toString());
+                Log.d(TAG, "Address: " + edt_address.getText().toString());
+                Log.d(TAG, "Date of Birth: " + selectedDate);
+                Log.d(TAG, "Image of Birth: " + selectedImageUri);
                 GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
-                getAPI_service.updateProfile(reqBody, namePart, genderPart, phonePart, addressPart, dateOfBirthPart, imagePart).enqueue(new Callback<String>() {
+
+                getAPI_service.updateProfile(namePart, genderPart, phonePart, addressPart, dateOfBirthPart, imagePart).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (response.isSuccessful()) {
                             // Xử lý kết quả thành công
                             Toast.makeText(Edit_Profile.this, "Thành công", Toast.LENGTH_SHORT).show();
-                            Log.d("testedit", "hihi1: " + response.body());
+                            Log.d(TAG, "Thành công:  " + response.body());
                         } else {
                             Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
                             // Xử lý lỗi từ server
-                            Log.d("testedit", "hihi2: " + response.body());
+                            Log.d(TAG, "Không thành công: " + response.body());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("aaa","hhhhhhhhhhhhhhhhhhhhhhhhh"+selectedImageUri);
+                        Log.d(TAG,"onFailure: "+t.toString());
                         Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
                         startActivity(intent);
@@ -190,7 +198,7 @@ public class Edit_Profile extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Xử lý khi chọn ngày
-                        selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        selectedDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
                         edtNgaysinh.setText(selectedDate);
                     }
                 }, year, month, day);
@@ -217,6 +225,7 @@ public class Edit_Profile extends AppCompatActivity {
 
     public void  getDataProfile(){
         Users users = (Users) getIntent().getSerializableExtra("user");
+        Log.d(TAG,users.toString());
         edt_name.setText(users.getName());
         if (users.getDateOfBirth()!=null){
             edtNgaysinh.setText(convertDateFormat(users.getDateOfBirth()));
@@ -231,7 +240,7 @@ public class Edit_Profile extends AppCompatActivity {
 
         }
 
-        if(users.getGender()=="Male"){
+        if(users.getGender().equals("Male")){
             maleRadioButton.setChecked(true);
         }
         else {

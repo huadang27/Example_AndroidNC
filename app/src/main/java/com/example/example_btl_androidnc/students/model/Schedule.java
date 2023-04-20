@@ -6,6 +6,7 @@ public class Schedule {
     private  String day;
     private String duration;
     private int status;
+    private String course_id;
 
     public Schedule() {
     }
@@ -61,13 +62,23 @@ public class Schedule {
         this.status = status;
     }
 
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
                 "id='" + id + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
+                ", day='" + day + '\'' +
                 ", duration='" + duration + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
+                ", course_id='" + course_id + '\'' +
                 '}';
     }
 }
