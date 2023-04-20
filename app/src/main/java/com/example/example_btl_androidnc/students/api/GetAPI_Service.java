@@ -1,6 +1,5 @@
 package com.example.example_btl_androidnc.students.api;
 
-import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
@@ -11,26 +10,21 @@ import com.example.example_btl_androidnc.students.model.Course;
 
 import java.util.List;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GetAPI_Service {
     //hiển thị lớp học ở trang chủ
-    @GET("/api/courses/users/schedules")
+    @GET("/api/admin/course/list")
     Call<List<Course>> getCourse();
-//    @GET("/api/courses/users/schedules")
-//    Call<List<Course>> getCourse();
+
     @GET("/api/profile")
     Call<List<Users>> getUser();
 
@@ -72,19 +66,6 @@ public interface GetAPI_Service {
     @POST("/api/forgot-password")
     Call<Void> processForgotPassword(@Query("email") String email);
 
-
-    //cập nhật profile
-
-    @POST("/api/update-profile")
-    Call<ResponseBody> updateUser(@Body  Users users);
-    //@Multipart
-    @POST("/api/update-profile")
-    Call<ResponseBody> updateAvatar(@Body  Users users);
-//    Call<Users> updateAvatar(
-//            @Header("Authorization") String token,
-//           @Part MultipartBody.Part realPart
-//    );
-
     // notification gửi token đến server
     @PUT("/notification/{userId}")
     Call<Void> updateTokenNotification(@Path("userId") String userId, @Query("tokenNotification") String tokenNotification);
@@ -93,29 +74,5 @@ public interface GetAPI_Service {
     @GET("/courses/{id}/schedule")
     Call<List<Schedule>> getListScheduleByCourse(@Path("id") String courseId);
 
-    @PUT("/api/update/schedules/{id}")
-    Call<Void> updateSchedule(@Path("id") String id, @Body Schedule req);
 
-    //tạo danh sách điểm danh
-    @GET("/schedule/{scheduleId}")
-    Call<String> getUserOfCourseListByScheduleId(@Path("scheduleId") String scheduleId);
-
-
-    @Multipart
-    @POST("/api/update-profile")
-    Call<String> updateProfile(
-            @Part("req") RequestBody reqBody,
-            @Part("name") RequestBody name,
-            @Part("gender") RequestBody gender,
-            @Part("phone") RequestBody phone,
-            @Part("address") RequestBody address,
-            @Part("dateOfBirth") RequestBody dateOfBirth,
-            @Part MultipartBody.Part image
-    );
-    //hiển thị tin tức
-    @GET("/blog/{id}")
-    Call<Blog> getBlog(@Path("id") int id);
-
-    @GET("/admin/blog/list")
-    Call<List<Blog>> getBlogs();
 }

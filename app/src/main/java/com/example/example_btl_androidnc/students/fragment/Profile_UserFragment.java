@@ -14,11 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.example_btl_androidnc.students.adapter.CourseAdapter;
 import com.example.example_btl_androidnc.students.addItem.Change_PassWord;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
@@ -26,6 +26,7 @@ import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.authentication.LoginActivity;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
+import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.students.model.ImageHelper;
 import com.example.example_btl_androidnc.students.model.Users;
 
@@ -42,12 +43,10 @@ public class Profile_UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button Bt_sign_out, Bt_infor_mail, bt_infor_change_pass, bt_infor_address, bt_infor_phone;
-    private ImageView img_user_photo;
+    private Button Bt_sign_out,Bt_infor_mail,bt_infor_change_pass,bt_infor_address,bt_infor_phone;
     private TextView tv_Edit, Name_user;
     private Context context;
-    private Users users;
-
+    private ImageHelper img_user_photo;
     public Profile_UserFragment() {
         // Required empty public constructor
     }
@@ -83,15 +82,12 @@ public class Profile_UserFragment extends Fragment {
 
         Bt_sign_out = view.findViewById(R.id.bt_sign_out);
         tv_Edit = view.findViewById(R.id.tv_edit_profile);
-
         Name_user = view.findViewById(R.id.name_user);
         Bt_infor_mail = view.findViewById(R.id.bt_infor_mail);
         bt_infor_change_pass = view.findViewById(R.id.bt_infor_change_pass);
-
         bt_infor_address = view.findViewById(R.id.bt_infor_address);
         img_user_photo = view.findViewById(R.id.img_user_photo);
-        bt_infor_phone = view.findViewById(R.id.bt_infor_phone);
-
+bt_infor_phone = view.findViewById(R.id.bt_infor_phone);
         Bt_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +100,6 @@ public class Profile_UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), Edit_Profile.class);
-                i.putExtra("user", users);
                 //Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                 startActivity(i);
             }
@@ -122,28 +117,28 @@ public class Profile_UserFragment extends Fragment {
 
 
     public void getUserProfile() {
-        MySharedPreferences mySharedPreferences1 = new MySharedPreferences(getContext());
-
-        String token = mySharedPreferences1.getToken();
+MySharedPreferences mySharedPreferences1 = new MySharedPreferences(getContext());
+     //   SharedPreferences prefs = context.getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String token =mySharedPreferences1.getToken();
         GetAPI_Service getAPI_service = RetrofitClient.getInstance(getContext(), RetrofitClient.BASE_URL, token).create(GetAPI_Service.class);;
         Call<Users> call = getAPI_service.getUserProfile("Bearer " + token);
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful()) {
-                    users = response.body();
+                    Users users = response.body();
                     // Hiển thị thông tin của người dùng lên giao diện
 
                     Name_user.setText(users.getName());
                     Bt_infor_mail.setText(users.getEmail());
                     bt_infor_address.setText(users.getAddress());
                     bt_infor_phone.setText(users.getPhone());
-                    if (users.getImage()!=null){
-                        Glide.with(img_user_photo.getContext())
-                                .load(BASE_IMG + users.getImage())
-                                .into(img_user_photo);
-                    }
-
+                    Glide.with(img_user_photo.getContext())
+                            .load(BASE_IMG + users.getImage())
+                            .into(img_user_photo);
+                   // img_user_photo.setImageResource((users.getImage()));
+                    // Lấy các thông tin khác và hiển thị lên giao diện
+                    // ...
                 } else {
                     // Xử lý khi không thành công
                     Toast.makeText(getContext(), "Không thể lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
@@ -157,7 +152,6 @@ public class Profile_UserFragment extends Fragment {
             }
         });
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
