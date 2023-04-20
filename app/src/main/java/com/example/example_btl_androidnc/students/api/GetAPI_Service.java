@@ -5,6 +5,7 @@ import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
 import com.example.example_btl_androidnc.students.model.TokenRequest;
+import com.example.example_btl_androidnc.students.model.UpdateProfileReq;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.example.example_btl_androidnc.students.model.Course;
@@ -104,12 +105,10 @@ public interface GetAPI_Service {
     @Multipart
     @POST("/api/update-profile")
     Call<String> updateProfile(
-            @Part("name") RequestBody name,
-            @Part("gender") RequestBody gender,
-            @Part("phone") RequestBody phone,
-            @Part("address") RequestBody address,
-            @Part("dateOfBirth") RequestBody dateOfBirth,
+            @Part("req") RequestBody req,
             @Part MultipartBody.Part image);
+
+
     //hiển thị tin tức
     @GET("/blog/{id}")
     Call<Blog> getBlog(@Path("id") int id);
