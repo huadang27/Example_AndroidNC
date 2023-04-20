@@ -46,7 +46,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -125,20 +128,22 @@ public class Edit_Profile extends AppCompatActivity {
                 req.setAddress(edt_address.getText().toString());
                 req.setDateOfBirth(selectedDate);
 
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy/M/d");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date date = inputFormat.parse(selectedDate);
+                    String formattedDate = outputFormat.format(date);
+                    req.setDateOfBirth(formattedDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-
-                RequestBody namePart = RequestBody.create(MediaType.parse("text/plain"), edt_name.getText().toString());
-                RequestBody genderPart = RequestBody.create(MediaType.parse("text/plain"), gender);
-                RequestBody phonePart = RequestBody.create(MediaType.parse("text/plain"), edt_phone.getText().toString());
-                RequestBody addressPart = RequestBody.create(MediaType.parse("text/plain"), edt_address.getText().toString());
-                RequestBody dateOfBirthPart = RequestBody.create(MediaType.parse("text/plain"), selectedDate);
+                RequestBody reqPart = convertUpdateProfileReqToRequestBody(req);
 
                 MultipartBody.Part imagePart = null;
                 if (selectedImageUri != null) {
                     imagePart = prepareFilePart("image", selectedImageUri);
                 }
-
-
 
                 Log.d(TAG, "Name: " + edt_name.getText().toString());
                 Log.d(TAG, "Gender: " + gender);
@@ -146,9 +151,10 @@ public class Edit_Profile extends AppCompatActivity {
                 Log.d(TAG, "Address: " + edt_address.getText().toString());
                 Log.d(TAG, "Date of Birth: " + selectedDate);
                 Log.d(TAG, "Image of Birth: " + selectedImageUri);
+
                 GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
-                getAPI_service.updateProfile(namePart, genderPart, phonePart, addressPart, dateOfBirthPart, imagePart).enqueue(new Callback<String>() {
+                getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (response.isSuccessful()) {
@@ -174,6 +180,7 @@ public class Edit_Profile extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -184,6 +191,14 @@ public class Edit_Profile extends AppCompatActivity {
             logoDefaultImageView.setImageURI(selectedImageUri);
         }
     }
+
+    private RequestBody convertUpdateProfileReqToRequestBody(UpdateProfileReq req) {
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(req);
+        return RequestBody.create(JSON, jsonString);
+    }
+
 
     public void showDatePickerDialog(View v) {
         // Lấy ngày hiện tại
@@ -240,8 +255,10 @@ public class Edit_Profile extends AppCompatActivity {
 
         }
 
+        Log.d("test111",users.getGender());
         if(users.getGender().equals("Male")){
             maleRadioButton.setChecked(true);
+
         }
         else {
             femaleRadioButton.setChecked(true);

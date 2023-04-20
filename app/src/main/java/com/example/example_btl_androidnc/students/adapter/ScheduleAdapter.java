@@ -40,6 +40,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     private String address;
     private String idCourse;
     private MySharedPreferences mySharedPreferences;
+
+
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
 
@@ -105,6 +107,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
+                        Log.d("test:111",response.toString());
                         if (response.isSuccessful()) {
                             Log.d("UpdateSchedule", "Cập nhật lịch học thành công");
                             Toast.makeText(context, "Cập nhật lịch học thành công", Toast.LENGTH_SHORT).show();
