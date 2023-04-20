@@ -44,15 +44,15 @@
 
 
         <ImageView
-            android:layout_marginTop="5dp"
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
+            android:layout_width="38dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             app:srcCompat="@drawable/baseline_date_range_24" />
 
         <TextView
             android:id="@+id/textView5"
-            android:paddingStart="20dp"
+            android:paddingStart="0dp"
             android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

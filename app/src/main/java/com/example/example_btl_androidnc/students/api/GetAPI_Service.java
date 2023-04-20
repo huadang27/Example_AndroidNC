@@ -1,5 +1,6 @@
 package com.example.example_btl_androidnc.students.api;
 
+import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
@@ -109,4 +110,10 @@ public interface GetAPI_Service {
             @Part("address") RequestBody address,
             @Part("dateOfBirth") RequestBody dateOfBirth,
             @Part MultipartBody.Part image);
+    //hiển thị tin tức
+    @GET("/blog/{id}")
+    Call<Blog> getBlog(@Path("id") int id);
+
+    @GET("/admin/blog/list")
+    Call<List<Blog>> getBlogs();
 }
