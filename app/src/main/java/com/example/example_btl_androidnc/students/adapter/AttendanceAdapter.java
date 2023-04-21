@@ -19,11 +19,11 @@ import com.example.example_btl_androidnc.students.model.Users;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
+public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder> {
     private Context context;
     private List<Users> users;
 
-    public StudentListAdapter(Context context, List<Users> users) {
+    public AttendanceAdapter(Context context, List<Users> users) {
         this.context = context;
         this.users = users;
     }
@@ -36,14 +36,14 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     @NonNull
     @Override
-    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AttendanceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_student, parent, false);
-        return new StudentViewHolder(itemView);
+        return new AttendanceViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AttendanceViewHolder holder, int position) {
         Users user = users.get(position);
         holder.nameTextView.setText(user.getName());
         holder.emailTextView.setText(user.getEmail());
@@ -53,32 +53,44 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
                     .into(holder.image_User);
         }
 
+        holder.imageCheck.setVisibility(user.isChecked() ? View.VISIBLE : View.GONE);
 
         holder.itemView.findViewById(R.id.item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                user.setChecked(!user.isChecked());
+                holder.imageCheck.setVisibility(user.isChecked() ? View.VISIBLE : View.GONE);
             }
         });
     }
-
+    public ArrayList<Users> getSelected() {
+        ArrayList<Users> selected = new ArrayList<>();
+        for (Users user : users) {
+            if (user.isChecked()) {
+                selected.add(user);
+            }
+        }
+        return selected;
+    }
 
     @Override
     public int getItemCount() {
         return users.size();
     }
-    public static class StudentViewHolder extends RecyclerView.ViewHolder {
+    public static class AttendanceViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView emailTextView;
         ImageView image_User,imageCheck;
         // add other views as needed
 
-        public StudentViewHolder(@NonNull View itemView) {
+        public AttendanceViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.text_view_name);
             emailTextView = itemView.findViewById(R.id.text_view_email);
 
             image_User = itemView.findViewById(R.id.image_User);
+
+            imageCheck = itemView.findViewById(R.id.imageCheck);
             // find other views as needed
         }
     }

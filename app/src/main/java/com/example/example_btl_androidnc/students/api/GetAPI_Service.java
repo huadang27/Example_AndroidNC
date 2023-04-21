@@ -4,6 +4,7 @@ import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
+import com.example.example_btl_androidnc.students.model.SelectedStudent;
 import com.example.example_btl_androidnc.students.model.TokenRequest;
 import com.example.example_btl_androidnc.students.model.UpdateProfileReq;
 import com.example.example_btl_androidnc.students.model.UserCourse;
@@ -47,6 +48,10 @@ public interface GetAPI_Service {
     @GET("/api/course/{id}/users/role_user")
     Call<List<Users>> getUsersWithRoleUserInCourse(@Path("id") String courseId);
 
+
+    // lấy danh sách sinh viên điểm danh
+    @GET("/attendance/{scheduleId}")
+    Call<List<Users>> getUserAndAttendanceBySchedule(@Path("scheduleId") String scheduleId);
     // Đăng kí tài khoản
     @POST("/api/auth/register")
     Call<Users> createAccount(@Body Users req);
@@ -99,12 +104,12 @@ public interface GetAPI_Service {
 
     //tạo danh sách điểm danh
     @GET("/schedule/{scheduleId}")
-    Call<String> getUserOfCourseListByScheduleId(@Path("scheduleId") String scheduleId);
+    Call<ResponseBody> getUserOfCourseListByScheduleId(@Path("scheduleId") String scheduleId);
 
 
     @Multipart
     @POST("/api/update-profile")
-    Call<String> updateProfile(
+    Call<ResponseBody> updateProfile(
             @Part("req") RequestBody req,
             @Part MultipartBody.Part image);
 
@@ -115,4 +120,8 @@ public interface GetAPI_Service {
 
     @GET("/admin/blog/list")
     Call<List<Blog>> getBlogs();
+
+    // điểm danh
+    @PUT("update-attendance/{schedule_id}")
+    Call<Void> updateAttendance(@Path("schedule_id") String scheduleId, @Body List<Users> selectedStudents);
 }

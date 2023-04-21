@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +55,7 @@ import java.util.Date;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +72,7 @@ public class Edit_Profile extends AppCompatActivity {
     private RadioButton femaleRadioButton;
     private MySharedPreferences mySharedPreferences;
     String TAG = "RequestBodyData";
+    private Users users;
 
 
     @Override
@@ -126,17 +129,17 @@ public class Edit_Profile extends AppCompatActivity {
                 req.setGender(gender);
                 req.setPhone(edt_phone.getText().toString());
                 req.setAddress(edt_address.getText().toString());
-                req.setDateOfBirth(selectedDate);
-
-                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy/M/d");
+                SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    Date date = inputFormat.parse(selectedDate);
+                    String dateStr = (selectedDate == null) ? convertDateFormat(users.getDateOfBirth()) : selectedDate;
+                    Date date = inputFormat.parse(dateStr);
                     String formattedDate = outputFormat.format(date);
                     req.setDateOfBirth(formattedDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
 
                 RequestBody reqPart = convertUpdateProfileReqToRequestBody(req);
 
@@ -144,43 +147,44 @@ public class Edit_Profile extends AppCompatActivity {
                 if (selectedImageUri != null) {
                     imagePart = prepareFilePart("image", selectedImageUri);
                 }
+                else {
+                    imagePart = null;
+                }
 
-                Log.d(TAG, "Name: " + edt_name.getText().toString());
-                Log.d(TAG, "Gender: " + gender);
-                Log.d(TAG, "Phone: " + edt_phone.getText().toString());
-                Log.d(TAG, "Address: " + edt_address.getText().toString());
-                Log.d(TAG, "Date of Birth: " + selectedDate);
-                Log.d(TAG, "Image of Birth: " + selectedImageUri);
+
 
                 GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
-                getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<String>() {
+                getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             // Xử lý kết quả thành công
-                            Toast.makeText(Edit_Profile.this, "Thành công", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "Thành công:  " + response.body());
+                            Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
                             // Xử lý lỗi từ server
-                            Log.d(TAG, "Không thành công: " + response.body());
+                            try {
+                                Log.d(TAG, "Không thành công: " + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.d(TAG,"onFailure: "+t.toString());
-                        Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
-                        startActivity(intent);
-                        finish();
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + t.toString());
+                        Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
             }
         });
-
-
     }
 
     @Override
@@ -191,6 +195,22 @@ public class Edit_Profile extends AppCompatActivity {
             logoDefaultImageView.setImageURI(selectedImageUri);
         }
     }
+
+    private MultipartBody.Part convertImageUrlToMultipartBodyPart(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            InputStream inputStream = (InputStream) url.getContent();
+            byte[] imageBytes = ImageHelper.getBytesFromInputStream(inputStream);
+            File file = ImageHelper.convertBytesToFile(imageBytes, this);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+
+            return MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private RequestBody convertUpdateProfileReqToRequestBody(UpdateProfileReq req) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -213,7 +233,7 @@ public class Edit_Profile extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Xử lý khi chọn ngày
-                        selectedDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+                        selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" +year ;
                         edtNgaysinh.setText(selectedDate);
                     }
                 }, year, month, day);
@@ -239,7 +259,7 @@ public class Edit_Profile extends AppCompatActivity {
     }
 
     public void  getDataProfile(){
-        Users users = (Users) getIntent().getSerializableExtra("user");
+         users = (Users) getIntent().getSerializableExtra("user");
         Log.d(TAG,users.toString());
         edt_name.setText(users.getName());
         if (users.getDateOfBirth()!=null){

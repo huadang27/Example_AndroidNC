@@ -145,7 +145,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(context, StudentList.class);
+                    Intent i = new Intent(context, AttendanceStudents.class);
                     i.putExtra("scheduleId", schedule.getId());
                     i.putExtra("courseId",idCourse);
                     context.startActivity(i);

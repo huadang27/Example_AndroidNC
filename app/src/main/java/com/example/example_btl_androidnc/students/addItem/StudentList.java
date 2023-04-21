@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.StudentListAdapter;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
+import com.example.example_btl_androidnc.students.model.SelectedStudent;
 import com.example.example_btl_androidnc.students.model.Users;
 
 import java.util.ArrayList;
@@ -32,17 +35,22 @@ public class StudentList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
         Intent intent = getIntent();
-        String selectedItem = intent.getStringExtra("courseId");
-
+        String courseId = intent.getStringExtra("courseId");
+        // lấy danh sách sinh viên
+        getDataStudent(courseId);
 
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Khởi tạo Retrofit và UserService
+
+    }
+
+    // Điểm danh
+    public void getDataStudent(String idCouse){
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
-        Call<List<Users>> call = getAPI_service.getUsersWithRoleUserInCourse(selectedItem);
-        Log.d("testloi",selectedItem);
+        Call<List<Users>> call = getAPI_service.getUsersWithRoleUserInCourse(idCouse);
+        Log.d("testloi",idCouse);
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
@@ -62,6 +70,5 @@ public class StudentList extends AppCompatActivity {
             }
         });
     }
-
 
 }

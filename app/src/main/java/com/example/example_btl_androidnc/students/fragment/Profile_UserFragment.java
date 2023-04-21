@@ -153,7 +153,7 @@ public class Profile_UserFragment extends Fragment {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 // Xử lý khi có lỗi
-                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_SHORT).show();
             }
         });
     }
