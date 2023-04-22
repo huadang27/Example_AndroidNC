@@ -11,8 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public static final String BASE_URL = "http://192.168.0.103:8082/";
-    public static final String BASE_IMG = "http://192.168.0.103:8082";
+    public static final String BASE_URL = "http://192.168.1.11:8082/";
+    public static final String BASE_IMG = "http://192.168.1.11:8082";
 
 //192.168.3.199
 //192.168.0.102

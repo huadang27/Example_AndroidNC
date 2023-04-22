@@ -4,9 +4,6 @@ import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
-import com.example.example_btl_androidnc.students.model.SelectedStudent;
-import com.example.example_btl_androidnc.students.model.TokenRequest;
-import com.example.example_btl_androidnc.students.model.UpdateProfileReq;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.example.example_btl_androidnc.students.model.Course;
@@ -124,4 +121,9 @@ public interface GetAPI_Service {
     // điểm danh
     @PUT("update-attendance/{schedule_id}")
     Call<Void> updateAttendance(@Path("schedule_id") String scheduleId, @Body List<Users> selectedStudents);
+
+    // hiện thị user đi học và không điểm danh
+    @GET("/course/{courseId}/user/{userId}")
+    Call<List<Schedule>>getAttendanceInfoByCourseIdAndUserId(@Path("courseId") String courseId, @Path("userId") String userid);
+
 }

@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.AttendanceAdapter;
-import com.example.example_btl_androidnc.students.adapter.StudentListAdapter;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
-import com.example.example_btl_androidnc.students.model.SelectedStudent;
 import com.example.example_btl_androidnc.students.model.Users;
 
 import java.util.ArrayList;

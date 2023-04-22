@@ -4,9 +4,11 @@ public class Schedule {
     private  String id;
     private String dayOfWeek;
     private  String day;
-    private String duration;
+    private String ca;
     private int status;
     private String course_id;
+
+    private boolean attendance;
 
     public Schedule() {
     }
@@ -14,7 +16,7 @@ public class Schedule {
     public Schedule(String id, String dayOfWeek, String duration, int status) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
-        this.duration = duration;
+        this.ca = duration;
         this.status = status;
     }
 
@@ -47,16 +49,14 @@ public class Schedule {
     }
 
     public String getDuration() {
-        return duration;
+        return ca;
     }
 
     public void setDuration(String duration) {
-        this.duration = duration;
+        this.ca = duration;
     }
 
-    public int isStatus() {
-        return status;
-    }
+
 
     public void setStatus(int status) {
         this.status = status;
@@ -70,15 +70,24 @@ public class Schedule {
         this.course_id = course_id;
     }
 
+    public boolean isAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(boolean attendance) {
+        this.attendance = attendance;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
                 "id='" + id + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", day='" + day + '\'' +
-                ", duration='" + duration + '\'' +
+                ", duration='" + ca + '\'' +
                 ", status=" + status +
                 ", course_id='" + course_id + '\'' +
+                ", attendance='" + attendance + '\'' +
                 '}';
     }
 }
