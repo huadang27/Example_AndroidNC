@@ -25,7 +25,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <com.example.example_btl_androidnc.students.model.ImageHelper
-                    android:id="@+id/img_user_photo"
+                    android:id="@+id/img_teacher_photo"
                     android:layout_width="57dp"
                     android:layout_height="60dp"
                     android:src="@drawable/logo_default"
@@ -39,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:text="Hứa Quốc Đảng"
                     />
@@ -87,7 +88,7 @@
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Đăng Nhập / Đăng Ký"
+                android:text="Đăng Ký"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold" />

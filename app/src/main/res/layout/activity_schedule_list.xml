@@ -72,6 +72,7 @@
 
         <TextView
 
+            android:id="@+id/idAllSchedule"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:layout_width="wrap_content"
@@ -81,7 +82,8 @@
             android:layout_weight="1"/>
 
         <TextView
-android:visibility="invisible"
+
+            android:id="@+id/attendanceispresent"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:layout_width="wrap_content"
@@ -90,7 +92,7 @@ android:visibility="invisible"
             android:layout_weight="1"/>
 
         <TextView
-android:visibility="invisible"
+            android:id="@+id/absenteeattendance"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:layout_width="wrap_content"

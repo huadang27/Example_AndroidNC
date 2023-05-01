@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.students.addItem.SetAdmin_Activity;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
@@ -45,7 +46,7 @@ public class Admin_HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Course> CourseList;
-    Button Bt_dn ;
+    Button Bt_dn,Bt_TinTuc;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +54,15 @@ public class Admin_HomeFragment extends Fragment {
         connectWebSocket();
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
+        Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         CourseList = new ArrayList<>();
+        Bt_TinTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), BlogActivity.class);
+                startActivity(intent);
+            }
+        });
 Bt_dn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {

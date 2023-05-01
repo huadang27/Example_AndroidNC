@@ -47,12 +47,21 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         Users user = users.get(position);
         holder.nameTextView.setText(user.getName());
         holder.emailTextView.setText(user.getEmail());
-        if (user.getImage()!= null){
+        if (user.getImage() != null) {
             Glide.with(holder.image_User.getContext())
                     .load(BASE_IMG + user.getImage())
                     .into(holder.image_User);
         }
+
+
+        holder.itemView.findViewById(R.id.item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -61,7 +70,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView emailTextView;
-        ImageView image_User;
+        ImageView image_User,imageCheck;
         // add other views as needed
 
         public StudentViewHolder(@NonNull View itemView) {

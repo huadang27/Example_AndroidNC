@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.addItem.SetAdmin_Activity;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
+import com.example.example_btl_androidnc.students.model.Users;
+import com.example.example_btl_androidnc.teachers.activity.SetTeacher_Activity;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,15 +43,26 @@ public class SilentLoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SilentLoginActivity.this, mySharedPreferences.getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SilentLoginActivity.this, mySharedPreferences.getUsername(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(SilentLoginActivity.this, "Chào mừng bạn trở lại !", Toast.LENGTH_SHORT).show();
                         if (mySharedPreferences.getName().isEmpty()){
                             startActivity(new Intent(SilentLoginActivity.this, LoginActivity.class));
                             finish();
                         }
-                        else {
-                            startActivity(new Intent(SilentLoginActivity.this, SetAdmin_Activity.class));
+                        else if (mySharedPreferences.getRole().contains("ROLE_TEACHER")) {
+                           Intent intent = new Intent(SilentLoginActivity.this, SetTeacher_Activity.class);
+                            startActivity(intent);
                             finish();
+                        }
+                        else if(mySharedPreferences.getRole().contains("ROLE_USER"))
+                        {
+                         Intent intent = new Intent(SilentLoginActivity.this, SetAdmin_Activity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(SilentLoginActivity.this, "Lỗi quyền", Toast.LENGTH_SHORT).show();
+
                         }
 
 

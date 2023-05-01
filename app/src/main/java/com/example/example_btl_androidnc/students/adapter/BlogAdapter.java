@@ -77,5 +77,4 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.MyViewHolder>{
             item = itemView.findViewById(R.id.item_blog);
         }
     }
-
 }

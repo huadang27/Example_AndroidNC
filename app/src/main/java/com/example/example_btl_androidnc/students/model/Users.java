@@ -25,6 +25,22 @@ public class Users implements Serializable {
     private String dateOfBirth;
     private String image;
 
+
+    private boolean attendance;
+
+    public boolean isChecked() {
+        return attendance;
+    }
+
+    public void setChecked(boolean checked) {
+        this.attendance = checked;
+    }
+
+    public Users(String id, boolean attendance) {
+        this.id = id;
+        this.attendance = attendance;
+    }
+
     private List<UserCourse> UserCourse;
 
     public Users() {
