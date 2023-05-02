@@ -24,26 +24,24 @@ public class MySharedPreferences {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_USERNAME = "username";
 
-    private static final String AVATAR_URL = "avatar";
-
+    private static final String IMAGE = "image";
+    private static final String KEY_COURSE_DATA = "courseData";
     private static final String KEY_NOTIFICATION = "notification";
     private static  final  String ROLE ="role";
-
-    private static final String KEY_COURSE_DATA = "courseData";
-
     public MySharedPreferences(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(String token,String id, String email, String password, String username,String role) {
+    public void saveData(String token,String id, String email, String password, String username,String role,String image) {
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_ID,id);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_USERNAME, username);
         editor.putString(ROLE,role);
+        editor.putString(IMAGE,image);
 
         editor.apply();
         Log.d("testtoken", "Lưu dữ liệu thành công");
@@ -68,6 +66,28 @@ public class MySharedPreferences {
         Log.d("testtoken", "Lưu KeyAPI thành công");
     }
 
+    public void saveAvatarUrl(String avatarUrl) {
+        editor.putString(IMAGE, avatarUrl);
+        editor.apply();
+    }
+
+
+    public void clearData() {
+        editor.remove(KEY_TOKEN);
+        editor.remove(KEY_EMAIL);
+        editor.remove(KEY_PASSWORD);
+        editor.remove(KEY_USERNAME);
+        editor.remove(KEY_ID);
+        editor.apply();
+    }
+    public HashMap<String, Integer> getCourseDataFromSharedPreferences() {
+        Gson gson = new Gson();
+        String jsonCourseData = sharedPreferences.getString(KEY_COURSE_DATA, null);
+        Type type = new TypeToken<HashMap<String, Integer>>() {}.getType();
+        HashMap<String, Integer> courseData = gson.fromJson(jsonCourseData, type);
+
+        return courseData == null ? new HashMap<>() : courseData;
+    }
 
 
     public void saveCourseDataToSharedPreferences(List<String> courseIds, List<Integer> statuses) {
@@ -81,24 +101,9 @@ public class MySharedPreferences {
         editor.putString(KEY_COURSE_DATA, jsonCourseData);
         editor.apply();
     }
-
-
-
-    public void clearData() {
-        editor.remove(KEY_TOKEN);
-        editor.remove(KEY_EMAIL);
-        editor.remove(KEY_PASSWORD);
-        editor.remove(KEY_USERNAME);
-        editor.remove(KEY_ID);
-        editor.apply();
-    }
-
-
-
     public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, "");
     }
-
     public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, "");
     }
@@ -118,23 +123,15 @@ public class MySharedPreferences {
         return sharedPreferences.getString(KEY_NOTIFICATION,"");
     }
 
-
-    public String getAvatarUrl() {
-        return sharedPreferences.getString(AVATAR_URL, "");
+    public String getImage() {
+        return sharedPreferences.getString(IMAGE, "");
     }
 
     public String getRole() {
         return sharedPreferences.getString(ROLE, "");
     }
 
-    public HashMap<String, Integer> getCourseDataFromSharedPreferences() {
-        Gson gson = new Gson();
-        String jsonCourseData = sharedPreferences.getString(KEY_COURSE_DATA, null);
-        Type type = new TypeToken<HashMap<String, Integer>>() {}.getType();
-        HashMap<String, Integer> courseData = gson.fromJson(jsonCourseData, type);
 
-        return courseData == null ? new HashMap<>() : courseData;
-    }
 
 
 }

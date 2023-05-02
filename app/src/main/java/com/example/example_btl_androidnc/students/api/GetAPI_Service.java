@@ -29,7 +29,7 @@ public interface GetAPI_Service {
     //hiển thị lớp học ở trang chủ
     @GET("/api/courses/users/schedules")
     Call<List<Course>> getCourse();
-//    @GET("/api/courses/users/schedules")
+    //    @GET("/api/courses/users/schedules")
 //    Call<List<Course>> getCourse();
     @GET("/api/profile")
     Call<List<Users>> getUser();
@@ -38,7 +38,7 @@ public interface GetAPI_Service {
     @POST("/api/enrollCourse/{courseId}")
     Call<Void> enrollCourse(@Path("courseId") String courseId);
 
-        @GET("/user/course/{id}")
+    @GET("/user/course/{id}")
     Call<List<UserCourse>> getCourseById(@Path("id") String id);
 
 
@@ -127,20 +127,14 @@ public interface GetAPI_Service {
     @GET("/course/{courseId}/user/{userId}")
     Call<List<Schedule>>getAttendanceInfoByCourseIdAndUserId(@Path("courseId") String courseId, @Path("userId") String userid);
 
+
     // cập nhật điêm
     @POST("/course/{courseId}/users/{userId}/grades")
     Call<Void> createGrades(@Path("courseId") String courseId,
                             @Path("userId") String userId,
                             @Body Rank req);
-
+    
     //lấy điểm sinh viên
     @GET("/course/{courseId}/users/{userId}/grades")
     Call<Rank> getGradesByUserIdAndCourseId(@Path("courseId") String courseId, @Path("userId") String userId);
-
-    // hiện ra lớp học user đó chưa đăng kí
-
-
 }
-
-
-

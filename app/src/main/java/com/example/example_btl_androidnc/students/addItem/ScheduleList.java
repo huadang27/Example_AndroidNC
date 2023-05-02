@@ -47,7 +47,7 @@ import retrofit2.Response;
 
 public class ScheduleList extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private TextView dateEditText, nameCourse, attendanceispresent, absenteeattendance,idAllSchedule;
+    private TextView dateEditText, nameCourse, attendanceispresent, absenteeattendance,idAllSchedule,score_user;
     ImageButton imageButton;
 
     private Calendar startDate;
@@ -57,8 +57,9 @@ public class ScheduleList extends AppCompatActivity {
     private List<Schedule> schedules;
     String address;
     String courseId;
-
+    private String users;
     private MySharedPreferences mySharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +72,13 @@ public class ScheduleList extends AppCompatActivity {
         absenteeattendance = findViewById(R.id.absenteeattendance);
         recyclerView = findViewById(R.id.recyclerview);
         idAllSchedule =findViewById(R.id.idAllSchedule);
+        score_user = findViewById(R.id.score_user);
 
         mySharedPreferences = new MySharedPreferences(ScheduleList.this);
         getDate();
         Intent intent = getIntent();
+
+
         String courseId = intent.getStringExtra("courseId");
         address = intent.getStringExtra("address");
         String nameCourses = intent.getStringExtra("nameCourse");
@@ -82,8 +86,10 @@ public class ScheduleList extends AppCompatActivity {
         String role = mySharedPreferences.getRole();
         if (role.equals("ROLE_USER")) {
             imageButton.setVisibility(View.GONE);
+            score_user.setVisibility(View.VISIBLE);
         } else if (role.equals("ROLE_TEACHER")) {
             imageButton.setVisibility(View.VISIBLE);
+            score_user.setVisibility(View.GONE);
         }
 
         attendanceispresent.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +129,15 @@ public class ScheduleList extends AppCompatActivity {
                 getDataScheduleList(courseId);
             }
         });
-
+score_user.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent i = new Intent(ScheduleList.this, ShowScoreActivity.class);
+        i.putExtra("courseId", courseId);
+        i.putExtra("users",users);
+        startActivity(i);
+    }
+});
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
@@ -164,9 +178,9 @@ public class ScheduleList extends AppCompatActivity {
 
 
     // lấy ra danh sách user đi học hôm đó
-    public void getAttendanceInfo(String courseId, String uerid, boolean showAttendance) {
+    public void getAttendanceInfo(String courseId, String userid, boolean showAttendance) {
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
-        Call<List<Schedule>> call = getAPI_service.getAttendanceInfoByCourseIdAndUserId(courseId, uerid);
+        Call<List<Schedule>> call = getAPI_service.getAttendanceInfoByCourseIdAndUserId(courseId, userid);
         call.enqueue(new Callback<List<Schedule>>() {
             @Override
             public void onResponse(Call<List<Schedule>> call, Response<List<Schedule>> response) {
