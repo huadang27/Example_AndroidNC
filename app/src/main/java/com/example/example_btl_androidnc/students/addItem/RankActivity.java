@@ -61,6 +61,7 @@ public class RankActivity extends AppCompatActivity {
                 Intent i = new Intent(RankActivity.this,StudentList.class);
                 i.putExtra("courseId",courseId);
                 startActivity(i);
+                finish();
             }
 
         });

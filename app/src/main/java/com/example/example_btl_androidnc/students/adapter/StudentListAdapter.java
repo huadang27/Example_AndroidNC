@@ -2,6 +2,7 @@ package com.example.example_btl_androidnc.students.adapter;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -66,6 +67,10 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
                 i.putExtra("users",user);
                 i.putExtra("courseId",courseId);
                 context.startActivity(i);
+                if (context instanceof Activity) {
+                    // Ép kiểu context thành Activity và gọi phương thức finish()
+                    ((Activity) context).finish();
+                }
 
             }
         });
