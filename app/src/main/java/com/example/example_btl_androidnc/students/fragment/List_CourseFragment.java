@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.ListCourseAdapter;
@@ -38,6 +39,8 @@ public class List_CourseFragment extends Fragment {
     private List<UserCourse> userCourses;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView  searchView;
+    private TextView textView;
+    private int check =0;
 
     public List_CourseFragment() {
 
@@ -58,13 +61,20 @@ public class List_CourseFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
+        textView= view.findViewById(R.id.bt_infor_status);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData(0);
+            }
+        });
 
-        fetchData();
+        fetchData(1);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetchData();
+                fetchData(1);
             }
         });
 
@@ -88,7 +98,7 @@ public class List_CourseFragment extends Fragment {
         return view;
     }
 
-    private void fetchData() {
+    private void fetchData(int check) {
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<List<UserCourse>> call = getAPI_service.getCourseById(mySharedPreferences.getName());
         call.enqueue(new Callback<List<UserCourse>>() {
@@ -111,14 +121,14 @@ public class List_CourseFragment extends Fragment {
 
                 List<UserCourse> filteredCourseList = new ArrayList<>();
                 for (UserCourse course : courseList) {
-                    if (course.getStatus() == 1) {
+                    if (course.getStatus() == check) {
                         filteredCourseList.add(course);
                     }
                 }
                 Log.d("test",filteredCourseList.toString());
                 PutDataIntoRecyclerView(filteredCourseList);
                 swipeRefreshLayout.setRefreshing(false);
-                
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
                 Log.d("CourseData", "Dữ liệu courseId và status: " + courseData.toString());
 

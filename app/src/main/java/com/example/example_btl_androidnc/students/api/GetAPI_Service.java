@@ -136,6 +136,10 @@ public interface GetAPI_Service {
     //lấy điểm sinh viên
     @GET("/course/{courseId}/users/{userId}/grades")
     Call<Rank> getGradesByUserIdAndCourseId(@Path("courseId") String courseId, @Path("userId") String userId);
+
+    // hiện ra lớp học user đó chưa đăng kí
+
+
 }
 
 
