@@ -17,9 +17,11 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +49,7 @@ import retrofit2.Response;
 
 public class ScheduleList extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private TextView dateEditText, nameCourse, attendanceispresent, absenteeattendance,idAllSchedule,score_user;
+    private TextView dateEditText, nameCourse, attendanceispresent, absenteeattendance, idAllSchedule, score_user;
     ImageButton imageButton;
 
     private Calendar startDate;
@@ -71,7 +73,7 @@ public class ScheduleList extends AppCompatActivity {
         attendanceispresent = findViewById(R.id.attendanceispresent);
         absenteeattendance = findViewById(R.id.absenteeattendance);
         recyclerView = findViewById(R.id.recyclerview);
-        idAllSchedule =findViewById(R.id.idAllSchedule);
+        idAllSchedule = findViewById(R.id.idAllSchedule);
         score_user = findViewById(R.id.score_user);
 
         mySharedPreferences = new MySharedPreferences(ScheduleList.this);
@@ -79,7 +81,7 @@ public class ScheduleList extends AppCompatActivity {
         Intent intent = getIntent();
 
 
-        String courseId = intent.getStringExtra("courseId");
+         courseId = intent.getStringExtra("courseId");
         address = intent.getStringExtra("address");
         String nameCourses = intent.getStringExtra("nameCourse");
 
@@ -97,7 +99,7 @@ public class ScheduleList extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ScheduleList.this, "Buổi học bạn đã điểm danh", Toast.LENGTH_SHORT).show();
 
-                getAttendanceInfo(courseId, mySharedPreferences.getName(),true);
+                getAttendanceInfo(courseId, mySharedPreferences.getName(), true);
             }
         });
         absenteeattendance.setOnClickListener(new View.OnClickListener() {
@@ -105,15 +107,13 @@ public class ScheduleList extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ScheduleList.this, "Buổi học bạn chưa điểm danh", Toast.LENGTH_SHORT).show();
 
-                getAttendanceInfo(courseId, mySharedPreferences.getName(),false);
+                getAttendanceInfo(courseId, mySharedPreferences.getName(), false);
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ScheduleList.this, StudentList.class);
-                i.putExtra("courseId", courseId);
-                startActivity(i);
+                showPopupMenu(view);
             }
         });
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -129,15 +129,15 @@ public class ScheduleList extends AppCompatActivity {
                 getDataScheduleList(courseId);
             }
         });
-score_user.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent i = new Intent(ScheduleList.this, ShowScoreActivity.class);
-        i.putExtra("courseId", courseId);
-        i.putExtra("users",users);
-        startActivity(i);
-    }
-});
+        score_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ScheduleList.this, ShowScoreActivity.class);
+                i.putExtra("courseId", courseId);
+                i.putExtra("users", users);
+                startActivity(i);
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
@@ -206,6 +206,28 @@ score_user.setOnClickListener(new View.OnClickListener() {
         });
     }
 
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_total_score:
+                        // Xử lý khi người dùng chọn "Tổng điểm"
+                        break;
+                    case R.id.action_student_list:
+                        Intent i = new Intent(ScheduleList.this, StudentList.class);
+                        i.putExtra("courseId", courseId);
+                        startActivity(i);
+                        break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
 
     private void showDatePickerDialog() {
         final Calendar now = Calendar.getInstance();
@@ -261,8 +283,6 @@ score_user.setOnClickListener(new View.OnClickListener() {
         dateEditText.setText(currentDate);
 
     }
-
-
 
 
     private void updateDateEditText(Calendar selectedDate) {

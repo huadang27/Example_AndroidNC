@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_total_score"
+        android:title="Tổng điểm" />
+    <item
+        android:id="@+id/action_student_list"
+        android:title="Danh sách học viên" />
+</menu>

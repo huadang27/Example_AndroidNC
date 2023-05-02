@@ -1,6 +1,9 @@
 package com.example.example_btl_androidnc.students.model;
 
-public class Rank {
+import java.io.Serializable;
+
+public class Rank  implements Serializable {
+    private String id;
     private float midtermGrades;
 
     private float finalGrades;
@@ -18,6 +21,14 @@ public class Rank {
     }
 
     public Rank() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public float getMidtermGrades() {
@@ -38,6 +49,17 @@ public class Rank {
 
     public float getExams() {
         return exams;
+    }
+
+    @Override
+    public String toString() {
+        return "Rank{" +
+                "midtermGrades=" + midtermGrades +
+                ", finalGrades=" + finalGrades +
+                ", exams=" + exams +
+                ", avg=" + avg +
+                ", ranking='" + ranking + '\'' +
+                '}';
     }
 
     public void setExams(float exams) {

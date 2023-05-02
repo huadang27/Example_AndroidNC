@@ -36,6 +36,13 @@ public class StudentList extends AppCompatActivity {
         setContentView(R.layout.activity_student_list);
         Intent intent = getIntent();
         courseId = intent.getStringExtra("courseId");
+        // Thêm đoạn mã này để kiểm tra dữ liệu nhận được
+        if (courseId == null) {
+            Log.e("StudentList", "courseId is null");
+        } else {
+            Log.i("StudentList", "courseId: " + courseId);
+        }
+
         // lấy danh sách sinh viên
         getDataStudent(courseId);
 
@@ -68,6 +75,7 @@ public class StudentList extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
                 Toast.makeText(StudentList.this, "Lỗi khi kết nối tới server" + t.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("testtst",t.toString());
             }
         });
     }
