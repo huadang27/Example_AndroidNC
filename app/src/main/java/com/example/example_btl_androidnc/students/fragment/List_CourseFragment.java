@@ -22,6 +22,7 @@ import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -100,12 +101,13 @@ public class List_CourseFragment extends Fragment {
                 userCourses = response.body();
                 List<UserCourse> courseList = response.body();
 
-                // lấy id course để lưu vào MyShared
                 List<String> courseIds = new ArrayList<>();
+                List<Integer> statuses = new ArrayList<>();
                 for (UserCourse course : courseList) {
                     courseIds.add(course.getCourseId());
+                    statuses.add(course.getStatus());
                 }
-                mySharedPreferences.saveCourseIdsToSharedPreferences(courseIds);
+                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
 
                 List<UserCourse> filteredCourseList = new ArrayList<>();
                 for (UserCourse course : courseList) {
@@ -116,12 +118,10 @@ public class List_CourseFragment extends Fragment {
                 Log.d("test",filteredCourseList.toString());
                 PutDataIntoRecyclerView(filteredCourseList);
                 swipeRefreshLayout.setRefreshing(false);
+                
+                HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
+                Log.d("CourseData", "Dữ liệu courseId và status: " + courseData.toString());
 
-                // lấy dữ liệu để test
-                List<String> storedCourseIds = mySharedPreferences.getCourseIdsFromSharedPreferences();
-
-                // In danh sách courseId ra log
-                Log.d("CourseIds", "Danh sách courseId: " + storedCourseIds.toString());
             }
 
             @Override

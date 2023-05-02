@@ -8,6 +8,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 public class MySharedPreferences {
@@ -28,7 +29,8 @@ public class MySharedPreferences {
     private static final String KEY_NOTIFICATION = "notification";
     private static  final  String ROLE ="role";
 
-    private static final String KEY_COURSE_IDS = "courseIds";
+    private static final String KEY_COURSE_DATA = "courseData";
+
     public MySharedPreferences(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -66,17 +68,20 @@ public class MySharedPreferences {
         Log.d("testtoken", "Lưu KeyAPI thành công");
     }
 
-    public void saveCourseIdsToSharedPreferences(List<String> courseIds) {
+
+
+    public void saveCourseDataToSharedPreferences(List<String> courseIds, List<Integer> statuses) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(courseIds);
-        editor.putString(KEY_COURSE_IDS, json);
+        HashMap<String, Integer> courseData = new HashMap<>();
+        for (int i = 0; i < courseIds.size(); i++) {
+            courseData.put(courseIds.get(i), statuses.get(i));
+        }
+        String jsonCourseData = gson.toJson(courseData);
+        editor.putString(KEY_COURSE_DATA, jsonCourseData);
         editor.apply();
     }
 
-    public void saveAvatarUrl(String avatarUrl) {
-        editor.putString(AVATAR_URL, avatarUrl);
-        editor.apply();
-    }
 
 
     public void clearData() {
@@ -121,14 +126,15 @@ public class MySharedPreferences {
     public String getRole() {
         return sharedPreferences.getString(ROLE, "");
     }
-    public List<String> getCourseIdsFromSharedPreferences() {
+
+    public HashMap<String, Integer> getCourseDataFromSharedPreferences() {
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(KEY_COURSE_IDS, null);
-        Type listType = new TypeToken<List<String>>() {}.getType();
-        return gson.fromJson(json, listType);
+        String jsonCourseData = sharedPreferences.getString(KEY_COURSE_DATA, null);
+        Type type = new TypeToken<HashMap<String, Integer>>() {}.getType();
+        HashMap<String, Integer> courseData = gson.fromJson(jsonCourseData, type);
+
+        return courseData == null ? new HashMap<>() : courseData;
     }
-
-
 
 
 }

@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -48,6 +49,7 @@ public class Admin_HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Course> CourseList;
     Button Bt_dn, Bt_TinTuc;
+    private MySharedPreferences mySharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,7 @@ public class Admin_HomeFragment extends Fragment {
         Bt_dn = view.findViewById(R.id.bt_dn);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         CourseList = new ArrayList<>();
+        mySharedPreferences= new MySharedPreferences(getContext());
         Bt_TinTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,28 +90,26 @@ public class Admin_HomeFragment extends Fragment {
 
                 }
 
+                // hiện theo điều kiện sinh viên đã đki khóa học
                 List<Course> courses = response.body();
-                List<Course> filteredCourses = new ArrayList<>();
+                HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
 
-                // Lấy danh sách courseId từ SharedPreferences
-                MySharedPreferences mySharedPreferences = new MySharedPreferences(getContext());
-                List<String> storedCourseIds = mySharedPreferences.getCourseIdsFromSharedPreferences();
-
-                // Lọc danh sách khóa học dựa trên điều kiện id không nằm trong danh sách courseId
                 for (Course course : courses) {
-                    if (!storedCourseIds.contains(course.getId())) {
-                        filteredCourses.add(course);
+                    // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
+                    if (!courseData.containsKey(course.getId())) {
+                        CourseList.add(course);
                     }
                 }
 
-                Log.d("test", "Thêm dữ liệu thành công");
-                PutDataIntoRecyclerView(filteredCourses);
+// hiện toàn bộ
 
-//
-//                List<Course> courses = response.body();
-//                for (Course movie : courses) CourseList.add(movie);
-//                Log.d("test", "thêm dữ liệu thành công");
-//                PutDataIntoRecyclerView(CourseList);
+             /*   List<Course> courses = response.body();
+                for (Course movie : courses) CourseList.add(movie);
+                Log.d("test", "thêm dữ liệu thành công");*/
+
+
+                PutDataIntoRecyclerView(CourseList);
+
 
             }
 
