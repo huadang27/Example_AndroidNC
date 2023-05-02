@@ -214,7 +214,9 @@ public class ScheduleList extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_total_score:
-                        // Xử lý khi người dùng chọn "Tổng điểm"
+                      Intent intent = new Intent(ScheduleList.this,ScoreRating.class);
+                        intent.putExtra("courseId", courseId);
+                      startActivity(intent);
                         break;
                     case R.id.action_student_list:
                         Intent i = new Intent(ScheduleList.this, StudentList.class);

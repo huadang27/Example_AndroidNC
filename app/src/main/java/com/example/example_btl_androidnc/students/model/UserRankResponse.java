@@ -1,24 +1,36 @@
 package com.example.example_btl_androidnc.students.model;
 
-import com.google.firebase.firestore.auth.User;
+import com.example.example_btl_androidnc.students.model.Rank;
+import com.example.example_btl_androidnc.students.model.Users;
 
 import java.io.Serializable;
 
 public class UserRankResponse implements Serializable {
-    private User user;
+    private Users user;
     private Rank rank;
 
-    public UserRankResponse(User user, Rank rank) {
-        this.user = user;
+    public UserRankResponse(Users users, Rank rank) {
+        this.user = users;
         this.rank = rank;
     }
 
-    public User getUser() {
+    public UserRankResponse() {
+    }
+
+    @Override
+    public String toString() {
+        return "UserRankResponse{" +
+                "users=" + user +
+                ", rank=" + rank +
+                '}';
+    }
+
+    public Users getUsers() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(Users users) {
+        this.user = users;
     }
 
     public Rank getRank() {

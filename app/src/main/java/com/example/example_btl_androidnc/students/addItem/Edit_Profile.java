@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
+import com.example.example_btl_androidnc.students.database.ImageDownloader;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.fragment.Admin_HomeFragment;
 import com.example.example_btl_androidnc.students.model.ImageHelper;
@@ -113,6 +114,20 @@ public class Edit_Profile extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name = edt_name.getText().toString();
+                String address = edt_address.getText().toString();
+                String phone = edt_phone.getText().toString();
+
+                if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || genderRadioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(Edit_Profile.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!isValidPhoneNumber(phone)) {
+                    Toast.makeText(Edit_Profile.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 int selectedGenderId = genderRadioGroup.getCheckedRadioButtonId();
                 String gender;
                 if (selectedGenderId == R.id.male_radiobutton) {
@@ -146,46 +161,55 @@ public class Edit_Profile extends AppCompatActivity {
                 MultipartBody.Part imagePart = null;
                 if (selectedImageUri != null) {
                     imagePart = prepareFilePart("image", selectedImageUri);
-                }
-                else {
-                    imagePart = null;
-                }
-
-
-
-                GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
-
-                getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            // Xử lý kết quả thành công
-                            Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
-                            // Xử lý lỗi từ server
-                            try {
-                                Log.d(TAG, "Không thành công: " + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                } else {
+                    if (users.getImage() != null) {
+                        ImageDownloader imageDownloader = new ImageDownloader(Edit_Profile.this, new ImageDownloader.OnImageDownloadedListener() {
+                            @Override
+                            public void onImageDownloaded(MultipartBody.Part imagePart) {
+                                updateProfile(reqPart, imagePart);
                             }
-                        }
+                        });
+                        imageDownloader.execute(BASE_IMG + users.getImage());
+                    } else {
+                        updateProfile(reqPart, null);
                     }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.toString());
-                        Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                }
 
             }
         });
     }
+
+    private void updateProfile(RequestBody reqPart, MultipartBody.Part imagePart) {
+        GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
+
+        getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // Xử lý kết quả thành công
+                    Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                    // Xử lý lỗi từ server
+                    try {
+                        Log.d(TAG, "Không thành công: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -233,7 +257,7 @@ public class Edit_Profile extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Xử lý khi chọn ngày
-                        selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" +year ;
+                        selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         edtNgaysinh.setText(selectedDate);
                     }
                 }, year, month, day);
@@ -258,32 +282,40 @@ public class Edit_Profile extends AppCompatActivity {
         }
     }
 
-    public void  getDataProfile(){
+    public void getDataProfile() {
         users = (Users) getIntent().getSerializableExtra("user");
-        Log.d(TAG,users.toString());
+        Log.d(TAG, users.toString());
         edt_name.setText(users.getName());
-        if (users.getDateOfBirth()!=null){
+        if (users.getDateOfBirth() != null) {
             edtNgaysinh.setText(convertDateFormat(users.getDateOfBirth()));
         }
 
         edt_address.setText(users.getAddress());
         edt_phone.setText((users.getPhone()));
-        if (users.getImage()!=null){
+        if (users.getImage() != null) {
             Glide.with(logoDefaultImageView.getContext())
                     .load(BASE_IMG + users.getImage())
                     .into(logoDefaultImageView);
 
         }
 
-      //  Log.d("test111",users.getGender());
-        if(users.getGender() != null){
-        if(users.getGender().equals("Male")){
-            maleRadioButton.setChecked(true);
+        //  Log.d("test111",users.getGender());
+        if (users.getGender() != null) {
+            if (users.getGender().equals("Male")) {
+                maleRadioButton.setChecked(true);
+
+            } else {
+                femaleRadioButton.setChecked(true);
+            }
 
         }
-        else {
-            femaleRadioButton.setChecked(true);
-        }
+    }
 
-    }}
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Biểu thức chính quy kiểm tra số điện thoại có đúng 10 chữ số
+        String phoneNumberPattern = "^\\d{10}$";
+        return phoneNumber.matches(phoneNumberPattern);
+    }
+
 }

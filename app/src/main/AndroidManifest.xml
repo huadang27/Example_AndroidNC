@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
         <activity
+            android:name=".students.addItem.ScoreRating"
+            android:exported="false" />
+        <activity
             android:name=".students.addItem.ShowScoreActivity"
             android:exported="false" />
         <activity

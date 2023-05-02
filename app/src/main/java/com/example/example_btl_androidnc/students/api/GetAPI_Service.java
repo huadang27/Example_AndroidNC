@@ -6,6 +6,7 @@ import com.example.example_btl_androidnc.students.model.Rank;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
 import com.example.example_btl_androidnc.students.model.UserCourse;
+import com.example.example_btl_androidnc.students.model.UserRankResponse;
 import com.example.example_btl_androidnc.students.model.Users;
 import com.example.example_btl_androidnc.students.model.Course;
 
@@ -137,4 +138,8 @@ public interface GetAPI_Service {
     //lấy điểm sinh viên
     @GET("/course/{courseId}/users/{userId}/grades")
     Call<Rank> getGradesByUserIdAndCourseId(@Path("courseId") String courseId, @Path("userId") String userId);
+
+
+    @GET("/rank/{course_id}")
+    Call<List<UserRankResponse>> getRanksByCourseId(@Path("course_id") String courseId);
 }
