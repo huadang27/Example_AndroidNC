@@ -76,7 +76,7 @@ ImageHelper image_score;
                     // Handle error case
                 }
             }
-
+//check
             @Override
             public void onFailure(Call<Rank> call, Throwable t) {
                 Toast.makeText(ShowScoreActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();

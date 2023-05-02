@@ -86,8 +86,10 @@ public class ScheduleList extends AppCompatActivity {
         String role = mySharedPreferences.getRole();
         if (role.equals("ROLE_USER")) {
             imageButton.setVisibility(View.GONE);
+            score_user.setVisibility(View.VISIBLE);
         } else if (role.equals("ROLE_TEACHER")) {
             imageButton.setVisibility(View.VISIBLE);
+            score_user.setVisibility(View.GONE);
         }
 
         attendanceispresent.setOnClickListener(new View.OnClickListener() {

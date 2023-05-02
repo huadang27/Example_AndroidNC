@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 public class MySharedPreferences {
@@ -20,7 +25,7 @@ public class MySharedPreferences {
     private static final String KEY_USERNAME = "username";
 
     private static final String IMAGE = "image";
-
+    private static final String KEY_COURSE_DATA = "courseData";
     private static final String KEY_NOTIFICATION = "notification";
     private static  final  String ROLE ="role";
     public MySharedPreferences(Context context) {
@@ -75,9 +80,27 @@ public class MySharedPreferences {
         editor.remove(KEY_ID);
         editor.apply();
     }
+    public HashMap<String, Integer> getCourseDataFromSharedPreferences() {
+        Gson gson = new Gson();
+        String jsonCourseData = sharedPreferences.getString(KEY_COURSE_DATA, null);
+        Type type = new TypeToken<HashMap<String, Integer>>() {}.getType();
+        HashMap<String, Integer> courseData = gson.fromJson(jsonCourseData, type);
+
+        return courseData == null ? new HashMap<>() : courseData;
+    }
 
 
-
+    public void saveCourseDataToSharedPreferences(List<String> courseIds, List<Integer> statuses) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        HashMap<String, Integer> courseData = new HashMap<>();
+        for (int i = 0; i < courseIds.size(); i++) {
+            courseData.put(courseIds.get(i), statuses.get(i));
+        }
+        String jsonCourseData = gson.toJson(courseData);
+        editor.putString(KEY_COURSE_DATA, jsonCourseData);
+        editor.apply();
+    }
     public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, "");
     }

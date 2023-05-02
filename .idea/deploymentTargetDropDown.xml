@@ -6,13 +6,13 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\huada\.android\avd\Pixel_6_Pro_API_30.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="342a2183" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-05-02T09:22:29.656889800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-05-02T09:41:24.362004100Z" />
     <targetsSelectedWithDialog>
       <Target>
         <type value="QUICK_BOOT_TARGET" />
