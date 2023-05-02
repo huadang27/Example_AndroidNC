@@ -99,6 +99,14 @@ public class List_CourseFragment extends Fragment {
                 }
                 userCourses = response.body();
                 List<UserCourse> courseList = response.body();
+
+                // lấy id course để lưu vào MyShared
+                List<String> courseIds = new ArrayList<>();
+                for (UserCourse course : courseList) {
+                    courseIds.add(course.getCourseId());
+                }
+                mySharedPreferences.saveCourseIdsToSharedPreferences(courseIds);
+
                 List<UserCourse> filteredCourseList = new ArrayList<>();
                 for (UserCourse course : courseList) {
                     if (course.getStatus() == 1) {
@@ -108,6 +116,12 @@ public class List_CourseFragment extends Fragment {
                 Log.d("test",filteredCourseList.toString());
                 PutDataIntoRecyclerView(filteredCourseList);
                 swipeRefreshLayout.setRefreshing(false);
+
+                // lấy dữ liệu để test
+                List<String> storedCourseIds = mySharedPreferences.getCourseIdsFromSharedPreferences();
+
+                // In danh sách courseId ra log
+                Log.d("CourseIds", "Danh sách courseId: " + storedCourseIds.toString());
             }
 
             @Override

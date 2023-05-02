@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class MySharedPreferences {
@@ -23,6 +27,8 @@ public class MySharedPreferences {
 
     private static final String KEY_NOTIFICATION = "notification";
     private static  final  String ROLE ="role";
+
+    private static final String KEY_COURSE_IDS = "courseIds";
     public MySharedPreferences(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -58,6 +64,13 @@ public class MySharedPreferences {
         editor.putString(KEY_NOTIFICATION, notification);
         editor.apply();
         Log.d("testtoken", "Lưu KeyAPI thành công");
+    }
+
+    public void saveCourseIdsToSharedPreferences(List<String> courseIds) {
+        Gson gson = new Gson();
+        String json = gson.toJson(courseIds);
+        editor.putString(KEY_COURSE_IDS, json);
+        editor.apply();
     }
 
     public void saveAvatarUrl(String avatarUrl) {
@@ -107,6 +120,12 @@ public class MySharedPreferences {
 
     public String getRole() {
         return sharedPreferences.getString(ROLE, "");
+    }
+    public List<String> getCourseIdsFromSharedPreferences() {
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(KEY_COURSE_IDS, null);
+        Type listType = new TypeToken<List<String>>() {}.getType();
+        return gson.fromJson(json, listType);
     }
 
 

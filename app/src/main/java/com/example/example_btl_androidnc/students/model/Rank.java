@@ -6,8 +6,8 @@ public class Rank {
     private float finalGrades;
 
     private float exams;
-private float avg;
-private String ranking;
+    private float avg;
+    private String ranking;
 
     public Rank(float midtermGrades, float finalGrades, float exams, float avg, String ranking) {
         this.midtermGrades = midtermGrades;
