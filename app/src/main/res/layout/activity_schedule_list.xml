@@ -99,7 +99,14 @@
             android:layout_height="match_parent"
             android:text="Buổi học vắng"
             android:layout_weight="1"/>
-
+        <TextView
+            android:id="@+id/score_user"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Điểm"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

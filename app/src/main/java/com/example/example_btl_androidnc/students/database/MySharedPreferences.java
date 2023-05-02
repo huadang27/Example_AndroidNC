@@ -19,7 +19,7 @@ public class MySharedPreferences {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_USERNAME = "username";
 
-    private static final String AVATAR_URL = "avatar";
+    private static final String IMAGE = "image";
 
     private static final String KEY_NOTIFICATION = "notification";
     private static  final  String ROLE ="role";
@@ -29,13 +29,14 @@ public class MySharedPreferences {
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(String token,String id, String email, String password, String username,String role) {
+    public void saveData(String token,String id, String email, String password, String username,String role,String image) {
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_ID,id);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_USERNAME, username);
         editor.putString(ROLE,role);
+        editor.putString(IMAGE,image);
 
         editor.apply();
         Log.d("testtoken", "Lưu dữ liệu thành công");
@@ -61,7 +62,7 @@ public class MySharedPreferences {
     }
 
     public void saveAvatarUrl(String avatarUrl) {
-        editor.putString(AVATAR_URL, avatarUrl);
+        editor.putString(IMAGE, avatarUrl);
         editor.apply();
     }
 
@@ -80,7 +81,6 @@ public class MySharedPreferences {
     public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, "");
     }
-
     public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, "");
     }
@@ -100,9 +100,8 @@ public class MySharedPreferences {
         return sharedPreferences.getString(KEY_NOTIFICATION,"");
     }
 
-
-    public String getAvatarUrl() {
-        return sharedPreferences.getString(AVATAR_URL, "");
+    public String getImage() {
+        return sharedPreferences.getString(IMAGE, "");
     }
 
     public String getRole() {

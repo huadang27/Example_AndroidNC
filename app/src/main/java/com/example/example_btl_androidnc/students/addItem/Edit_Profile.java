@@ -259,7 +259,7 @@ public class Edit_Profile extends AppCompatActivity {
     }
 
     public void  getDataProfile(){
-         users = (Users) getIntent().getSerializableExtra("user");
+        users = (Users) getIntent().getSerializableExtra("user");
         Log.d(TAG,users.toString());
         edt_name.setText(users.getName());
         if (users.getDateOfBirth()!=null){
@@ -269,13 +269,14 @@ public class Edit_Profile extends AppCompatActivity {
         edt_address.setText(users.getAddress());
         edt_phone.setText((users.getPhone()));
         if (users.getImage()!=null){
-        Glide.with(logoDefaultImageView.getContext())
-                .load(BASE_IMG + users.getImage())
-                .into(logoDefaultImageView);
+            Glide.with(logoDefaultImageView.getContext())
+                    .load(BASE_IMG + users.getImage())
+                    .into(logoDefaultImageView);
 
         }
 
-        Log.d("test111",users.getGender());
+      //  Log.d("test111",users.getGender());
+        if(users.getGender() != null){
         if(users.getGender().equals("Male")){
             maleRadioButton.setChecked(true);
 
@@ -284,5 +285,5 @@ public class Edit_Profile extends AppCompatActivity {
             femaleRadioButton.setChecked(true);
         }
 
-    }
+    }}
 }
