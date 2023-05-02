@@ -50,7 +50,7 @@ public class StudentList extends AppCompatActivity {
     public void getDataStudent(String idCouse){
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<List<Users>> call = getAPI_service.getUsersWithRoleUserInCourse(idCouse);
-        Log.d("testloi",idCouse);
+       // Log.d("testloi",idCouse);
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {

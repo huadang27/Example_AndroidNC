@@ -5,6 +5,7 @@ import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,18 +46,21 @@ public class RankActivity extends AppCompatActivity {
                 String midtermGradeString = binding.midtermGrades.getText().toString();
                 String finalGradeString = binding.finalGrades.getText().toString();
                 String examGradeString = binding.exams.getText().toString();
-String avgGradeString = binding.MediumScore.getText().toString();
-String rankingGradeString = binding.classification.getText().toString();
+                String avgGradeString = binding.MediumScore.getText().toString();
+                String rankingGradeString = binding.classification.getText().toString();
 
                 float midtermGrade = midtermGradeString.isEmpty() ? 0 : Float.parseFloat(midtermGradeString);
                 float finalGrade = finalGradeString.isEmpty() ? 0 : Float.parseFloat(finalGradeString);
                 float examGrade = examGradeString.isEmpty() ? 0 : Float.parseFloat(examGradeString);
                 float avgGrade = avgGradeString.isEmpty() ? 0 : Float.parseFloat(avgGradeString);
 
-             //   String avgGradeString = avgGradeString.isEmpty() ? "0" : String.valueOf(avgGrade);
                 String ranking = rankingGradeString.isEmpty() ? "pass1" : String.valueOf(rankingGradeString);
                 Rank rank = new Rank(midtermGrade, finalGrade, examGrade,avgGrade,ranking);
                 createGrades(courseId, users.getId(), rank);
+
+                Intent i = new Intent(RankActivity.this,StudentList.class);
+                i.putExtra("courseId",courseId);
+                startActivity(i);
             }
 
         });
