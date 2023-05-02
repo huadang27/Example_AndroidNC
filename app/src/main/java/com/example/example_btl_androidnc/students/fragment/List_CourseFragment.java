@@ -22,6 +22,7 @@ import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -99,6 +100,15 @@ public class List_CourseFragment extends Fragment {
                 }
                 userCourses = response.body();
                 List<UserCourse> courseList = response.body();
+
+                List<String> courseIds = new ArrayList<>();
+                List<Integer> statuses = new ArrayList<>();
+                for (UserCourse course : courseList) {
+                    courseIds.add(course.getCourseId());
+                    statuses.add(course.getStatus());
+                }
+                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
+
                 List<UserCourse> filteredCourseList = new ArrayList<>();
                 for (UserCourse course : courseList) {
                     if (course.getStatus() == 1) {
@@ -108,6 +118,10 @@ public class List_CourseFragment extends Fragment {
                 Log.d("test",filteredCourseList.toString());
                 PutDataIntoRecyclerView(filteredCourseList);
                 swipeRefreshLayout.setRefreshing(false);
+                
+                HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
+                Log.d("CourseData", "Dữ liệu courseId và status: " + courseData.toString());
+
             }
 
             @Override

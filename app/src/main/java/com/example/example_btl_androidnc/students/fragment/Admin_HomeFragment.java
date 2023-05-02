@@ -25,12 +25,14 @@ import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.adapter.CourseAdapter;
 import com.example.example_btl_androidnc.students.authentication.LoginActivity;
 import com.example.example_btl_androidnc.students.authentication.SignUpActivity;
+import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -46,16 +48,19 @@ public class Admin_HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Course> CourseList;
-    Button Bt_dn,Bt_TinTuc;
+    Button Bt_dn, Bt_TinTuc;
+    private MySharedPreferences mySharedPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         connectWebSocket();
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         CourseList = new ArrayList<>();
+        mySharedPreferences= new MySharedPreferences(getContext());
         Bt_TinTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,14 +68,14 @@ public class Admin_HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-Bt_dn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(getContext(), SignUpActivity.class);
-        startActivity(intent);
-        //finish();
-    }
-});
+        Bt_dn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SignUpActivity.class);
+                startActivity(intent);
+                //finish();
+            }
+        });
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();
@@ -78,42 +83,58 @@ Bt_dn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
 //                Log.d("test",response.body().toString());
-                if (response.code()!=200){
+                if (response.code() != 200) {
                     Log.d("test", "Response code: " + response.code());
                     Log.d("test", "Response message: " + response.message());
 
 
                 }
-                List<Course>movies=  response.body();
-                for(Course movie: movies) CourseList.add(movie);
-                Log.d("test","thêm dữ liệu thành công");
+
+                // hiện theo điều kiện sinh viên đã đki khóa học
+                List<Course> courses = response.body();
+                HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
+
+                for (Course course : courses) {
+                    // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
+                    if (!courseData.containsKey(course.getId())) {
+                        CourseList.add(course);
+                    }
+                }
+
+// hiện toàn bộ
+
+             /*   List<Course> courses = response.body();
+                for (Course movie : courses) CourseList.add(movie);
+                Log.d("test", "thêm dữ liệu thành công");*/
+
+
                 PutDataIntoRecyclerView(CourseList);
+
 
             }
 
             @Override
             public void onFailure(Call<List<Course>> call, Throwable t) {
-                Log.d("test",t.toString() +" _______onfailue______");
+                Log.d("test", t.toString() + " _______onfailue______");
             }
 
         });
 //
         return view;
     }
+
     private void PutDataIntoRecyclerView(List<Course> movieList) {
-        CourseAdapter adapter = new CourseAdapter(getContext(),movieList);
+        CourseAdapter adapter = new CourseAdapter(getContext(), movieList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
 
 
-
-
     private void connectWebSocket() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(BASE_URL+"my-websocket-endpoint")
-       // ws://192.168.80.149:8082/my-websocket-endpoint
+                .url(BASE_URL + "my-websocket-endpoint")
+                // ws://192.168.80.149:8082/my-websocket-endpoint
 
                 .build();
         client.newWebSocket(request, new WebSocketListener() {
@@ -140,9 +161,10 @@ Bt_dn.setOnClickListener(new View.OnClickListener() {
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
                 Log.d("hihi", text.toString() + "   _____onMessage.4_______");
-                List<Course> courses= new Gson().fromJson(text, new TypeToken<List<Course>>(){}.getType());
+                List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
+                }.getType());
 
-               getActivity().runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // Hiển thị danh sách Category lên giao diện
