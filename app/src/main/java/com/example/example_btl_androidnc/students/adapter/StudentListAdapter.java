@@ -3,17 +3,20 @@ package com.example.example_btl_androidnc.students.adapter;
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.students.addItem.RankActivity;
 import com.example.example_btl_androidnc.students.model.Users;
 
 import java.util.ArrayList;
@@ -22,10 +25,12 @@ import java.util.List;
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
     private Context context;
     private List<Users> users;
+    private String courseId;
 
-    public StudentListAdapter(Context context, List<Users> users) {
+    public StudentListAdapter(Context context, List<Users> users, String courseId) {
         this.context = context;
         this.users = users;
+        this.courseId = courseId;
     }
 
     public void setUsers(ArrayList<Users> users){
@@ -57,6 +62,10 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         holder.itemView.findViewById(R.id.item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(context, RankActivity.class);
+                i.putExtra("users",user);
+                i.putExtra("courseId",courseId);
+                context.startActivity(i);
 
             }
         });
@@ -67,6 +76,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     public int getItemCount() {
         return users.size();
     }
+
+
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView emailTextView;

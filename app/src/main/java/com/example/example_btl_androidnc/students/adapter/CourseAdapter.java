@@ -49,7 +49,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int i) {
         Course course = CourseList.get(i);
-        Log.d("testcourse",course.toString());
+        Log.d("testcourse", course.toString());
         setCourseData(holder, course);
         holder.item.setOnClickListener(view -> openRegisterCourseActivity(course));
     }
@@ -72,7 +72,27 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     }
 
 
+    //    public static String convertDateFormat(String inputDate) {
+//        String[] possibleFormats = {"MMM dd, yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"};
+//        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//
+//        for (String inputFormat : possibleFormats) {
+//            try {
+//                SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFormat, Locale.ENGLISH);
+//                Date date = inputDateFormat.parse(inputDate);
+//                return outputDateFormat.format(date);
+//            } catch (ParseException e) {
+//                // continue to try the next format
+//            }
+//        }
+//
+//        return null;
+//    }
     public static String convertDateFormat(String inputDate) {
+        if (inputDate == null) {
+            return null;
+        }
+
         String[] possibleFormats = {"MMM dd, yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"};
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -88,8 +108,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
 
         return null;
     }
-
-
 
 
     @Override

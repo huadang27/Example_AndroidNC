@@ -28,13 +28,14 @@ public class StudentList extends AppCompatActivity {
     RecyclerView recyclerView;
     StudentListAdapter adapter;
     private List<Users> usersList;
+    String courseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
         Intent intent = getIntent();
-        String courseId = intent.getStringExtra("courseId");
+        courseId = intent.getStringExtra("courseId");
         // lấy danh sách sinh viên
         getDataStudent(courseId);
 
@@ -53,10 +54,11 @@ public class StudentList extends AppCompatActivity {
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
-                Log.d("test",response.toString());
+
                 if (response.isSuccessful()) {
+                    Log.d("hihihi",response.body().toString());
                     usersList = response.body();
-                    adapter = new StudentListAdapter(StudentList.this,usersList);
+                    adapter = new StudentListAdapter(StudentList.this,usersList,courseId);
                     recyclerView.setAdapter(adapter);
                 } else {
                     Toast.makeText(StudentList.this, "Lỗi khi lấy danh sách sinh viên từ server", Toast.LENGTH_SHORT).show();
