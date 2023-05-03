@@ -129,6 +129,29 @@ public class Edit_Profile extends AppCompatActivity {
                     return;
                 }
 
+                Calendar dobCalendar = Calendar.getInstance();
+                Calendar nowCalendar = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date dob = (selectedDate == null) ? sdf.parse(convertDateFormat(users.getDateOfBirth())) : sdf.parse(selectedDate);
+                    dobCalendar.setTime(dob);
+
+                    int yearsDiff = nowCalendar.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR);
+                    int monthsDiff = nowCalendar.get(Calendar.MONTH) - dobCalendar.get(Calendar.MONTH);
+                    int daysDiff = nowCalendar.get(Calendar.DAY_OF_MONTH) - dobCalendar.get(Calendar.DAY_OF_MONTH);
+
+                    if (monthsDiff < 0 || (monthsDiff == 0 && daysDiff < 0)) {
+                        yearsDiff--;
+                    }
+
+                    if (yearsDiff < 18) {
+                        Toast.makeText(Edit_Profile.this, "Bạn phải từ 18 tuổi trở lên", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 int selectedGenderId = genderRadioGroup.getCheckedRadioButtonId();
                 String gender;
                 if (selectedGenderId == R.id.male_radiobutton) {
@@ -156,13 +179,12 @@ public class Edit_Profile extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
                 RequestBody reqPart = convertUpdateProfileReqToRequestBody(req);
 
                 MultipartBody.Part imagePart = null;
                 if (selectedImageUri != null) {
                     imagePart = prepareFilePart("image", selectedImageUri);
-                    updateProfile(reqPart,imagePart);
+                    updateProfile(reqPart, imagePart);
                 } else {
                     if (users.getImage() != null) {
                         ImageDownloader imageDownloader = new ImageDownloader(Edit_Profile.this, new ImageDownloader.OnImageDownloadedListener() {
@@ -176,7 +198,6 @@ public class Edit_Profile extends AppCompatActivity {
                         updateProfile(reqPart, null);
                     }
                 }
-
             }
         });
     }
