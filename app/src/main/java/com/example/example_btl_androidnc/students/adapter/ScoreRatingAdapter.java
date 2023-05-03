@@ -50,7 +50,9 @@ public class ScoreRatingAdapter extends RecyclerView.Adapter<ScoreRatingAdapter.
 
             if (users != null) {
                 if (users.getName() != null) {
+
                     holder.Name.setText("Name: "+users.getName());
+
                 }
                 if (users.getGender() != null) {
                     holder.gender.setText("Gender: "+users.getGender());

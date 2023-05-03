@@ -39,6 +39,7 @@ import com.example.example_btl_androidnc.students.model.ImageHelper;
 import com.example.example_btl_androidnc.students.model.UpdateProfileReq;
 import com.example.example_btl_androidnc.students.model.UserCourse;
 import com.example.example_btl_androidnc.students.model.Users;
+import com.example.example_btl_androidnc.teachers.activity.SetTeacher_Activity;
 import com.google.firebase.firestore.auth.User;
 import com.google.gson.Gson;
 
@@ -161,6 +162,7 @@ public class Edit_Profile extends AppCompatActivity {
                 MultipartBody.Part imagePart = null;
                 if (selectedImageUri != null) {
                     imagePart = prepareFilePart("image", selectedImageUri);
+                    updateProfile(reqPart,imagePart);
                 } else {
                     if (users.getImage() != null) {
                         ImageDownloader imageDownloader = new ImageDownloader(Edit_Profile.this, new ImageDownloader.OnImageDownloadedListener() {
@@ -187,10 +189,18 @@ public class Edit_Profile extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     // Xử lý kết quả thành công
-                    Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
-                    startActivity(intent);
-                    finish();
+                    if(mySharedPreferences.getRole().equals("ROLE_USER")){
+                        Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Edit_Profile.this, SetTeacher_Activity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 } else {
                     Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
                     // Xử lý lỗi từ server

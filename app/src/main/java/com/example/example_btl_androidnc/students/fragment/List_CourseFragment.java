@@ -62,12 +62,18 @@ public class List_CourseFragment extends Fragment {
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
         textView= view.findViewById(R.id.bt_infor_status);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fetchData(0);
-            }
-        });
+        if(mySharedPreferences.getRole().equals("ROLE_USER")){
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fetchData(0);
+                }
+            });
+        }
+        else{
+            textView.setVisibility(View.GONE);
+        }
+
 
         fetchData(1);
 
