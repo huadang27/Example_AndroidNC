@@ -67,7 +67,7 @@ public class ScoreRatingAdapter extends RecyclerView.Adapter<ScoreRatingAdapter.
                 holder.midtermGrades.setText("midtermGrades: "+formatFloat(rank.getMidtermGrades()));
                 holder.finalGrades.setText("finalGrades: "+formatFloat(rank.getFinalGrades()));
                 holder.exams.setText("exams: "+formatFloat(rank.getExams()));
-                if(rank.getAvg()<=5){
+                if(rank.getAvg()<5){
                     holder.imageView2.setBackgroundResource(R.drawable.custom_button_red);
                 }
             }

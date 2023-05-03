@@ -77,11 +77,16 @@ public class ScoreRating extends AppCompatActivity {
         call.enqueue(new Callback<List<UserRankResponse>>() {
             @Override
             public void onResponse(Call<List<UserRankResponse>> call, Response<List<UserRankResponse>> response) {
-                userRankResponses = response.body();
-                Log.d("test111", userRankResponses.toString());
+                if (response.isSuccessful() && response.body() != null) {
+                    userRankResponses = response.body();
+                    Log.d("test111", userRankResponses.toString());
 
-                // Cập nhật recyclerView với danh sách userRankResponses ban đầu
-                updateData(userRankResponses);
+                    // Cập nhật recyclerView với danh sách userRankResponses ban đầu
+                    updateData(userRankResponses);
+                } else {
+                    // Xử lý trường hợp không có dữ liệu hoặc lỗi trả về từ API
+                    Log.d("test111", "No data or error from API");
+                }
             }
 
             @Override
@@ -97,6 +102,10 @@ public class ScoreRating extends AppCompatActivity {
     }
 
     private List<UserRankResponse> sortDescendingByAvg(List<UserRankResponse> userRankResponses) {
+        if (userRankResponses == null) {
+            return new ArrayList<>();
+        }
+
         Collections.sort(userRankResponses, new Comparator<UserRankResponse>() {
             @Override
             public int compare(UserRankResponse o1, UserRankResponse o2) {
@@ -107,6 +116,10 @@ public class ScoreRating extends AppCompatActivity {
     }
 
     private List<UserRankResponse> filterAvgGreaterOrEqualFive(List<UserRankResponse> userRankResponses) {
+        if (userRankResponses == null) {
+            return new ArrayList<>();
+        }
+
         List<UserRankResponse> filteredList = new ArrayList<>();
         for (UserRankResponse userRankResponse : userRankResponses) {
             if (userRankResponse.getRank().getAvg() >= 5) {
@@ -117,6 +130,10 @@ public class ScoreRating extends AppCompatActivity {
     }
 
     private List<UserRankResponse> filterAvgLessThanFive(List<UserRankResponse> userRankResponses) {
+        if (userRankResponses == null) {
+            return new ArrayList<>();
+        }
+
         List<UserRankResponse> filteredList = new ArrayList<>();
         for (UserRankResponse userRankResponse : userRankResponses) {
             if (userRankResponse.getRank().getAvg() < 5) {
@@ -125,6 +142,7 @@ public class ScoreRating extends AppCompatActivity {
         }
         return filteredList;
     }
+
 
 
 
