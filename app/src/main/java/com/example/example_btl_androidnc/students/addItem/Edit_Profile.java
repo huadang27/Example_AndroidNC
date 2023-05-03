@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -75,6 +76,8 @@ public class Edit_Profile extends AppCompatActivity {
     private MySharedPreferences mySharedPreferences;
     String TAG = "RequestBodyData";
     private Users users;
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -89,6 +92,8 @@ public class Edit_Profile extends AppCompatActivity {
         femaleRadioButton = findViewById(R.id.female_radiobutton);
         edtNgaysinh = findViewById(R.id.edtNgaysinh);
         logoDefaultImageView = findViewById(R.id.avatar_imageview);
+        progressBar = findViewById(R.id.progressBar);
+
         mySharedPreferences = new MySharedPreferences(this);
         getDataProfile();
 
@@ -203,6 +208,7 @@ public class Edit_Profile extends AppCompatActivity {
     }
 
     private void updateProfile(RequestBody reqPart, MultipartBody.Part imagePart) {
+        progressBar.setVisibility(View.VISIBLE); // Hiển thị ProgressBar
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<ResponseBody>() {
@@ -210,7 +216,9 @@ public class Edit_Profile extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     // Xử lý kết quả thành công
+                    progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
                     if(mySharedPreferences.getRole().equals("ROLE_USER")){
+
                         Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
                         startActivity(intent);
@@ -235,6 +243,7 @@ public class Edit_Profile extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
                 Log.d(TAG, "onFailure: " + t.toString());
                 Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
