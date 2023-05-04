@@ -161,4 +161,13 @@ private void PutDataIntoRecyclerView(List<Users> movieList) {
         }
         PutDataIntoRecyclerView(filteredStudentList);
     }
+
+    @Override
+    public void onBackPressed() {
+        if(!searchView.isIconified()){
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
+    }
 }
