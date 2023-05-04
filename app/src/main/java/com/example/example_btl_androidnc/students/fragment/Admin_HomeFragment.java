@@ -56,9 +56,9 @@ public class Admin_HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Course> CourseList;
     Button Bt_dn, Bt_TinTuc;
-    TextView textView;
+
     private MySharedPreferences mySharedPreferences;
-    SearchView searchView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,35 +68,6 @@ public class Admin_HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
-        searchView =view.findViewById(R.id.searchView);
-        textView = view.findViewById(R.id.textView);
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) searchView.getLayoutParams();
-                if (hasFocus) {
-                    textView.setVisibility(View.GONE);
-                } else {
-                    textView.setVisibility(View.VISIBLE);
-                }
-//                searchView.setLayoutParams(layoutParams);
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Ẩn bàn phím khi người dùng ấn Enter trên bàn phím
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-
 
         CourseList = new ArrayList<>();
         mySharedPreferences= new MySharedPreferences(getContext());
@@ -158,7 +129,7 @@ public class Admin_HomeFragment extends Fragment {
             }
 
         });
-//
+
         return view;
     }
 
