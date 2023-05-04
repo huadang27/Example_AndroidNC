@@ -87,7 +87,7 @@ public class Profile_UserFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), Change_PassWord.class);
                 //Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
         return view;

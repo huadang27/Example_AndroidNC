@@ -2,6 +2,7 @@ package com.example.example_btl_androidnc.students.addItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,11 +69,13 @@ public class Change_PassWord extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
+                       ;
                         Toast.makeText(Change_PassWord.this, "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                         // cập nhật lại mật khẩu khi đổi mật khẩu
                         mySharedPreferences.savePassword(newPassword);
-                        Log.d("test"," đổi mật khẩu mới thành công");
-                        setText();
+                        setResult(Activity.RESULT_OK);
+                        finish();
+
                     } else {
 
                         Toast.makeText(Change_PassWord.this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
