@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,21 +24,28 @@ import com.example.example_btl_androidnc.students.model.Users;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
     private Context context;
-    private List<Users> users;
+    private List<Users> mListusers;
     private String courseId;
 
-    public StudentListAdapter(Context context, List<Users> users, String courseId) {
+    public StudentListAdapter(Context context, List<Users> mListusers, String courseId) {
         this.context = context;
-        this.users = users;
+        this.mListusers = mListusers;
         this.courseId = courseId;
     }
 
-    public void setUsers(ArrayList<Users> users){
-        this.users = new ArrayList<>();
-        this.users = users;
+    public StudentListAdapter(Context context, List<Users> mListusers) {
+        this.context = context;
+        this.mListusers = mListusers;
+    }
+
+
+    public void setUsers(ArrayList<Users> users) {
+        this.mListusers = new ArrayList<>();
+        this.mListusers = users;
         notifyDataSetChanged();
     }
 
@@ -50,7 +59,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Users user = users.get(position);
+        Users user = mListusers.get(position);
         holder.nameTextView.setText(user.getName());
         holder.emailTextView.setText(user.getEmail());
         if (user.getImage() != null) {
@@ -64,8 +73,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, RankActivity.class);
-                i.putExtra("users",user);
-                i.putExtra("courseId",courseId);
+                i.putExtra("users", user);
+                i.putExtra("courseId", courseId);
                 context.startActivity(i);
                 if (context instanceof Activity) {
                     // Ép kiểu context thành Activity và gọi phương thức finish()
@@ -76,17 +85,50 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return users.size();
+            return mListusers.size();
     }
+
+    //Tìm kiếm Học viên trong danh sahcs hv
+//    @Override
+//    public Filter getFilter() {
+//        return new Filter() {
+//            @Override
+//            protected FilterResults performFiltering(CharSequence charSequence) {
+//                String Seach = charSequence.toString();
+//                if (Seach.isEmpty()) {
+//                    mListusers = mListusersold;
+//
+//
+//                } else {
+//                    List<Users> list = new ArrayList<>();
+//                    for (Users users : mListusersold) {
+//                        if (users.getName().toLowerCase().contains(Seach.toLowerCase())) ;
+//                        {
+//                            list.add(users);
+//                        }
+//                    }
+//                    mListusers = list;
+//                }
+//                FilterResults filterResults = new FilterResults();
+//                filterResults.values = mListusers;
+//                return filterResults;
+//            }
+//
+//            @Override
+//            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//                mListusers = (List<Users>) filterResults.values;
+//                notifyDataSetChanged();
+//            }
+//        };
+//    }
 
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView emailTextView;
-        ImageView image_User,imageCheck;
+        ImageView image_User, imageCheck;
         // add other views as needed
 
         public StudentViewHolder(@NonNull View itemView) {

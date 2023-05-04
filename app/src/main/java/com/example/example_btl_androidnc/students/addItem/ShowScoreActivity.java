@@ -49,10 +49,10 @@ ImageHelper image_score;
         image_score = findViewById(R.id.image_score);
         String courseId = getIntent().getStringExtra("courseId");
         String userId = mySharedPreferences.getName();
-        getDataDiem(courseId, userId);
+        getDataScore(courseId, userId);
     }
 
-    public void getDataDiem(String courseId, String userId) {
+    public void getDataScore(String courseId, String userId) {
         GetAPI_Service apiService = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<Rank> call = apiService.getGradesByUserIdAndCourseId(courseId, userId);
         call.enqueue(new Callback<Rank>() {
@@ -83,20 +83,5 @@ ImageHelper image_score;
             }
         });
     }
-
-    private void setTextIfExists(TextView textView, String text) {
-        if (text != null) {
-            textView.setText(text);
-        }
-    }
-
-    private void loadImageIfExists(ImageView imageView, String imageUrl) {
-        if (imageUrl != null) {
-            Glide.with(imageView.getContext())
-                    .load(BASE_IMG + imageUrl)
-                    .into(imageView);
-        }
-    }
-
 
 }
