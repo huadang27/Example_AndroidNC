@@ -2,11 +2,15 @@ package com.example.example_btl_androidnc.students.fragment;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_URL;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import androidx.appcompat.widget.SearchView;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +19,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
@@ -49,7 +56,9 @@ public class Admin_HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Course> CourseList;
     Button Bt_dn, Bt_TinTuc;
+    TextView textView;
     private MySharedPreferences mySharedPreferences;
+    SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +68,36 @@ public class Admin_HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
+        searchView =view.findViewById(R.id.searchView);
+        textView = view.findViewById(R.id.textView);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) searchView.getLayoutParams();
+                if (hasFocus) {
+                    textView.setVisibility(View.GONE);
+                } else {
+                    textView.setVisibility(View.VISIBLE);
+                }
+//                searchView.setLayoutParams(layoutParams);
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Ẩn bàn phím khi người dùng ấn Enter trên bàn phím
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+
         CourseList = new ArrayList<>();
         mySharedPreferences= new MySharedPreferences(getContext());
         Bt_TinTuc.setOnClickListener(new View.OnClickListener() {

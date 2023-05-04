@@ -21,6 +21,7 @@ import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.students.model.Rank;
 import com.example.example_btl_androidnc.students.model.Users;
+import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +58,6 @@ public class RankActivity extends AppCompatActivity {
                 String ranking = rankingGradeString.isEmpty() ? "pass1" : String.valueOf(rankingGradeString);
                 Rank rank = new Rank(midtermGrade, finalGrade, examGrade,avgGrade,ranking);
                 createGrades(courseId, users.getId(), rank);
-
                 Intent i = new Intent(RankActivity.this,StudentList.class);
                 i.putExtra("courseId",courseId);
                 startActivity(i);
@@ -105,6 +105,8 @@ public class RankActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     // Grades updated successfully
+
+
                     Toast.makeText(getApplicationContext(), "Grades updated successfully", Toast.LENGTH_SHORT).show();
                     binding.midtermGrades.clearFocus();
                     binding.finalGrades.clearFocus();

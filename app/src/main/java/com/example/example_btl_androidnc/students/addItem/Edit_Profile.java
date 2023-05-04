@@ -32,6 +32,7 @@ import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.databinding.ActivityEditProfileBinding;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.database.ImageDownloader;
@@ -66,40 +67,22 @@ import retrofit2.Response;
 
 
 public class Edit_Profile extends AppCompatActivity {
+    ActivityEditProfileBinding binding;
     private static final int REQUEST_IMAGE_PICK = 1;
-    private ImageView logoDefaultImageView;
-    EditText edt_name, edt_address, edt_phone, edtNgaysinh;
     private Uri selectedImageUri;
     private String selectedDate;
-    private RadioGroup genderRadioGroup;
-    private RadioButton maleRadioButton;
-    private RadioButton femaleRadioButton;
     private MySharedPreferences mySharedPreferences;
     String TAG = "RequestBodyData";
     private Users users;
-    private ProgressBar progressBar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
-        edt_name = findViewById(R.id.edt_name);
-        edt_address = findViewById(R.id.edt_address);
-        edt_phone = findViewById(R.id.edt_phone);
-        genderRadioGroup = findViewById(R.id.gender_radiogroup);
-        maleRadioButton = findViewById(R.id.male_radiobutton);
-        femaleRadioButton = findViewById(R.id.female_radiobutton);
-        edtNgaysinh = findViewById(R.id.edtNgaysinh);
-        logoDefaultImageView = findViewById(R.id.avatar_imageview);
-        progressBar = findViewById(R.id.progressBar);
-
+        binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         mySharedPreferences = new MySharedPreferences(this);
         getDataProfile();
-
-
-        edtNgaysinh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.edtNgaysinh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
@@ -108,8 +91,7 @@ public class Edit_Profile extends AppCompatActivity {
             }
         });
 
-
-        logoDefaultImageView.setOnClickListener(new View.OnClickListener() {
+        binding.avatarImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -117,15 +99,15 @@ public class Edit_Profile extends AppCompatActivity {
             }
         });
 
-        Button btnSave = findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = edt_name.getText().toString();
-                String address = edt_address.getText().toString();
-                String phone = edt_phone.getText().toString();
+                String name = binding.edtName.getText().toString();
+                String address = binding.edtAddress.getText().toString();
+                String phone = binding.edtPhone.getText().toString();
 
-                if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || genderRadioGroup.getCheckedRadioButtonId() == -1) {
+                if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || binding.genderRadiogroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(Edit_Profile.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -158,7 +140,7 @@ public class Edit_Profile extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                int selectedGenderId = genderRadioGroup.getCheckedRadioButtonId();
+                int selectedGenderId = binding.genderRadiogroup.getCheckedRadioButtonId();
                 String gender;
                 if (selectedGenderId == R.id.male_radiobutton) {
                     gender = "Male";
@@ -170,10 +152,10 @@ public class Edit_Profile extends AppCompatActivity {
                 }
 
                 UpdateProfileReq req = new UpdateProfileReq();
-                req.setName(edt_name.getText().toString());
+                req.setName(binding.edtName.getText().toString());
                 req.setGender(gender);
-                req.setPhone(edt_phone.getText().toString());
-                req.setAddress(edt_address.getText().toString());
+                req.setPhone(binding.edtPhone.getText().toString());
+                req.setAddress(binding.edtAddress.getText().toString());
                 SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -209,7 +191,7 @@ public class Edit_Profile extends AppCompatActivity {
     }
 
     private void updateProfile(RequestBody reqPart, MultipartBody.Part imagePart) {
-        progressBar.setVisibility(View.VISIBLE); // Hiển thị ProgressBar
+        binding.progressBar.setVisibility(View.VISIBLE); // Hiển thị ProgressBar
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         getAPI_service.updateProfile(reqPart, imagePart).enqueue(new Callback<ResponseBody>() {
@@ -217,7 +199,7 @@ public class Edit_Profile extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     // Xử lý kết quả thành công
-                    progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
+                    binding.progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
                         Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         setResult(Activity.RESULT_OK);
                         finish();
@@ -228,23 +210,21 @@ public class Edit_Profile extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
+                binding.progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
                 Log.d(TAG, "onFailure: " + t.toString());
                 Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
-            logoDefaultImageView.setImageURI(selectedImageUri);
+            binding.avatarImageview.setImageURI(selectedImageUri);
         }
     }
-
 
 
     private RequestBody convertUpdateProfileReqToRequestBody(UpdateProfileReq req) {
@@ -253,7 +233,6 @@ public class Edit_Profile extends AppCompatActivity {
         String jsonString = gson.toJson(req);
         return RequestBody.create(JSON, jsonString);
     }
-
 
     public void showDatePickerDialog(View v) {
         // Lấy ngày hiện tại
@@ -269,7 +248,7 @@ public class Edit_Profile extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Xử lý khi chọn ngày
                         selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                        edtNgaysinh.setText(selectedDate);
+                        binding.edtNgaysinh.setText(selectedDate);
                     }
                 }, year, month, day);
         datePickerDialog.show();
@@ -296,27 +275,27 @@ public class Edit_Profile extends AppCompatActivity {
     public void getDataProfile() {
         users = (Users) getIntent().getSerializableExtra("user");
         Log.d(TAG, users.toString());
-        edt_name.setText(checkNull(users.getName(), ""));
-        edtNgaysinh.setText(checkNull(convertDateFormat(users.getDateOfBirth()), ""));
-        edt_address.setText(checkNull(users.getAddress(), ""));
-        edt_phone.setText(checkNull(users.getPhone(), ""));
+        binding.edtName.setText(checkNull(users.getName(), ""));
+        binding.edtNgaysinh.setText(checkNull(convertDateFormat(users.getDateOfBirth()), ""));
+        binding.edtAddress.setText(checkNull(users.getAddress(), ""));
+        binding.edtPhone.setText(checkNull(users.getPhone(), ""));
 
         if (users.getImage() != null) {
-            Glide.with(logoDefaultImageView.getContext())
+            Glide.with(binding.avatarImageview)
                     .load(BASE_IMG + users.getImage())
-                    .into(logoDefaultImageView);
+                    .into(binding.avatarImageview);
         } else {
-            logoDefaultImageView.setImageResource(R.drawable.logo_default);
+            binding.avatarImageview.setImageResource(R.drawable.logo_default);
         }
 
         String gender = checkNull(users.getGender(), "");
         if ("Male".equals(gender)) {
-            maleRadioButton.setChecked(true);
+            binding.maleRadiobutton.setChecked(true);
         } else if ("Female".equals(gender)) {
-            femaleRadioButton.setChecked(true);
+            binding.femaleRadiobutton.setChecked(true);
         } else {
-            maleRadioButton.setChecked(false);
-            femaleRadioButton.setChecked(false);
+            binding.maleRadiobutton.setChecked(false);
+            binding.femaleRadiobutton.setChecked(false);
         }
     }
 

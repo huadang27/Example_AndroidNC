@@ -251,7 +251,7 @@ public class ScheduleList extends AppCompatActivity {
 
         datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
     }
-
+// tìm kiếm theo ngày
    /* private void filterSchedulesByDate(Calendar selectedDate) {
         List<Schedule> filteredSchedules = new ArrayList<>();
 
@@ -276,6 +276,7 @@ public class ScheduleList extends AppCompatActivity {
         adapter = new ScheduleAdapter(ScheduleList.this, filteredSchedules, address, courseId);
         recyclerView.setAdapter(adapter);
     }*/
+    //tìm kiếm theo tuần
    private void filterSchedulesByDate(Calendar selectedDate) {
        List<Schedule> filteredSchedules = new ArrayList<>();
 
