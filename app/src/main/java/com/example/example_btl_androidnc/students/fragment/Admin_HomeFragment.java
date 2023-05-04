@@ -2,6 +2,8 @@ package com.example.example_btl_androidnc.students.fragment;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_URL;
 
+import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +11,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -35,6 +41,7 @@ import com.example.example_btl_androidnc.students.authentication.SignUpActivity;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.students.model.Users;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,10 +63,16 @@ public class Admin_HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Course> CourseList;
     Button Bt_dn, Bt_TinTuc;
-
+    TextView textView;
     private MySharedPreferences mySharedPreferences;
+    SearchView searchView;
+Toolbar tbHome_user;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setHasOptionsMenu(true);
 
-
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,7 +80,38 @@ public class Admin_HomeFragment extends Fragment {
         connectWebSocket();
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
+        tbHome_user = view.findViewById(R.id.tbHome_user);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(tbHome_user);
+//        searchView =view.findViewById(R.id.searchView);
+//        textView = view.findViewById(R.id.textView);
+//        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) searchView.getLayoutParams();
+//                if (hasFocus) {
+//                    textView.setVisibility(View.GONE);
+//                } else {
+//                    textView.setVisibility(View.VISIBLE);
+//                }
+////                searchView.setLayoutParams(layoutParams);
+//            }
+//        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // Ẩn bàn phím khi người dùng ấn Enter trên bàn phím
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+
+
 
         CourseList = new ArrayList<>();
         mySharedPreferences= new MySharedPreferences(getContext());
@@ -129,16 +173,50 @@ public class Admin_HomeFragment extends Fragment {
             }
 
         });
-
+//
         return view;
     }
+//--------------
 
+@Override
+@SuppressLint("RestrictedApi")
+public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.menu_toolbar, menu);
+    SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+    searchView = (SearchView) menu.findItem(R.id.mnuSearch).getActionView();
+    searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+    searchView.setMaxWidth(Integer.MAX_VALUE);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            //adapter.getFilter().filter(s);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String s) {
+            //adapter.getFilter().filter(s);
+            filterCourse(s);
+            return false;
+        }
+    });
+   super.onCreateOptionsMenu(menu, inflater);
+}
+    //-------------
     private void PutDataIntoRecyclerView(List<Course> movieList) {
         CourseAdapter adapter = new CourseAdapter(getContext(), movieList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
-
+    private void filterCourse(String query) {
+        List<Course> filteredStudentList = new ArrayList<>();
+        for (Course course : CourseList) {
+            if (course.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredStudentList.add(course);
+            }
+        }
+        PutDataIntoRecyclerView(filteredStudentList);
+    }
 
     private void connectWebSocket() {
         OkHttpClient client = new OkHttpClient();
