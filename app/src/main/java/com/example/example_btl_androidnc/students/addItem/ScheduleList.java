@@ -252,7 +252,7 @@ public class ScheduleList extends AppCompatActivity {
         datePickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
     }
 
-    private void filterSchedulesByDate(Calendar selectedDate) {
+   /* private void filterSchedulesByDate(Calendar selectedDate) {
         List<Schedule> filteredSchedules = new ArrayList<>();
 
         for (Schedule schedule : schedules) {
@@ -275,7 +275,37 @@ public class ScheduleList extends AppCompatActivity {
 
         adapter = new ScheduleAdapter(ScheduleList.this, filteredSchedules, address, courseId);
         recyclerView.setAdapter(adapter);
-    }
+    }*/
+   private void filterSchedulesByDate(Calendar selectedDate) {
+       List<Schedule> filteredSchedules = new ArrayList<>();
+
+       // Tìm ngày đầu tuần (thứ 2) và ngày cuối tuần (chủ nhật) dựa trên ngày được chọn
+       Calendar startOfWeek = (Calendar) selectedDate.clone();
+       startOfWeek.add(Calendar.DAY_OF_WEEK, Calendar.MONDAY - startOfWeek.get(Calendar.DAY_OF_WEEK));
+       Calendar endOfWeek = (Calendar) startOfWeek.clone();
+       endOfWeek.add(Calendar.DAY_OF_WEEK, 6);
+
+       for (Schedule schedule : schedules) {
+           String dateString = convertDateFormat(schedule.getDay());
+           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+           try {
+               Date date = sdf.parse(dateString);
+               Calendar scheduleDate = Calendar.getInstance();
+               scheduleDate.setTime(date);
+
+               // Kiểm tra xem lịch trình có nằm trong khoảng thời gian từ ngày đầu tuần đến ngày cuối tuần hay không
+               if (scheduleDate.compareTo(startOfWeek) >= 0 && scheduleDate.compareTo(endOfWeek) <= 0) {
+                   filteredSchedules.add(schedule);
+               }
+           } catch (ParseException e) {
+               e.printStackTrace();
+           }
+       }
+
+       adapter = new ScheduleAdapter(ScheduleList.this, filteredSchedules, address, courseId);
+       recyclerView.setAdapter(adapter);
+   }
+
 
 
     public void getDate() {

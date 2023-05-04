@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -217,28 +218,12 @@ public class Edit_Profile extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Xử lý kết quả thành công
                     progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
-                    if(mySharedPreferences.getRole().equals("ROLE_USER")){
-
                         Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Edit_Profile.this, SetAdmin_Activity.class);
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Edit_Profile.this, SetTeacher_Activity.class);
-                        startActivity(intent);
+                        setResult(Activity.RESULT_OK);
                         finish();
                     }
-
-                } else {
-                    Toast.makeText(Edit_Profile.this, "Thất bại", Toast.LENGTH_SHORT).show();
-                    // Xử lý lỗi từ server
-                    try {
-                        Log.d(TAG, "Không thành công: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                else
+                    Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -260,20 +245,6 @@ public class Edit_Profile extends AppCompatActivity {
         }
     }
 
-    private MultipartBody.Part convertImageUrlToMultipartBodyPart(String imageUrl) {
-        try {
-            URL url = new URL(imageUrl);
-            InputStream inputStream = (InputStream) url.getContent();
-            byte[] imageBytes = ImageHelper.getBytesFromInputStream(inputStream);
-            File file = ImageHelper.convertBytesToFile(imageBytes, this);
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-
-            return MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 
     private RequestBody convertUpdateProfileReqToRequestBody(UpdateProfileReq req) {
@@ -325,30 +296,32 @@ public class Edit_Profile extends AppCompatActivity {
     public void getDataProfile() {
         users = (Users) getIntent().getSerializableExtra("user");
         Log.d(TAG, users.toString());
-        edt_name.setText(users.getName());
-        if (users.getDateOfBirth() != null) {
-            edtNgaysinh.setText(convertDateFormat(users.getDateOfBirth()));
-        }
+        edt_name.setText(checkNull(users.getName(), ""));
+        edtNgaysinh.setText(checkNull(convertDateFormat(users.getDateOfBirth()), ""));
+        edt_address.setText(checkNull(users.getAddress(), ""));
+        edt_phone.setText(checkNull(users.getPhone(), ""));
 
-        edt_address.setText(users.getAddress());
-        edt_phone.setText((users.getPhone()));
         if (users.getImage() != null) {
             Glide.with(logoDefaultImageView.getContext())
                     .load(BASE_IMG + users.getImage())
                     .into(logoDefaultImageView);
-
+        } else {
+            logoDefaultImageView.setImageResource(R.drawable.logo_default);
         }
 
-        //  Log.d("test111",users.getGender());
-        if (users.getGender() != null) {
-            if (users.getGender().equals("Male")) {
-                maleRadioButton.setChecked(true);
-
-            } else {
-                femaleRadioButton.setChecked(true);
-            }
-
+        String gender = checkNull(users.getGender(), "");
+        if ("Male".equals(gender)) {
+            maleRadioButton.setChecked(true);
+        } else if ("Female".equals(gender)) {
+            femaleRadioButton.setChecked(true);
+        } else {
+            maleRadioButton.setChecked(false);
+            femaleRadioButton.setChecked(false);
         }
+    }
+
+    public static <T> T checkNull(T value, T defaultValue) {
+        return (value != null) ? value : defaultValue;
     }
 
 
