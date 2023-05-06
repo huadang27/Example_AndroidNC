@@ -26,9 +26,10 @@ public class Course implements Serializable {
 
     private List<String> teacheNames;
 
+    private List<Schedule> scheduleList;
 
 
-    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users) {
+    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users, List<String> teacheNames, List<Schedule> scheduleList) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,6 +40,8 @@ public class Course implements Serializable {
         this.publishedAt = publishedAt;
         this.expiredAt = expiredAt;
         this.users = users;
+        this.teacheNames = teacheNames;
+        this.scheduleList = scheduleList;
     }
 
     public List<String> getTeacheNames() {
@@ -129,6 +132,14 @@ public class Course implements Serializable {
         this.users = users;
     }
 
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -143,6 +154,7 @@ public class Course implements Serializable {
                 ", expiredAt='" + expiredAt + '\'' +
                 ", users=" + users +
                 ", teacheNames=" + teacheNames +
+                ", scheduleList=" + scheduleList +
                 '}';
     }
 }

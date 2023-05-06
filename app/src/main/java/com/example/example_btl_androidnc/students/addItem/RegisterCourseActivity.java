@@ -20,14 +20,17 @@ import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Course;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.CourseAdapter;
+import com.example.example_btl_androidnc.students.model.Schedule;
 import com.example.example_btl_androidnc.students.model.UserCourse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterCourseActivity extends AppCompatActivity {
-    TextView name, infor_class, price, infor_date_start, infor_date_end, teacher;
+    TextView name, infor_class, price, infor_date_start, infor_date_end, teacher,school_day,School_shift;
     ImageView imageView;
     Button btn_Register;
     private Course course;
@@ -111,6 +114,8 @@ public class RegisterCourseActivity extends AppCompatActivity {
         price = findViewById(R.id.price);
         teacher = findViewById(R.id.infor_teacher);
         btn_Register = findViewById(R.id.btn_Register);
+        school_day = findViewById(R.id.school_day);
+        School_shift = findViewById(R.id.School_shift);
 
     }
 
@@ -123,7 +128,21 @@ public class RegisterCourseActivity extends AppCompatActivity {
                 .into(imageView);
         price.setText(course.getPrice());
         teacher.setText(course.getTeacheNames().get(0));
+
         infor_date_start.setText(convertDateFormat(course.getPublishedAt()));
+        Log.d("test11111",course.getScheduleList().toString());
+
+        List<Schedule> scheduleList = course.getScheduleList();
+
+        if (scheduleList != null && scheduleList.size() >= 2) {
+            Schedule schedule0 = scheduleList.get(0);
+            Schedule schedule1 = scheduleList.get(1);
+
+            if (schedule0.getDayOfWeek() != null && schedule1.getDayOfWeek() != null) {
+                school_day.setText(schedule0.getDayOfWeek() + " , " + schedule1.getDayOfWeek());
+                School_shift.setText(schedule0.getDuration());
+            }
+        }
 
 
     }

@@ -1,6 +1,8 @@
 package com.example.example_btl_androidnc.students.model;
 
-public class Schedule {
+import java.io.Serializable;
+
+public class Schedule implements Serializable {
     private  String id;
     private String dayOfWeek;
     private  String day;

@@ -143,6 +143,7 @@ public class Admin_HomeFragment extends Fragment {
                         CourseList.add(course);
                     }
                 }
+                Log.d("tesst111",CourseList.toString());
 // conlowjn dang
 // hiện toàn bộ
 

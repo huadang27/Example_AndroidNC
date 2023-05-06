@@ -45,7 +45,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
     public void onBindViewHolder(@NonNull ListViewHolder holder, int i) {
         UserCourse course = courseList.get(i);
         holder.name_info.setText(course.getName());
-        holder.infor_class.setText("Ngày kết thúc: "+ convertDateFormat(course.getEnrollDate()));
+        holder.infor_class.setText(course.getAddress());
 
         if (course.getImage()!=null){
             Glide.with(holder.imageView.getContext())

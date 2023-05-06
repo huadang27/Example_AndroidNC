@@ -1,5 +1,6 @@
 package com.example.example_btl_androidnc.students.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,13 +11,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.ListCourseAdapter;
+import com.example.example_btl_androidnc.students.addItem.ScheduleList;
+import com.example.example_btl_androidnc.students.addItem.ScoreRating;
+import com.example.example_btl_androidnc.students.addItem.StudentList;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
@@ -40,6 +47,7 @@ public class List_CourseFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView  searchView;
     private TextView textView;
+    private ImageView list_item;
     private int check =0;
 
     public List_CourseFragment() {
@@ -62,12 +70,15 @@ public class List_CourseFragment extends Fragment {
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
         textView= view.findViewById(R.id.bt_infor_status);
-        textView.setOnClickListener(new View.OnClickListener() {
+        list_item = view.findViewById(R.id.list_item);
+        list_item.setVisibility(View.GONE);
+        list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchData(0);
+                showPopupMenu(view);
             }
         });
+
 
         fetchData(1);
 
@@ -141,8 +152,8 @@ public class List_CourseFragment extends Fragment {
         });
     }
 
-    private void PutDataIntoRecyclerView(List<UserCourse> movieList) {
-        ListCourseAdapter adapter = new ListCourseAdapter(getContext(), movieList);
+    private void PutDataIntoRecyclerView(List<UserCourse> userCourses) {
+        ListCourseAdapter adapter = new ListCourseAdapter(getContext(), userCourses);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
@@ -156,6 +167,29 @@ public class List_CourseFragment extends Fragment {
         }
         PutDataIntoRecyclerView(filteredCourseList);
     }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_list_course, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_total_score:
+                        fetchData(0);
+
+                        break;
+                    case R.id.action_student_list:
+
+                        fetchData(1);
+                        break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
 
 
 }

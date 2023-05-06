@@ -141,6 +141,55 @@
                         android:textSize="12sp"
                         android:textColor="@color/black" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="27dp"
+                        android:text="Ngày học: "
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/school_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="5dp"
+                        android:text="ngayHoc"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="27dp"
+                        android:text="Ca học: "
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/School_shift"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="5dp"
+                        android:text="cahoc"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -160,6 +209,7 @@
                     android:textSize="12sp" />
 
             </LinearLayout>
+
         </LinearLayout>
 
 
