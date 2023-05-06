@@ -276,6 +276,8 @@ public class ScheduleList extends AppCompatActivity {
         adapter = new ScheduleAdapter(ScheduleList.this, filteredSchedules, address, courseId);
         recyclerView.setAdapter(adapter);
     }*/
+
+
     //tìm kiếm theo tuần
    private void filterSchedulesByDate(Calendar selectedDate) {
        List<Schedule> filteredSchedules = new ArrayList<>();

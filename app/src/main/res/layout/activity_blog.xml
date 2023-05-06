@@ -16,7 +16,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:padding="16dp"
-            android:text="Tiêu đề"/>
+            android:textColor="@color/black"
+            android:text="Tin Tức"/>
         <TextView
             android:id="@+id/news_content"
             android:layout_width="match_parent"

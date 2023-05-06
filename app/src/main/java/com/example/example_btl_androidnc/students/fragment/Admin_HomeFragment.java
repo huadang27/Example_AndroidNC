@@ -159,7 +159,7 @@ public class Admin_HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Course>> call, Throwable t) {
-                Log.d("test", t.toString() + " _______onfailue______");
+                Log.d("test", t.toString() + " ______onfailue_____");
             }
 
         });
@@ -216,7 +216,7 @@ public class Admin_HomeFragment extends Fragment {
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
-                Log.d("hihi", text.toString() + "   _____onMessage.4_______");
+                Log.d("hihi", text.toString() + "   ____onMessage.4______");
                 List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
                 }.getType());
 

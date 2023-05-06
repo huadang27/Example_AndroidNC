@@ -81,16 +81,16 @@
         android:orientation="horizontal">
 
 
-        <TextView
+<!--        <TextView-->
 
-            android:id="@+id/bt_infor_status"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#F6F6F6"
-            android:paddingStart="20dp"
-            android:paddingTop="5dp"
-            android:text="Lớp chưa duyệt" />
+<!--            android:id="@+id/bt_infor_status"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="#F6F6F6"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:paddingTop="5dp"-->
+<!--            android:text="Lớp chưa duyệt" />-->
 
     </LinearLayout>
 

@@ -19,6 +19,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <activity android:name=".students.addItem.DetailBlogActivity" />
+        <activity
+            android:name=".students.addItem.BlogActivity"
+            android:exported="false" />
         <activity
             android:name=".students.addItem.ScoreRating"
             android:exported="false" />

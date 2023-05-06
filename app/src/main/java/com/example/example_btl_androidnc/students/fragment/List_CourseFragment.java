@@ -46,7 +46,7 @@ public class List_CourseFragment extends Fragment {
     private List<UserCourse> userCourses;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView  searchView;
-    private TextView textView;
+    private TextView bt_infor_status;
     private ImageView list_item;
     private int check =0;
 
@@ -69,7 +69,7 @@ public class List_CourseFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
-        textView= view.findViewById(R.id.bt_infor_status);
+       // bt_infor_status= view.findViewById(R.id.bt_infor_status);
         list_item = view.findViewById(R.id.list_item);
         list_item.setVisibility(View.GONE);
         list_item.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +121,6 @@ public class List_CourseFragment extends Fragment {
                 }
                 userCourses = response.body();
                 List<UserCourse> courseList = response.body();
-
                 List<String> courseIds = new ArrayList<>();
                 List<Integer> statuses = new ArrayList<>();
                 for (UserCourse course : courseList) {
@@ -177,10 +176,8 @@ public class List_CourseFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.action_total_score:
                         fetchData(0);
-
                         break;
                     case R.id.action_student_list:
-
                         fetchData(1);
                         break;
                 }

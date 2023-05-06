@@ -200,10 +200,10 @@ public class Edit_Profile extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Xử lý kết quả thành công
                     binding.progressBar.setVisibility(View.GONE); // Ẩn ProgressBar
-                        Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        setResult(Activity.RESULT_OK);
-                        finish();
-                    }
+                    Toast.makeText(Edit_Profile.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                }
                 else
                     Toast.makeText(Edit_Profile.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }

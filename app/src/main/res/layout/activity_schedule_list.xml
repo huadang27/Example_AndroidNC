@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="38dp"
+            android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:srcCompat="@drawable/baseline_date_range_24" />

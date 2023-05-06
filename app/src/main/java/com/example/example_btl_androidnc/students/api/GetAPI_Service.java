@@ -117,7 +117,7 @@ public interface GetAPI_Service {
     @GET("/blog/{id}")
     Call<Blog> getBlog(@Path("id") int id);
 
-    @GET("/admin/blog/list")
+    @GET("/api/blogs")
     Call<List<Blog>> getBlogs();
 
     // điểm danh
@@ -134,7 +134,6 @@ public interface GetAPI_Service {
     Call<Void> createGrades(@Path("courseId") String courseId,
                             @Path("userId") String userId,
                             @Body Rank req);
-    
     //lấy điểm sinh viên
     @GET("/course/{courseId}/users/{userId}/grades")
     Call<Rank> getGradesByUserIdAndCourseId(@Path("courseId") String courseId, @Path("userId") String userId);
