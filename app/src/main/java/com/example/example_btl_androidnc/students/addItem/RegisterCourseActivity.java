@@ -140,7 +140,11 @@ public class RegisterCourseActivity extends AppCompatActivity {
 
             if (schedule0.getDayOfWeek() != null && schedule1.getDayOfWeek() != null) {
                 school_day.setText(schedule0.getDayOfWeek() + " , " + schedule1.getDayOfWeek());
-                School_shift.setText(schedule0.getDuration());
+                if (schedule0.getDuration().equals("CA_1")){
+                    School_shift.setText("6h - 8h");
+                }
+                else  School_shift.setText("8h - 10h");
+
             }
         }
 

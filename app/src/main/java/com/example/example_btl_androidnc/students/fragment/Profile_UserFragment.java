@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.databinding.FragmentProfileUserBinding;
 import com.example.example_btl_androidnc.students.addItem.Change_PassWord;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
+import com.example.example_btl_androidnc.students.addItem.FullScreenImageActivity;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.authentication.LoginActivity;
@@ -88,6 +89,15 @@ public class Profile_UserFragment extends Fragment {
                 Intent i = new Intent(getContext(), Change_PassWord.class);
                 //Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
                 startActivityForResult(i, 1);
+            }
+        });
+
+        binding.imgUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent fullScreenImageIntent = new Intent(getContext(), FullScreenImageActivity.class);
+                fullScreenImageIntent.putExtra("image_resource", R.drawable.logo_default); // Replace with the actual image resource
+                startActivity(fullScreenImageIntent);
             }
         });
         return view;

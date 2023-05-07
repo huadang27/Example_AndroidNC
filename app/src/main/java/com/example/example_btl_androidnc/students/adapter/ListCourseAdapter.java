@@ -46,6 +46,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
         UserCourse course = courseList.get(i);
         holder.name_info.setText(course.getName());
         holder.infor_class.setText(course.getAddress());
+        holder.infor_teacher.setText(course.getTeacheNames().get(0));
 
         if (course.getImage()!=null){
             Glide.with(holder.imageView.getContext())
@@ -75,7 +76,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
     public static class ListViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
-        public TextView name_info,infor_class;
+        public TextView name_info,infor_class,infor_teacher;
         RelativeLayout relativeLayout;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -84,6 +85,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<ListCourseAdapter.Li
             name_info = itemView.findViewById(R.id.name_info);
             infor_class = itemView.findViewById(R.id.infor_class);
             relativeLayout = itemView.findViewById(R.id.item);
+            infor_teacher = itemView.findViewById(R.id.infor_teacher);
         }
     }
 }

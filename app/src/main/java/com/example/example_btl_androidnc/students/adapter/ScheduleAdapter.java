@@ -84,7 +84,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             holder.tvHienLich.setBackgroundResource(R.drawable.custom_button_green);
             holder.tvHienLich.setText("Đi học");
         }
-        holder.tvBuoiHoc.setText(String.valueOf(position + 1));
+        holder.tvBuoiHoc.setText(Integer.toString(schedule.getNumber()));
         holder.tvThu.setText(schedule.getDayOfWeek());
         holder.tvNgay.setText(convertDateFormat(schedule.getDay()));
         holder.tvGio.setText(schedule.getDuration());

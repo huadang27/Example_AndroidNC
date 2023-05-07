@@ -99,7 +99,7 @@ public class ScheduleList extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ScheduleList.this, "Buổi học bạn đã điểm danh", Toast.LENGTH_SHORT).show();
 
-                getAttendanceInfo(courseId, mySharedPreferences.getName(), true);
+                getAttendanceInfo(courseId, mySharedPreferences.getName(), 1);
             }
         });
         absenteeattendance.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,7 @@ public class ScheduleList extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ScheduleList.this, "Buổi học bạn chưa điểm danh", Toast.LENGTH_SHORT).show();
 
-                getAttendanceInfo(courseId, mySharedPreferences.getName(), false);
+                getAttendanceInfo(courseId, mySharedPreferences.getName(), 0);
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +156,7 @@ public class ScheduleList extends AppCompatActivity {
         call.enqueue(new Callback<List<Schedule>>() {
             @Override
             public void onResponse(Call<List<Schedule>> call, Response<List<Schedule>> response) {
-                Log.d("demo123", response.body().toString());
+                Log.d("Test1111", response.body().toString());
                 if (response.isSuccessful()) {
                     schedules = response.body();
                     Collections.sort(schedules, new ScheduleDateComparator());
@@ -178,7 +178,7 @@ public class ScheduleList extends AppCompatActivity {
 
 
     // lấy ra danh sách user đi học hôm đó
-    public void getAttendanceInfo(String courseId, String userid, boolean showAttendance) {
+    public void getAttendanceInfo(String courseId, String userid, int showAttendance) {
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
         Call<List<Schedule>> call = getAPI_service.getAttendanceInfoByCourseIdAndUserId(courseId, userid);
         call.enqueue(new Callback<List<Schedule>>() {
@@ -188,8 +188,10 @@ public class ScheduleList extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Schedule> attendanceInfo = response.body();
                     List<Schedule> filteredAttendanceInfo = attendanceInfo.stream()
-                            .filter(schedule -> schedule.isAttendance() == showAttendance) // Lọc ra các lịch trình theo giá trị của showAttendance
+                            .filter(schedule -> schedule.getStatus() == showAttendance) // Lọc ra các lịch trình theo giá trị của showAttendance
                             .collect(Collectors.toList());
+
+                    Log.d("Test1111",filteredAttendanceInfo.toString());
                     Collections.sort(filteredAttendanceInfo, new ScheduleDateComparator());
                     adapter = new ScheduleAdapter(ScheduleList.this, filteredAttendanceInfo, address, courseId);
                     recyclerView.setAdapter(adapter);

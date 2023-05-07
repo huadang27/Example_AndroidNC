@@ -1,5 +1,7 @@
 package com.example.example_btl_androidnc.students.model;
 
+import java.util.List;
+
 public class UserCourse {
     private String courseId;
     private String enrollDate;
@@ -9,6 +11,8 @@ public class UserCourse {
     private String name;
 
     private String address;
+
+    private List<String> teacheNames;
 
     public UserCourse(String courseId, int status) {
         this.courseId = courseId;
@@ -69,6 +73,14 @@ public class UserCourse {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<String> getTeacheNames() {
+        return teacheNames;
+    }
+
+    public void setTeacheNames(List<String> teacheNames) {
+        this.teacheNames = teacheNames;
     }
 
     @Override

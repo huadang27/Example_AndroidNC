@@ -11,6 +11,7 @@ public class Schedule implements Serializable {
     private String course_id;
 
     private boolean attendance;
+    private  int number;
 
     public Schedule() {
     }
@@ -80,16 +81,25 @@ public class Schedule implements Serializable {
         this.attendance = attendance;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
                 "id='" + id + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", day='" + day + '\'' +
-                ", duration='" + ca + '\'' +
+                ", ca='" + ca + '\'' +
                 ", status=" + status +
                 ", course_id='" + course_id + '\'' +
-                ", attendance='" + attendance + '\'' +
+                ", attendance=" + attendance +
+                ", number=" + number +
                 '}';
     }
 }
