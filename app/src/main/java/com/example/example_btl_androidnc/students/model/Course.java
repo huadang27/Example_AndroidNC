@@ -10,13 +10,15 @@ public class Course implements Serializable {
     private String id;
     private String name;
     private String description;
-    private Integer status;
+    private int status;
 
     private String price;
 
     private String level;
 
     private String image;
+    private int numberOfSessions ;
+    private String totalTime;
 
     private  String publishedAt;
     private String expiredAt;

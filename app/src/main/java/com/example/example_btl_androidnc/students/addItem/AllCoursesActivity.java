@@ -58,7 +58,7 @@ public class AllCoursesActivity extends AppCompatActivity {
                     courseIds.add(course.getId());
                     statuses.add(course.getStatus());
                 }
-                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
+//                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
 
                 List<Course> filteredCourseList = new ArrayList<>();
                 for (Course course : courseList) {

@@ -2,6 +2,7 @@ package com.example.example_btl_androidnc.teachers.fragment;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -87,7 +88,7 @@ private TextView name_teacher;
 
     public void getUserProfile() {
         MySharedPreferences mySharedPreferences1 = new MySharedPreferences(getContext());
-
+        Context context = getActivity();
         String token = mySharedPreferences1.getToken();
         GetAPI_Service getAPI_service = RetrofitClient.getInstance(getContext(), RetrofitClient.BASE_URL, token).create(GetAPI_Service.class);;
         Call<Users> call = getAPI_service.getUserProfile("Bearer " + token);
@@ -105,13 +106,13 @@ private TextView name_teacher;
 
                 } else {
 
-                    Toast.makeText(getContext(), "Không thể lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Không thể lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 // Xử lý khi có lỗi
-                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
             }
         });
     }

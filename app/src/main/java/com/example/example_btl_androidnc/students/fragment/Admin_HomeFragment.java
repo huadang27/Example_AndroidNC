@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
@@ -162,6 +163,7 @@ public class Admin_HomeFragment extends Fragment {
 
                 // hiện theo điều kiện sinh viên đã đki khóa học
                 List<Course> courses = response.body();
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
 
                 for (Course course : courses) {
@@ -240,21 +242,28 @@ public class Admin_HomeFragment extends Fragment {
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
                 Log.d("hihi", text.toString() + "   ____onMessage.4______");
-                List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
+                List<Course> list = new Gson().fromJson(text, new TypeToken<List<Course>>() {
                 }.getType());
+
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
-                for (Course course : courses) {
+                List<Course> CourseRealtime = new ArrayList<>();
+                for (Course course : list) {
                     // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
                     if (!courseData.containsKey(course.getId())) {
-                        courses.add(course);
+                        CourseRealtime.add(course);
                     }
                 }
+
+
+
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // Hiển thị danh sách Category lên giao diện
-                        PutDataIntoRecyclerView(courses);
-                        System.out.println(courses.toString());
+                        PutDataIntoRecyclerView(CourseRealtime);
+                        System.out.println(CourseRealtime.toString());
 
                     }
                 });
