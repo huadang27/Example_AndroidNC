@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
 import com.example.example_btl_androidnc.students.addItem.SetAdmin_Activity;
@@ -57,7 +58,7 @@ public class Admin_HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Course> CourseList;
-    Button Bt_dn, Bt_TinTuc;
+    Button Bt_dn, Bt_TinTuc,bt_all_course;
     TextView textView;
     private MySharedPreferences mySharedPreferences;
     SearchView searchView;
@@ -70,6 +71,8 @@ public class Admin_HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
         Bt_dn = view.findViewById(R.id.bt_dn);
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
+        bt_all_course = view.findViewById(R.id.bt_all_course);
+        //Mở tìm kiếm
         searchView =view.findViewById(R.id.searchView);
         textView = view.findViewById(R.id.textView);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
@@ -89,7 +92,7 @@ public class Admin_HomeFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 // Ẩn bàn phím khi người dùng ấn Enter trên bàn phím
                 Toast.makeText(getContext() , query, Toast.LENGTH_SHORT).show();
-//                searchView.setVisibility(View.GONE);
+//                searchView.setVisibility(View.VISIBLE);
                 return false;
             }
 
@@ -119,6 +122,14 @@ public class Admin_HomeFragment extends Fragment {
                 //finish();
             }
         });
+
+        bt_all_course.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AllCoursesActivity.class);
+                startActivity(intent);
+            }
+        });
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();
@@ -144,7 +155,7 @@ public class Admin_HomeFragment extends Fragment {
                     }
                 }
                 Log.d("tesst111",CourseList.toString());
-// conlowjn dang
+
 // hiện toàn bộ
 
              /*   List<Course> courses = response.body();
@@ -219,13 +230,20 @@ public class Admin_HomeFragment extends Fragment {
                 Log.d("hihi", text.toString() + "   ____onMessage.4______");
                 List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
                 }.getType());
-
+                HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
+                for (Course course : courses) {
+                    // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
+                    if (!courseData.containsKey(course.getId())) {
+                        courses.add(course);
+                    }
+                }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // Hiển thị danh sách Category lên giao diện
                         PutDataIntoRecyclerView(courses);
                         System.out.println(courses.toString());
+
                     }
                 });
 
