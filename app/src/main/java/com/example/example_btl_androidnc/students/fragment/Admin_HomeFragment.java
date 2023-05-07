@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
@@ -62,6 +63,8 @@ public class Admin_HomeFragment extends Fragment {
     TextView textView;
     private MySharedPreferences mySharedPreferences;
     SearchView searchView;
+    RelativeLayout header_demo;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +76,12 @@ public class Admin_HomeFragment extends Fragment {
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         bt_all_course = view.findViewById(R.id.bt_all_course);
         //Mở tìm kiếm
+        View headerTitle = view.findViewById(R.id.header_title);
+        headerTitle.setVisibility(View.GONE);
         searchView =view.findViewById(R.id.searchView);
         textView = view.findViewById(R.id.textView);
+        header_demo = view.findViewById(R.id.header_demo);
+        header_demo.setVisibility(View.VISIBLE);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -122,7 +129,6 @@ public class Admin_HomeFragment extends Fragment {
                 //finish();
             }
         });
-
         bt_all_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +136,10 @@ public class Admin_HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        getData();
+        return view;
+    }
+    public void getData(){
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();
@@ -147,14 +157,12 @@ public class Admin_HomeFragment extends Fragment {
                 // hiện theo điều kiện sinh viên đã đki khóa học
                 List<Course> courses = response.body();
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
-
                 for (Course course : courses) {
                     // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
                     if (!courseData.containsKey(course.getId())) {
                         CourseList.add(course);
                     }
                 }
-                Log.d("tesst111",CourseList.toString());
 
 // hiện toàn bộ
 
@@ -162,6 +170,7 @@ public class Admin_HomeFragment extends Fragment {
                 for (Course movie : courses) CourseList.add(movie);
                 Log.d("test", "thêm dữ liệu thành công");*/
 
+                Log.d("testdemo",CourseList.toString());
 
                 PutDataIntoRecyclerView(CourseList);
 
@@ -174,10 +183,6 @@ public class Admin_HomeFragment extends Fragment {
             }
 
         });
-//
-        return view;
-
-
     }
 
     private void PutDataIntoRecyclerView(List<Course> courses) {
@@ -230,6 +235,7 @@ public class Admin_HomeFragment extends Fragment {
                 Log.d("hihi", text.toString() + "   ____onMessage.4______");
                 List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
                 }.getType());
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
                 for (Course course : courses) {
                     // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
@@ -237,6 +243,7 @@ public class Admin_HomeFragment extends Fragment {
                         courses.add(course);
                     }
                 }
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

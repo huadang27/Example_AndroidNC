@@ -96,7 +96,8 @@ public class Profile_UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent fullScreenImageIntent = new Intent(getContext(), FullScreenImageActivity.class);
-                fullScreenImageIntent.putExtra("image_resource", R.drawable.logo_default); // Replace with the actual image resource
+                Log.d("test1111",mySharedPreferences.getImage());
+                fullScreenImageIntent.putExtra("image_resource", mySharedPreferences.getImage()); // Replace with the actual image resource
                 startActivity(fullScreenImageIntent);
             }
         });

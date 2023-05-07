@@ -35,7 +35,7 @@ public class AllCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_courses);
         Courses = new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview1);
         mySharedPreferences = new MySharedPreferences(AllCoursesActivity.this);
         fetchData();
     }
@@ -53,12 +53,12 @@ public class AllCoursesActivity extends AppCompatActivity {
                 Courses = response.body();
                 List<Course> courseList = response.body();
                 List<String> courseIds = new ArrayList<>();
-                List<Integer> statuses = new ArrayList<>();
+                List<String> statuses = new ArrayList<>();
                 for (Course course : courseList) {
                     courseIds.add(course.getId());
                     statuses.add(course.getStatus());
                 }
-                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
+             //   mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
 
                 List<Course> filteredCourseList = new ArrayList<>();
                 for (Course course : courseList) {

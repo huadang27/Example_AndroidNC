@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:onClick="hideKeyboard"
+
                 android:orientation="vertical">
 
             <LinearLayout

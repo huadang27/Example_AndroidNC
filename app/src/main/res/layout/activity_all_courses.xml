@@ -54,13 +54,13 @@
     </RelativeLayout>
 
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search"
-        />
+<!--    <SearchView-->
+<!--        android:id="@+id/searchView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        android:queryHint="Search"-->
+<!--        />-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recyclerview1"
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:layout_margin="20dp"

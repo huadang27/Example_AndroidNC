@@ -10,7 +10,7 @@ public class Course implements Serializable {
     private String id;
     private String name;
     private String description;
-    private Integer status;
+    private String status;
 
     private String price;
 
@@ -29,7 +29,7 @@ public class Course implements Serializable {
     private List<Schedule> scheduleList;
 
 
-    public Course(String id, String name, String description, Integer status, String price, String level, String image, String publishedAt, String expiredAt, Users users, List<String> teacheNames, List<Schedule> scheduleList) {
+    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users, List<String> teacheNames, List<Schedule> scheduleList) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -76,11 +76,11 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

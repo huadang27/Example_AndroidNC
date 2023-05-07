@@ -22,6 +22,9 @@
             android:name=".students.addItem.FullScreenImageActivity"
             android:exported="false" />
         <activity
+            android:name=".students.addItem.AllCoursesActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity android:name=".students.addItem.DetailBlogActivity" />

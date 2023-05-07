@@ -1,5 +1,7 @@
 package com.example.example_btl_androidnc.students.addItem;
 
+import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -13,11 +15,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
 
 import java.io.File;
@@ -36,8 +40,11 @@ public class FullScreenImageActivity extends AppCompatActivity {
 
         fullscreen_image = findViewById(R.id.fullscreen_image);
         download_image_button =findViewById(R.id.download_image_button);
-        int imageResource = getIntent().getIntExtra("image_resource", 0);
-        fullscreen_image.setImageResource(imageResource);
+
+        String imageUrl = getIntent().getStringExtra("image_resource");
+        Glide.with(this)
+                .load(BASE_IMG + imageUrl)
+                .into(fullscreen_image);
 
         download_image_button.setOnClickListener(new View.OnClickListener() {
             @Override
