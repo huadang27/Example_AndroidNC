@@ -62,6 +62,8 @@ public class Admin_HomeFragment extends Fragment {
     TextView textView;
     private MySharedPreferences mySharedPreferences;
     SearchView searchView;
+    RelativeLayout header_demo;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +75,12 @@ public class Admin_HomeFragment extends Fragment {
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         bt_all_course = view.findViewById(R.id.bt_all_course);
         //Mở tìm kiếm
+//        View headerTitle = view.findViewById(R.id.header_title);
+//        headerTitle.setVisibility(View.GONE);
         searchView =view.findViewById(R.id.searchView);
         textView = view.findViewById(R.id.textView);
+        header_demo = view.findViewById(R.id.header_demo);
+        header_demo.setVisibility(View.GONE);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -130,6 +136,16 @@ public class Admin_HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        getData();
+
+//
+        return view;
+
+
+    }
+
+    public void getData(){
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
         Call<List<Course>> call = getAPI_service.getCourse();
@@ -154,7 +170,6 @@ public class Admin_HomeFragment extends Fragment {
                         CourseList.add(course);
                     }
                 }
-                Log.d("tesst111",CourseList.toString());
 
 // hiện toàn bộ
 
@@ -162,6 +177,7 @@ public class Admin_HomeFragment extends Fragment {
                 for (Course movie : courses) CourseList.add(movie);
                 Log.d("test", "thêm dữ liệu thành công");*/
 
+                Log.d("testdemo",CourseList.toString());
 
                 PutDataIntoRecyclerView(CourseList);
 
@@ -174,10 +190,6 @@ public class Admin_HomeFragment extends Fragment {
             }
 
         });
-//
-        return view;
-
-
     }
 
     private void PutDataIntoRecyclerView(List<Course> courses) {

@@ -12,10 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/headr_home" />
+        <include android:id="@+id/header_title"
+
+            layout="@layout/headr_home" />
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:id="@+id/header_demo"
             android:layout_height="70dp">
 
             <Button

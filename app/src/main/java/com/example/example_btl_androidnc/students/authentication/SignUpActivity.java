@@ -42,8 +42,18 @@ public class SignUpActivity extends AppCompatActivity {
                 String name = edt_Name.getText().toString();
                 String email = edt_Email.getText().toString();
                 String password = edt_Password.getText().toString();
-                register(name, email, password);
+
+                if (!isNameValid(name)) {
+                    Toast.makeText(getApplicationContext(), "Tên phải có ít nhất 8 kí tự", Toast.LENGTH_LONG).show();
+                } else if (!isEmailValid(email)) {
+                    Toast.makeText(getApplicationContext(), "Email không hợp lệ", Toast.LENGTH_LONG).show();
+                } else if (!isPasswordValid(password)) {
+                    Toast.makeText(getApplicationContext(), "Mật khẩu phải có ít nhất 8 kí tự bao gồm chữ hoa, chữ thường, số, kí tự đặc biệt", Toast.LENGTH_LONG).show();
+                } else {
+                    register(name, email, password);
+                }
             }
+
         });
 
         getControls();
@@ -61,10 +71,12 @@ public class SignUpActivity extends AppCompatActivity {
                     showToast("Đăng kí thành công");
                     navigateToLogin();
                 } else {
-                    showToast("Đăng kí không thành công");
+                    showToast("Email đã tồn tại trong hệ thống");
                 }
 
             }
+
+
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
@@ -95,4 +107,24 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+// check 8 ký tự
+    public boolean isNameValid(String name) {
+        if (name.length() >= 8) {
+            return true;
+        }
+        return false;
+    }
+
+//    Kiểm tra định dạng email hợp lệ:
+    public boolean isEmailValid(String email) {
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return email.matches(regex);
+    }
+
+//    Kiểm tra password có ít nhất 8 kí tự bao gồm: chữ hoa, chữ thường, số, kí tự đặc biệt:
+    public boolean isPasswordValid(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        return password.matches(regex);
+    }
+
 }
