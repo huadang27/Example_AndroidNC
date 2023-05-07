@@ -35,7 +35,7 @@ public class AllCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_courses);
         Courses = new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview1);
         mySharedPreferences = new MySharedPreferences(AllCoursesActivity.this);
         fetchData();
     }
