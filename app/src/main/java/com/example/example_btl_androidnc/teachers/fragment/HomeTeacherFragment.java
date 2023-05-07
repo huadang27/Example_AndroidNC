@@ -2,7 +2,7 @@ package com.example.example_btl_androidnc.teachers.fragment;
 
 import static com.example.example_btl_androidnc.students.api.RetrofitClient.BASE_IMG;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,12 +10,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
+import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
+import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
 import com.example.example_btl_androidnc.students.database.MySharedPreferences;
@@ -42,6 +45,7 @@ public class HomeTeacherFragment extends Fragment {
     private String mParam2;
 private TextView name_teacher;
     private ImageView img_teacher_photo;
+    Button Bt_TinTuc,bt_all_course;
     private Users users;
     public HomeTeacherFragment() {
         // Required empty public constructor
@@ -83,12 +87,29 @@ private TextView name_teacher;
         View view = inflater.inflate(R.layout.fragment_home_teacher_fragment, container, false);
         img_teacher_photo = view.findViewById(R.id.img_teacher_photo);
         name_teacher = view.findViewById(R.id.name_teacher);
+        Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
+        bt_all_course = view.findViewById(R.id.bt_all_course);
+        Bt_TinTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), BlogActivity.class);
+                startActivity(intent);
+            }
+        });
+        bt_all_course.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AllCoursesActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
+
     }
 
     public void getUserProfile() {
         MySharedPreferences mySharedPreferences1 = new MySharedPreferences(getContext());
-        Context context = getActivity();
+
         String token = mySharedPreferences1.getToken();
         GetAPI_Service getAPI_service = RetrofitClient.getInstance(getContext(), RetrofitClient.BASE_URL, token).create(GetAPI_Service.class);;
         Call<Users> call = getAPI_service.getUserProfile("Bearer " + token);
@@ -106,13 +127,13 @@ private TextView name_teacher;
 
                 } else {
 
-                    Toast.makeText(context, "Không thể lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Không thể lấy thông tin người dùng", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 // Xử lý khi có lỗi
-                Toast.makeText(context, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_SHORT).show();
             }
         });
     }

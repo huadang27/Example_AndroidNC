@@ -53,7 +53,7 @@ public class ScoreRating extends AppCompatActivity {
     ScoreRatingAdapter adapter;
     TextView  scorerating,qualified,unsatisfactory;
     PieChart pieChart;
-//    BarChart barChart;
+    BarChart barChart;
 
     private List<UserRankResponse> userRankResponses;
     @Override
@@ -66,7 +66,7 @@ public class ScoreRating extends AppCompatActivity {
         unsatisfactory = findViewById(R.id.unsatisfactory);
          pieChart = findViewById(R.id.pieChart);
 
-//        barChart = findViewById(R.id.barChart);
+       // barChart = findViewById(R.id.barChart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         String courseId = getIntent().getStringExtra("courseId");
 
@@ -123,7 +123,7 @@ public class ScoreRating extends AppCompatActivity {
 
     }
 
-// biểu đồ tròn
+ //biểu đồ tròn
     private void updatePieChartData(List<UserRankResponse> userRankResponses) {
         int group1 = 0, group2 = 0, group3 = 0;
 
@@ -159,55 +159,55 @@ public class ScoreRating extends AppCompatActivity {
     }
 
 
-/*    // biểu đồ cột
-    private void updatePieChartData(List<UserRankResponse> userRankResponses) {
-        int group1 = 0, group2 = 0, group3 = 0;
-
-        for (UserRankResponse userRankResponse : userRankResponses) {
-            float avg = userRankResponse.getRank().getAvg();
-            if (avg <= 4) {
-                group1++;
-            } else if (avg <= 6) {
-                group2++;
-            } else {
-                group3++;
-            }
-        }
-
-        List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, group1));
-        entries.add(new BarEntry(1, group2));
-        entries.add(new BarEntry(2, group3));
-
-        BarDataSet dataSet = new BarDataSet(entries, "Tóm tắt");
-
-        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-
-        BarData barData = new BarData(dataSet);
-        barData.setValueFormatter(new IntegerValueFormatter());
-        barData.setValueTextSize(12f);
-        barData.setValueTextColor(Color.BLACK);
-
-        barChart.setData(barData);
-        barChart.setFitBars(true);
-        barChart.getDescription().setEnabled(false);
-        barChart.getAxisRight().setEnabled(false);
-        barChart.getXAxis().setEnabled(false);
-        barChart.getAxisLeft().setAxisMinimum(0f);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setEnabled(true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(Arrays.asList("avg <= 4", "4 < avg <= 6", "avg > 6")));
-
-
-        Legend legend = barChart.getLegend();
-        legend.setTextColor(Color.BLACK);
-
-        barChart.invalidate(); // refresh
-    }*/
+    // biểu đồ cột
+//    private void updatePieChartData(List<UserRankResponse> userRankResponses) {
+//        int group1 = 0, group2 = 0, group3 = 0;
+//
+//        for (UserRankResponse userRankResponse : userRankResponses) {
+//            float avg = userRankResponse.getRank().getAvg();
+//            if (avg <= 4) {
+//                group1++;
+//            } else if (avg <= 6) {
+//                group2++;
+//            } else {
+//                group3++;
+//            }
+//        }
+//
+//        List<BarEntry> entries = new ArrayList<>();
+//        entries.add(new BarEntry(0, group1));
+//        entries.add(new BarEntry(1, group2));
+//        entries.add(new BarEntry(2, group3));
+//
+//        BarDataSet dataSet = new BarDataSet(entries, "Tóm tắt");
+//
+//        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//
+//        BarData barData = new BarData(dataSet);
+//        barData.setValueFormatter(new IntegerValueFormatter());
+//        barData.setValueTextSize(12f);
+//        barData.setValueTextColor(Color.BLACK);
+//
+//        barChart.setData(barData);
+//        barChart.setFitBars(true);
+//        barChart.getDescription().setEnabled(false);
+//        barChart.getAxisRight().setEnabled(false);
+//        barChart.getXAxis().setEnabled(false);
+//        barChart.getAxisLeft().setAxisMinimum(0f);
+//
+//        XAxis xAxis = barChart.getXAxis();
+//        xAxis.setEnabled(true);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setTextColor(Color.BLACK);
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(Arrays.asList("avg <= 4", "4 < avg <= 6", "avg > 6")));
+//
+//
+//        Legend legend = barChart.getLegend();
+//        legend.setTextColor(Color.BLACK);
+//
+//        barChart.invalidate(); // refresh
+//    }
 
 
     private void getData(String courseId) {

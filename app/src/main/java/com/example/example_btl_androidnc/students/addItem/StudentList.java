@@ -123,30 +123,30 @@ public class StudentList extends AppCompatActivity {
 
 
 
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.mnuSearch).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                //adapter.getFilter().filter(s);
-                filterStudent(s);
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String s) {
-            //   adapter.getFilter().filter(s);
-                filterStudent(s);
-                return false;
-            }
-        });
-        return true;
-    }
+    //tìm kiếm trong danh sách học sinh của lớp học
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        searchView = (SearchView) menu.findItem(R.id.mnuSearch).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                //adapter.getFilter().filter(s);
+//                filterStudent(s);
+//                return false;
+//            }
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//            //   adapter.getFilter().filter(s);
+//                filterStudent(s);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 
 
 private void PutDataIntoRecyclerView(List<Users> movieList) {
@@ -165,12 +165,12 @@ private void PutDataIntoRecyclerView(List<Users> movieList) {
         PutDataIntoRecyclerView(filteredStudentList);
     }
 
-    @Override
-    public void onBackPressed() {
-        if(!searchView.isIconified()){
-            searchView.setIconified(true);
-            return;
-        }
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if(!searchView.isIconified()){
+//            searchView.setIconified(true);
+//            return;
+//        }
+//        super.onBackPressed();
+//    }
 }

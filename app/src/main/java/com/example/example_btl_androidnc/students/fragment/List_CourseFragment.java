@@ -69,9 +69,13 @@ public class List_CourseFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
-       // bt_infor_status= view.findViewById(R.id.bt_infor_status);
+        // bt_infor_status= view.findViewById(R.id.bt_infor_status);
         list_item = view.findViewById(R.id.list_item);
-        list_item.setVisibility(View.VISIBLE);
+        if(mySharedPreferences.getRole().equals("ROLE_USER")){
+            list_item.setVisibility(View.VISIBLE);
+        }else {
+            list_item.setVisibility(View.GONE);
+        }
         list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
