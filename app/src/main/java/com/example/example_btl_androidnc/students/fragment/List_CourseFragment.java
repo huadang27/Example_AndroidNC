@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.adapter.ListCourseAdapter;
+import com.example.example_btl_androidnc.students.addItem.DocumentActivity;
 import com.example.example_btl_androidnc.students.addItem.ScheduleList;
 import com.example.example_btl_androidnc.students.addItem.ScoreRating;
 import com.example.example_btl_androidnc.students.addItem.StudentList;
@@ -69,10 +70,13 @@ public class List_CourseFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         searchView = view.findViewById(R.id.searchView);
         mySharedPreferences = new MySharedPreferences(getContext());
-        // bt_infor_status= view.findViewById(R.id.bt_infor_status);
+         bt_infor_status= view.findViewById(R.id.bt_infor_status);
         list_item = view.findViewById(R.id.list_item);
+
+
+
         if(mySharedPreferences.getRole().equals("ROLE_USER")){
-            list_item.setVisibility(View.VISIBLE);
+            list_item.setVisibility(View.GONE);
         }else {
             list_item.setVisibility(View.GONE);
         }
@@ -80,6 +84,13 @@ public class List_CourseFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showPopupMenu(view);
+            }
+        });
+
+        bt_infor_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData(0);
             }
         });
 
@@ -183,6 +194,8 @@ public class List_CourseFragment extends Fragment {
                         break;
                     case R.id.action_student_list:
                         fetchData(1);
+//                        Intent i = new Intent(getContext(), DocumentActivity.class);
+//                        startActivity(i);
                         break;
                 }
                 return true;

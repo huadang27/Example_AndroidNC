@@ -2,6 +2,7 @@ package com.example.example_btl_androidnc.students.api;
 
 import com.example.example_btl_androidnc.students.model.Blog;
 import com.example.example_btl_androidnc.students.model.ChangePass;
+import com.example.example_btl_androidnc.students.model.Document;
 import com.example.example_btl_androidnc.students.model.Rank;
 import com.example.example_btl_androidnc.students.model.RefreshTokenRequest;
 import com.example.example_btl_androidnc.students.model.Schedule;
@@ -141,4 +142,21 @@ public interface GetAPI_Service {
 
     @GET("/rank/{course_id}")
     Call<List<UserRankResponse>> getRanksByCourseId(@Path("course_id") String courseId);
+
+
+
+    // tạo document
+    @Multipart
+    @POST("api/documents/upload/{scheduleId}")
+    Call<ResponseBody> uploadDocument(
+            @Part MultipartBody.Part file,
+            @Path("scheduleId") String scheduleId,
+            @Part("date") RequestBody date,
+            @Part("description") RequestBody description
+    );
+
+    // lấy document
+    @GET("/api/documents/schedule/{scheduleId}")
+    Call<Document> getDocumentByScheduleId(@Path("scheduleId") String scheduleId);
+
 }

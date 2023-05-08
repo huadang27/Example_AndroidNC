@@ -85,7 +85,7 @@ public class BlogActivity extends AppCompatActivity {
                 for(Blog movie: movies) BlogList.add(movie);
                 Log.d("test","thêm dữ liệu thành công");
                 PutDataIntoRecyclerView(BlogList);
-                Toast.makeText(BlogActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(BlogActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
 
             }
 

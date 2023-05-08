@@ -76,12 +76,12 @@ public class Admin_HomeFragment extends Fragment {
         Bt_TinTuc = view.findViewById(R.id.bt_tintuc);
         bt_all_course = view.findViewById(R.id.bt_all_course);
         //Mở tìm kiếm
-//        View headerTitle = view.findViewById(R.id.header_title);
-//        headerTitle.setVisibility(View.GONE);
+        View headerTitle = view.findViewById(R.id.header_title);
+        headerTitle.setVisibility(View.GONE);
         searchView =view.findViewById(R.id.searchView);
         textView = view.findViewById(R.id.textView);
         header_demo = view.findViewById(R.id.header_demo);
-        header_demo.setVisibility(View.GONE);
+        header_demo.setVisibility(View.VISIBLE);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

@@ -47,16 +47,16 @@
                     android:layout_marginBottom="14dp"
                     android:src="@drawable/baseline_view_list_24" />
 
-                <!--                <TextView-->
-<!--                    android:id="@+id/bt_infor_status"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:text="Chưa duyệt"-->
-<!--                    android:textColor="#121111"-->
-<!--                    android:textSize="18sp" />-->
+                                <TextView
+                    android:id="@+id/bt_infor_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="Chưa duyệt"
+                    android:textColor="#121111"
+                    android:textSize="18sp" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
