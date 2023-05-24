@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Example_BTL_AndroidNC"
         tools:targetApi="31">
         <activity
+            android:name=".students.addItem.ScheduleList"
+            android:exported="false" />
+        <activity
             android:name=".students.addItem.FullScreenImageActivity"
             android:exported="false" />
         <activity

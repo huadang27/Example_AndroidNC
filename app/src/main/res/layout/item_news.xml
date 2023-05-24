@@ -25,7 +25,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/icn6"/>
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

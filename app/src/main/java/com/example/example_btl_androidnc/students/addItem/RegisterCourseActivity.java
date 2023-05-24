@@ -45,7 +45,10 @@ public class RegisterCourseActivity extends AppCompatActivity {
         getViews();
         course = (Course) getIntent().getSerializableExtra("putCourse");
         loadCourseData(course);
-
+if (mySharedPreferences.getRole().equals("ROLE_TEACHER")){
+    btn_Register.setVisibility(View.GONE);
+}
+else btn_Register.setVisibility(View.VISIBLE);
         btn_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

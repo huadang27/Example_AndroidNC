@@ -54,14 +54,21 @@ public class RankActivity extends AppCompatActivity {
                 float finalGrade = finalGradeString.isEmpty() ? 0 : Float.parseFloat(finalGradeString);
                 float examGrade = examGradeString.isEmpty() ? 0 : Float.parseFloat(examGradeString);
                 float avgGrade = avgGradeString.isEmpty() ? 0 : Float.parseFloat(avgGradeString);
+                if(midtermGrade >10.0 || midtermGrade <=0.0 || finalGrade >10.0 || finalGrade <=0.0 || examGrade >10.0 || examGrade <= 0.0  ){
+                    Toast.makeText(RankActivity.this, "Điểm không đúng định dạng", Toast.LENGTH_SHORT).show();
+                }
 
-                String ranking = rankingGradeString.isEmpty() ? "pass1" : String.valueOf(rankingGradeString);
-                Rank rank = new Rank(midtermGrade, finalGrade, examGrade,avgGrade,ranking);
-                createGrades(courseId, users.getId(), rank);
-                Intent i = new Intent(RankActivity.this,StudentList.class);
-                i.putExtra("courseId",courseId);
-                startActivity(i);
-                finish();
+
+                else {
+                    String ranking = rankingGradeString.isEmpty() ? "pass1" : String.valueOf(rankingGradeString);
+                    Rank rank = new Rank(midtermGrade, finalGrade, examGrade,avgGrade,ranking);
+                    createGrades(courseId, users.getId(), rank);
+                    Intent i = new Intent(RankActivity.this,StudentList.class);
+                    i.putExtra("courseId",courseId);
+                    startActivity(i);
+                    finish();
+                }
+
             }
 
         });
@@ -79,6 +86,7 @@ public class RankActivity extends AppCompatActivity {
             //setTextIfExists(binding.phone,users.getPhone());
             loadImageIfExists(binding.image, users.getImage());
         }
+
     }
 
     private void setTextIfExists(TextView textView, String text) {
@@ -141,6 +149,7 @@ public class RankActivity extends AppCompatActivity {
                     binding.diem3.setText(String.valueOf(rankReq.getExams()));
                     binding.MediumScore.setText(String.valueOf(rankReq.getAvg()));
                     binding.classification.setText(String.valueOf(rankReq.getRanking()));
+
                 } else {
                     // Handle error case
                 }

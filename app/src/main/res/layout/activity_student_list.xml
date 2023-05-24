@@ -39,16 +39,16 @@
             android:id="@+id/abl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            >
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tbStudent"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#ff8a22"
+                android:background="#FFFFFF"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="List Students"
-                app:titleTextColor="@color/white" />
+                app:titleTextColor="@color/black" />
         </com.google.android.material.appbar.AppBarLayout>
 
     </RelativeLayout>

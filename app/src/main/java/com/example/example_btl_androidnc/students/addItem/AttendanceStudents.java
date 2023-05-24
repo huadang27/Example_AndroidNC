@@ -73,7 +73,8 @@ public class AttendanceStudents extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AttendanceStudents.this, "Điểm danh thành công", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(AttendanceStudents.this, SetTeacher_Activity.class);
+                    Intent i = new Intent(AttendanceStudents.this, ScheduleList.class);
+
                     startActivity(i);
                     finish();
                 } else {

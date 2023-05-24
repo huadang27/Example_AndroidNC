@@ -141,4 +141,7 @@ public interface GetAPI_Service {
 
     @GET("/rank/{course_id}")
     Call<List<UserRankResponse>> getRanksByCourseId(@Path("course_id") String courseId);
+
+    @GET("/api/documents/schedule/{{scheduleId}}")
+    Call<ResponseBody> downloadFile(@Path("fileId") String fileId);
 }

@@ -77,7 +77,7 @@ public class StudentList extends AppCompatActivity {
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-
+// không dùng
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String s) {
@@ -124,29 +124,29 @@ public class StudentList extends AppCompatActivity {
 
 
     //tìm kiếm trong danh sách học sinh của lớp học
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        searchView = (SearchView) menu.findItem(R.id.mnuSearch).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setMaxWidth(Integer.MAX_VALUE);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                //adapter.getFilter().filter(s);
-//                filterStudent(s);
-//                return false;
-//            }
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//            //   adapter.getFilter().filter(s);
-//                filterStudent(s);
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.mnuSearch).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                //adapter.getFilter().filter(s);
+                filterStudent(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+            //   adapter.getFilter().filter(s);
+                filterStudent(s);
+                return false;
+            }
+        });
+        return true;
+    }
 
 
 private void PutDataIntoRecyclerView(List<Users> movieList) {

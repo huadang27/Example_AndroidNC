@@ -16,7 +16,7 @@ public class MySharedPreferences {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
-
+    public static final String FAILED_LOGIN_ATTEMPTS = "FAILED_LOGIN_ATTEMPTS";
     private static final String PREF_NAME = "my_preferences";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_ID = "id";
@@ -33,7 +33,14 @@ public class MySharedPreferences {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-
+    public int getFailedLoginAttempts() {
+        return sharedPreferences.getInt(FAILED_LOGIN_ATTEMPTS, 0);
+    }
+    public void saveFailedLoginAttempts(int attempts) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(FAILED_LOGIN_ATTEMPTS, attempts);
+        editor.apply();
+    }
     public void saveData(String token,String id, String email, String password, String username,String role,String image) {
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_ID,id);

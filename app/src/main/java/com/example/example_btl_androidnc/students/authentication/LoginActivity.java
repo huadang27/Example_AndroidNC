@@ -2,8 +2,10 @@ package com.example.example_btl_androidnc.students.authentication;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         checkSavedCredentials();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 String pass_text = edtpassword.getText().toString();
                 if (validateInput(email_text, pass_text)) {
                     login(email_text, pass_text);
+
                 }
+
             }
         });
     }
@@ -202,4 +207,92 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public void login(String email, String password) {
+//        GetAPI_Service authService = RetrofitClient.getInstance(LoginActivity.this, RetrofitClient.BASE_URL, "").create(GetAPI_Service.class);
+//        Users users = new Users(email, password);
+//        Call<Users> call = authService.login(users);
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//        boolean locked = sharedPreferences.getBoolean(email + "_locked", false);
+//        if (locked) {
+//            Toast.makeText(this, "Tài khoản của bạn đã bị khóa", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        call.enqueue(new Callback<Users>() {
+//            @Override
+//            public void onResponse(Call<Users> call, Response<Users> response) {
+//
+//                if (response.isSuccessful()) {
+//                    Users jwtResponse = response.body();
+//                    Log.d("testtoken", jwtResponse.toString());
+//                    if (jwtResponse != null) {
+//                        Users users = response.body();
+//                        List<String> roles = users.getRoles();
+//                        if (roles.contains("ROLE_USER"))
+//                        {
+//                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getRoles().get(0),jwtResponse.getImage());
+//                            Intent intent = new Intent(LoginActivity.this, SetAdmin_Activity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }else if (roles.contains("ROLE_TEACHER")) {
+//                            mySharedPreferences.saveData(jwtResponse.getAccessToken(), jwtResponse.getId(), jwtResponse.getEmail(), password, jwtResponse.getName(),jwtResponse.getRoles().get(0),jwtResponse.getImage());
+//                            Intent intent = new Intent(LoginActivity.this, SetTeacher_Activity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        } else {
+//                            // gọi hàm để kiểm tra số lần đăng nhập sai
+//
+//                            Toast.makeText(LoginActivity.this, "tạch hihi", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        Toast.makeText(LoginActivity.this, "Không thể nhận được thông tin đăng nhập, vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại, vui lòng kiểm tra thông tin đăng nhập và thử lại!", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Users> call, Throwable t) {
+//                checkLoginAttempts(email);
+//                updateFailedLoginAttempts();
+//                checkLockedAccount();
+//                //Toast.makeText(LoginActivity.this, "Kết nối thất bại, vui lòng kiểm tra kết nối và thử lại!" + t.toString(), Toast.LENGTH_SHORT).show();
+//                Log.d("testtoken", t.toString());
+//            }
+//        });
+//    }
+//
+//    private void checkLoginAttempts(String email) {
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//        int count = sharedPreferences.getInt(email, 0);
+//        boolean locked = sharedPreferences.getBoolean(email + "_locked", false);
+//
+//        if (locked) {
+//            Toast.makeText(this, "Tài khoản của bạn đã bị khóa", Toast.LENGTH_SHORT).show();
+//        } else {
+//            count++;
+//            editor.putInt(email, count);
+//            editor.apply();
+//            if (count == 3) {
+//                editor.putBoolean(email + "_locked", true);
+//                editor.apply();
+//                Toast.makeText(this, "Tài khoản đã bị khóa sau 3 lần đăng nhập sai", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+//    private void checkLockedAccount() {
+//        int failedAttempts = mySharedPreferences.getFailedLoginAttempts();
+//        if (failedAttempts >= 3) {
+//            Toast.makeText(LoginActivity.this, "Tài khoản của bạn đã bị khóa do quá nhiều lần đăng nhập sai!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//    }
+//    private void updateFailedLoginAttempts() {
+//        int failedAttempts = mySharedPreferences.getFailedLoginAttempts();
+//        mySharedPreferences.saveFailedLoginAttempts(failedAttempts + 1);
+//    }
 }

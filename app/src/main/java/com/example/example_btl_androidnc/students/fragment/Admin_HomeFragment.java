@@ -233,29 +233,42 @@ public class Admin_HomeFragment extends Fragment {
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 super.onMessage(webSocket, text);
                 Log.d("hihi", text.toString() + "   ____onMessage.4______");
-                List<Course> courses = new Gson().fromJson(text, new TypeToken<List<Course>>() {
+                List<Course> list = new Gson().fromJson(text, new TypeToken<List<Course>>() {
                 }.getType());
 
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
-                for (Course course : courses) {
+                List<Course> CourseRealtime = new ArrayList<>();
+                for (Course course : list) {
                     // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
                     if (!courseData.containsKey(course.getId())) {
-                        courses.add(course);
+                        CourseRealtime.add(course);
                     }
                 }
+
+
+
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // Hiển thị danh sách Category lên giao diện
-                        PutDataIntoRecyclerView(courses);
-                        System.out.println(courses.toString());
+                        PutDataIntoRecyclerView(CourseRealtime);
+                        System.out.println(CourseRealtime.toString());
 
                     }
                 });
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Hiển thị danh sách Category lên giao diện
+//                        PutDataIntoRecyclerView(courses);
+//                        System.out.println(courses.toString());
+//
+//                    }
+//                });
 
             }
-
 
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull ByteString bytes) {

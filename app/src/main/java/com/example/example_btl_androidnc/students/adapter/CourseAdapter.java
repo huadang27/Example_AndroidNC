@@ -19,10 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.addItem.RegisterCourseActivity;
+import com.example.example_btl_androidnc.students.database.MySharedPreferences;
 import com.example.example_btl_androidnc.students.model.Course;
+import com.example.example_btl_androidnc.students.model.UserCourse;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,10 +34,16 @@ import java.util.TimeZone;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
     private Context context;
     private List<Course> CourseList;
+    private List<UserCourse> UCourseList;
 
     public CourseAdapter(Context context, List<Course> courseList) {
         this.context = context;
         CourseList = courseList;
+//        UCourseList = UCourseList;
+    }
+
+    public CourseAdapter(List<UserCourse> UCourseList) {
+        this.UCourseList = UCourseList;
     }
 
     @NonNull
@@ -57,8 +66,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     private void setCourseData(MyViewHolder holder, Course course) {
         holder.description.setText(course.getDescription());
         holder.name.setText(course.getName());
-        holder.info_date.setText(convertDateFormat(course.getPublishedAt()));
 
+//        holder.news_view.setText(CourseList.size());
+        holder.info_date.setText(convertDateFormat(course.getPublishedAt()));
         Glide.with(holder.image.getContext())
                 .load(BASE_IMG + course.getImage())
                 .into(holder.image);
@@ -118,7 +128,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-        TextView description, info_date;
+        TextView description, info_date,news_view;
         ImageView image;
         RelativeLayout item;
 
@@ -130,7 +140,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
             image = itemView.findViewById(R.id.image_Class);
             info_date = itemView.findViewById(R.id.info_date);
             item = itemView.findViewById(R.id.item);
-
+            news_view = itemView.findViewById(R.id.news_view);
         }
     }
 }
