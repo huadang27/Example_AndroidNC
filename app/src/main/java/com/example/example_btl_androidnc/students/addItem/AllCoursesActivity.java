@@ -128,3 +128,4 @@ public class AllCoursesActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 }
+//checkk
