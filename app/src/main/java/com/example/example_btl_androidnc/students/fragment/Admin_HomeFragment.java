@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+//import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.AllCoursesActivity;
 import com.example.example_btl_androidnc.students.addItem.BlogActivity;
 import com.example.example_btl_androidnc.students.addItem.Edit_Profile;
@@ -129,6 +129,7 @@ public class Admin_HomeFragment extends Fragment {
                 //finish();
             }
         });
+
         bt_all_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,9 +137,15 @@ public class Admin_HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         getData();
+
+//
         return view;
+
+
     }
+
     public void getData(){
         GetAPI_Service getAPI_service = RetrofitClient.getClient().create(GetAPI_Service.class);
 
@@ -156,7 +163,9 @@ public class Admin_HomeFragment extends Fragment {
 
                 // hiện theo điều kiện sinh viên đã đki khóa học
                 List<Course> courses = response.body();
+
                 HashMap<String, Integer> courseData = mySharedPreferences.getCourseDataFromSharedPreferences();
+
                 for (Course course : courses) {
                     // Kiểm tra nếu courseId không trùng với courseId đã lưu trong SharedPreferences
                     if (!courseData.containsKey(course.getId())) {

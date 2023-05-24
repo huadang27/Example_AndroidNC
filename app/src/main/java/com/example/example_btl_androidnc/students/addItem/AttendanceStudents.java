@@ -1,9 +1,11 @@
 package com.example.example_btl_androidnc.students.addItem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +40,7 @@ public class AttendanceStudents extends AppCompatActivity {
         Intent intent = getIntent();
         String courseId = intent.getStringExtra("courseId");
         String scheduleId = intent.getStringExtra("scheduleId");
+        Toast.makeText(this, scheduleId, Toast.LENGTH_SHORT).show();
         // Tạo danh sách điểm danh
         CreateAttendance(scheduleId);
         // lấy danh sách sinh viên
@@ -46,6 +49,7 @@ public class AttendanceStudents extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Button getSelectedStudentsBtn = findViewById(R.id.get_selected_students_btn);
+        Button idDocument = findViewById(R.id.idDocument);
         getSelectedStudentsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +58,16 @@ public class AttendanceStudents extends AppCompatActivity {
 
             }
         });
+
+        idDocument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                     Intent i = new Intent(AttendanceStudents.this, DocumentActivity.class);
+                     i.putExtra("scheduleId",scheduleId);
+                        startActivityForResult(i, 1);
+            }
+        });
+
 
     }
 
@@ -133,6 +147,14 @@ public class AttendanceStudents extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+
+        }
     }
 
 

@@ -10,13 +10,15 @@ public class Course implements Serializable {
     private String id;
     private String name;
     private String description;
-    private String status;
+    private int status;
 
     private String price;
 
     private String level;
 
     private String image;
+    private int numberOfSessions ;
+    private String totalTime;
 
     private  String publishedAt;
     private String expiredAt;
@@ -29,7 +31,7 @@ public class Course implements Serializable {
     private List<Schedule> scheduleList;
 
 
-    public Course(String id, String name, String description, String status, String price, String level, String image, String publishedAt, String expiredAt, Users users, List<String> teacheNames, List<Schedule> scheduleList) {
+    public Course(String id, String name, String description, Integer status, String price, String level, String image, String publishedAt, String expiredAt, Users users, List<String> teacheNames, List<Schedule> scheduleList) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -76,11 +78,11 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

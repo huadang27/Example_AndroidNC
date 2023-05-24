@@ -19,13 +19,10 @@ import com.example.example_btl_androidnc.students.model.Schedule;
 import java.util.List;
 
 public class DetailBlogActivity extends AppCompatActivity {
-ImageView image_Class;
-TextView name_blog,content_blog;
+    ImageView image_Class;
+    TextView name_blog, content_blog;
 
     private Blog blog;
-
-
-
 
 
     @Override
@@ -37,12 +34,14 @@ TextView name_blog,content_blog;
         loadBlogData(blog);
 
     }
+
     public void getViews() {
-image_Class = findViewById(R.id.image_Class);
-name_blog = findViewById(R.id.name_blog);
-content_blog = findViewById(R.id.content_blog);
+        image_Class = findViewById(R.id.image_Class);
+        name_blog = findViewById(R.id.name_blog);
+        content_blog = findViewById(R.id.content_blog);
 
     }
+
     public void loadBlogData(Blog blog) {
 
         Glide.with(image_Class)

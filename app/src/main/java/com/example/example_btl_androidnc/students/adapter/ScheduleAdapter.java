@@ -22,6 +22,7 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.example_btl_androidnc.R;
 import com.example.example_btl_androidnc.students.addItem.AttendanceStudents;
 import com.example.example_btl_androidnc.students.addItem.ScheduleList;
+import com.example.example_btl_androidnc.students.addItem.ShowDocument;
 import com.example.example_btl_androidnc.students.addItem.StudentList;
 import com.example.example_btl_androidnc.students.api.GetAPI_Service;
 import com.example.example_btl_androidnc.students.api.RetrofitClient;
@@ -140,7 +141,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         holder.txtDelete.setOnClickListener(txtClickListener);
 
         if ("ROLE_USER".equals(role)) {
+
             holder.swipelayout.setLockDrag(true);
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in =new Intent(context, ShowDocument.class);
+                    in.putExtra("scheduleId",schedule.getId());
+                    context.startActivity(in);
+                }
+            });
         } else {
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -63,12 +63,12 @@ public class AllCoursesActivity extends AppCompatActivity {
                 coursesList = response.body();
                 List<Course> courseList = response.body();
                 List<String> courseIds = new ArrayList<>();
-                List<String> statuses = new ArrayList<>();
+                List<Integer> statuses = new ArrayList<>();
                 for (Course course : courseList) {
                     courseIds.add(course.getId());
                     statuses.add(course.getStatus());
                 }
-             //   mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
+//                mySharedPreferences.saveCourseDataToSharedPreferences(courseIds, statuses);
 
                 List<Course> filteredCourseList = new ArrayList<>();
                 for (Course course : courseList) {
