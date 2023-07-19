@@ -80,43 +80,41 @@ II. Module ứng dụng và thiết kế ứng dụng
 
 
 4. Chức năng cơ bản
+![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/d0fed359-3aa9-4eb7-9c87-75c673495c92)
 
 
 
 III. Giao diện 
 1.	Đăng nhập
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/d783ba41-1c4e-4677-b253-492c030a66d9)
 2.	Đăng ký
- 
-
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/710fbc05-a120-4f92-a9aa-8910c8d6bb6c)
 3.	Trang chủ
- 
-
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/90f69ea9-e719-45c9-a3b6-153daf33f0c1)
 4.	Khóa học của tôi
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/d14770ed-29d7-4497-aa95-f3c677380dd6)
 5.	Chi tiết khóa học
- 
-
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/57c90724-7d6f-480a-a6ad-f33c78b7e9ee)
 6.	Tất cả khóa học
-  
+  ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/e3f5aada-bf77-4d00-b3c0-9e6004f052b8)
 7.	Lịch học
-  
+  ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/55627d05-ab09-40fc-bd18-3750ba8ae125)
 8.	Danh sách học viên của lớp 
-
-
+![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/7984199e-1c2f-491b-aa63-0f1d15c3836f)
 9.	Hiển thị thống kê điểm của lớp  
+![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/00d24103-8290-472a-9b4f-ddf3b81ccdd4)
 10.	Đổi mật khẩu
-
- 
+![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/d324707f-7553-42d7-be97-67c918aa8276)
 11.	Lấy lại mật khẩu
-  
+  ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/4fdee317-b2f5-49f7-b16a-4680710ae14c)
 12.	 Cập nhật Profile
- 
+![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/722da7b0-c17c-4b66-a6bb-86f14ffa4f2e)
 13.	 Tin tức
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/ca618137-41db-4682-adbe-7d6c0f9fb9a8)
 14.	 Chi tiết tin tức
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/afdb0674-5a53-4281-93df-91a432d1cf23)
 15.	 Thông tin điểm của học viên
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/1785660a-9a16-433b-8e62-539e6af92fae)
 16.	Nhập điểm học viên
- 
+ ![image](https://github.com/huadang27/Example_MyTechNC/assets/78135100/a1127b04-f18a-4298-9b28-27596b960acc)
+
