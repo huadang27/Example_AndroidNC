@@ -14,8 +14,7 @@ public class Teacher implements Serializable {
     private String phone;
     private String status;
     private List<String> roles;
-
-
+    
     public Teacher(String id, String name, String email, String gender, String password, String address, String phone, String avatar, String status, List<String> roles) {
         this.id = id;
         this.address = address;
